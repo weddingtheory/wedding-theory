@@ -8,12 +8,13 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+      fontFamily: {
+        sans: ['var(--font-montserrat)'],
+        serif: ['var(--font-eb-garamond)'],
       },
     },
   },
   plugins: [],
 };
+
 export default config;
