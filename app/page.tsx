@@ -24,7 +24,7 @@ export default function Home() {
             <Image
               src="/couple.jpg"
               alt="Wedding couple in desert"
-              width={800}
+              width={801}
               height={600}
               className="object-cover w-full h-auto grayscale"
             />
