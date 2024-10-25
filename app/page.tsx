@@ -14,11 +14,15 @@ export default function Home() {
             to an Age Old Tradition
           </h3>
           <p className='font-sans text-gray-600 leading-relaxed'>
-            Considered to be the epitome of Modern Photography and Filmmaking,
-            Wedding Theory has transformed the Indian Wedding landscape. For
-            almost a decade, we have been creating photographs and films which
-            are timeless and have been etched in memories of thousands of people
-            forever.
+            Your wedding day marks the beginning of the first day of two lives
+            together. And, what better way to make memories of this day with
+            your special someone, your friends and family than to capture them
+            through our camera. This is where we, the Wedding Theory team, come
+            to play. We're a creative team of wedding photographers, who wish to
+            make everlasting memories of your special day. Be it candid stories
+            from destination weddings or well-versed snapshots, we're here to
+            capture all the fun, memorable and touching moments that you
+            witness.
           </p>
         </div>
       </main>
