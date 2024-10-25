@@ -149,7 +149,8 @@ export default function Navbar() {
                   alt="Wedding Theory Logo"
                   width={40}
                   height={40}
-                  className="mr-2"
+                                  className="mr-2"
+                                  unoptimized
                 />
                 <span className="font-serif text-xl text-gray-800">WEDDING THEORY</span>
               </div>
