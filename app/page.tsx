@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Navbar from './components/Navbar';
+import coupleImage from '../public/couple.jpg';
 
 export default function Home() {
   return (
@@ -22,7 +23,7 @@ export default function Home() {
           
           <div className="relative z-0 md:ml-[20%] md:mt-24">
             <Image
-              src="/couple.jpg"
+              src={coupleImage}
               alt="Wedding couple in desert"
               width={801}
               height={600}
