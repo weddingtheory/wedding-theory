@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Navbar from './components/Navbar';
 
 export default function Home() {
@@ -14,15 +15,11 @@ export default function Home() {
             to an Age Old Tradition
           </h3>
           <p className='font-sans text-gray-600 leading-relaxed'>
-            Your wedding day marks the beginning of the first day of two lives
-            together. And, what better way to make memories of this day with
-            your special someone, your friends and family than to capture them
-            through our camera. This is where we, the Wedding Theory team, come
-            to play. We're a creative team of wedding photographers, who wish to
-            make everlasting memories of your special day. Be it candid stories
-            from destination weddings or well-versed snapshots, we're here to
-            capture all the fun, memorable and touching moments that you
-            witness.
+            Your wedding day is the start of a beautiful journey together. At Wedding Theory, 
+            we're passionate about capturing those precious moments. Our creative team of 
+            photographers specializes in both candid and traditional shots, ensuring every 
+            laugh, tear, and loving glance is preserved. From intimate local ceremonies to 
+            grand destination weddings, we're here to turn your special day into timeless memories.
           </p>
         </div>
       </main>
