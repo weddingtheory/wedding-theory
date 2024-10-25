@@ -22,7 +22,7 @@ export default function Home() {
 
           <div className='relative z-0 md:ml-[20%] md:mt-24'>
             <Image
-              src='/testwed.jpg'
+              src='/couple.jpg'
               alt='Wedding couple in desert'
               width={801}
               height={600}
