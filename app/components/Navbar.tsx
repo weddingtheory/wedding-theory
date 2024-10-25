@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const navItems = [
   { href: '/', label: 'Home' },
@@ -71,13 +72,19 @@ export default function Navbar() {
     <nav className='w-full bg-white border-t border-b border-gray-200'>
       <header className='w-full py-6 px-4 bg-white shadow-sm'>
         <div className='max-w-6xl mx-auto flex justify-between items-center'>
-          <div className='text-left'>
-            <h1 className='font-serif text-3xl md:text-5xl font-normal text-gray-800 tracking-wide'>
-              WEDDING THEORY
-            </h1>
-            <p className='font-sans text-xs md:text-sm text-gray-600 mt-1 tracking-widest'>
-              PHOTOS | FILMS
-            </p>
+          <div className='flex items-center'>
+            <Image
+              src="/weddinglogo.png"
+              alt="Wedding Theory Logo"
+              width={60}
+              height={60}
+              className="mr-4"
+            />
+            <div className='text-left'>
+              <h1 className='font-serif text-2xl md:text-4xl font-normal text-gray-800 tracking-wide'>
+                WEDDING THEORY
+              </h1>
+            </div>
           </div>
           <motion.button
             onClick={toggleMenu}
@@ -134,6 +141,18 @@ export default function Navbar() {
             exit={isMobile ? "closedMobile" : "closedDesktop"}
             className={`fixed ${isMobile ? 'inset-0' : 'inset-y-0 right-0'} bg-white z-40 flex items-center justify-center ${isMobile ? 'w-full h-full' : 'w-full md:w-1/3'} shadow-lg`}
           >
+            {isMobile && (
+              <div className="absolute top-6 left-4 flex items-center">
+                <Image
+                  src="/weddinglogo.png"
+                  alt="Wedding Theory Logo"
+                  width={40}
+                  height={40}
+                  className="mr-2"
+                />
+                <span className="font-serif text-xl text-gray-800">WEDDING THEORY</span>
+              </div>
+            )}
             <ul className={`${isMobile ? 'text-center' : 'text-right pr-8'}`}>
               {navItems.map((item, index) => (
                 <motion.li
