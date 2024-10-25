@@ -27,7 +27,7 @@ export default function Home() {
               width={801}
               height={600}
               className='object-cover w-full h-auto grayscale'
-              unoptimized
+              
             />
             <div className='hidden md:block absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#f8f5f0]/70 to-transparent h-1/3'></div>
           </div>
