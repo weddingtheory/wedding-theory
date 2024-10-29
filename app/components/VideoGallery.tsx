@@ -6,15 +6,12 @@ const videoData = [
     videoUrl: 'https://www.youtube.com/embed/CVOfQ_54Br8',
   },
   {
-    
     videoUrl: 'https://www.youtube.com/embed/0Ky81YMuR7k',
   },
   {
-    
     videoUrl: 'https://www.youtube.com/embed/wF5mXOtQM2U',
   },
   {
-
     videoUrl: 'https://www.youtube.com/embed/j1V-sG-iPKk',
   },
 ];
@@ -25,10 +22,10 @@ export default function VideoGallery() {
       {videoData.map((video, index) => (
         <div key={index} className="relative overflow-hidden bg-gray-200">
           <iframe
-            src={video.videoUrl}
-            title={video.title}
-            className="w-full h-64 md:h-80"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            title={`Wedding Theory Film ${index + 1}`}
+            src={video.videoUrl.replace('watch?v=', 'embed/')}
+            className='w-full h-64 md:h-80'
+            allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
             allowFullScreen
           ></iframe>
         </div>
