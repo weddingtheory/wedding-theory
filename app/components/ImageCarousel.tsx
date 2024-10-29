@@ -14,10 +14,16 @@ const portfolioImages = [
     mobile: '/images/mobilepic2.jpg',
     alt: 'Portfolio image 2',
   },
-
+  {
+    desktop:
+      'https://ik.imagekit.io/weddingtheory/Photos/S&CPREWEDFIRSTSET-6.JPG?updatedAt=1730140170874',
+    mobile:
+      'https://ik.imagekit.io/weddingtheory/Photos/ADL00536.jpg?updatedAt=1730140142519',
+    alt: 'Portfolio image 3',
+  },
   {
     desktop: '/images/pic4.jpg',
-    mobile : '/images/pic4.jpg',
+    mobile: '/images/pic4.jpg',
     alt: 'Portfolio image 4',
   },
   {
