@@ -1,5 +1,5 @@
-
 import Carousel from './components/Carousel';
+import ImageCarousel from './components/ImageCarousel';
 
 
 export default function Home() {
@@ -34,6 +34,11 @@ export default function Home() {
           </div>
         </div>
       </main>
+
+      {/* Portfolio Section */}
+      <section className="w-full h-screen relative">
+        <ImageCarousel />
+      </section>
     </div>
   );
 }

@@ -13,7 +13,7 @@ const desktopImages = [
     alt: 'Wedding couple in desert',
   },
   {
-    url: 'https://ik.imagekit.io/weddingtheory/Photos/P&MFirstLook-6.jpg?updatedAt=1730140162633',
+    url: 'https://ik.imagekit.io/weddingtheory/Photos/M&PEngagement-26%20(1).jpg?updatedAt=1730140136930',
     alt: 'Couple first look',
   },
   {
@@ -31,10 +31,7 @@ const mobileImages = [
     url: 'https://ik.imagekit.io/weddingtheory/Photos/01%20copy.jpg?updatedAt=1730140124794',
     alt: 'Couple portrait mobile',
   },
-  {
-    url: 'https://ik.imagekit.io/weddingtheory/Photos/P&MFirstLook-6.jpg?updatedAt=1730140162633',
-    alt: 'First look mobile',
-  },
+ 
   {
     url: 'https://ik.imagekit.io/weddingtheory/Photos/M&PEngagement-245%20(1).jpg?updatedAt=1730140149027',
     alt: 'Engagement mobile',
