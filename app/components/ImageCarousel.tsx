@@ -90,11 +90,11 @@ export default function ImageCarousel() {
     );
   };
 
-  // Update the auto-advance effect to use displayImages length
+  // Update the auto-advance effect to use 4000ms interval
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % displayImages.length);
-    }, 5000);
+    }, 6000);
 
     return () => clearInterval(timer);
   }, [displayImages.length]);
