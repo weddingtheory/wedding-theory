@@ -23,7 +23,7 @@ export default function TestimonialCard({
       <div className={`order-2 ${reverse ? 'md:order-2' : 'md:order-1'}`}>
         <div className='relative'>
           <span className='absolute -top-20 -left-4 text-[120px] text-gray-200 font-serif'>
-            "
+            &ldquo;
           </span>
           <div className='space-y-6'>
             <h2 className='font-serif text-4xl md:text-6xl text-gray-800 leading-tight'>
