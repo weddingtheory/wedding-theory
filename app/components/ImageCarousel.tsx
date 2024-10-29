@@ -108,7 +108,7 @@ export default function ImageCarousel() {
   };
 
   return (
-    <div className="relative h-screen overflow-hidden w-screen">
+    <div className="relative h-screen overflow-hidden w-full">
       {/* Images */}
       {displayImages.map((image, index) => (
         <div
