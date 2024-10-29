@@ -1,6 +1,6 @@
 import Carousel from './components/Carousel';
 import ImageCarousel from './components/ImageCarousel';
-
+import VideoGallery from './components/VideoGallery';
 
 export default function Home() {
   return (
@@ -35,8 +35,15 @@ export default function Home() {
         </div>
       </main>
 
-      <section className='w-full h-[45vh] md:h-screen'>
-        <ImageCarousel />
+      <section className='w-full h-[45vh] md:h-screen px-4 md:px-8'>
+        <div className='h-full w-full p-4 md:p-8'>
+          <ImageCarousel />
+        </div>
+      </section>
+
+      {/* Video Gallery Section */}
+      <section className='w-full px-4 md:px-8 py-8'>
+        <VideoGallery />
       </section>
     </div>
   );
