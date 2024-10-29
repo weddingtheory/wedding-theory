@@ -5,13 +5,17 @@ import Image from 'next/image';
 
 const portfolioImages = [
   {
-    desktop: '/images/pic1.jpg',
-    mobile: '/images/mobilepic1.jpg',
+    desktop:
+      'https://ik.imagekit.io/weddingtheory/Photos/N&JFIRSTLOOK-96.jpg?updatedAt=1730140144622',
+    mobile:
+      'https://ik.imagekit.io/weddingtheory/Photos/N&JFIRSTLOOK-96.jpg?updatedAt=1730140144622',
     alt: 'Portfolio image 1',
   },
   {
-    desktop: '/images/pic2.jpg',
-    mobile: '/images/mobilepic2.jpg',
+    desktop:
+      'https://ik.imagekit.io/weddingtheory/Photos/MMP01287.jpg?updatedAt=1730140146040',
+    mobile:
+      'https://ik.imagekit.io/weddingtheory/Photos/MMP01287.jpg?updatedAt=1730140146040',
     alt: 'Portfolio image 2',
   },
   {
@@ -22,15 +26,13 @@ const portfolioImages = [
     alt: 'Portfolio image 3',
   },
   {
-    desktop: '/images/pic4.jpg',
-    mobile: '/images/pic4.jpg',
+    desktop:
+      'https://ik.imagekit.io/weddingtheory/Photos/0A4A8443-Edit.jpg?updatedAt=1730140135728',
+    mobile:
+      'https://ik.imagekit.io/weddingtheory/Photos/0A4A8443-Edit.jpg?updatedAt=1730140135728',
     alt: 'Portfolio image 4',
   },
-  {
-    desktop: '/images/pic5.jpg',
-    mobile: '',
-    alt: 'Portfolio image 5',
-  },
+  
 ];
 
 export default function ImageCarousel() {
