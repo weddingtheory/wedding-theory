@@ -9,8 +9,11 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-montserrat)'],
-        serif: ['var(--font-eb-garamond)'],
+        'eb-garamond': ['EB Garamond', 'serif'],
+        'montserrat': ['Montserrat', 'sans-serif'],
+        // Keep these for backward compatibility
+        sans: ['Montserrat', 'sans-serif'],
+        serif: ['EB Garamond', 'serif'],
       },
     },
   },

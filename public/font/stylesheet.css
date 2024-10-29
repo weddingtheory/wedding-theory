@@ -1,0 +1,117 @@
+@font-face {
+    font-family: 'Bodoni Seventytwo ITC';
+    src: url('BodoniSevITC-BookOS.eot');
+    src: local('Bodoni Seventytwo ITC Book OS'), local('BodoniSevITC-BookOS'),
+        url('BodoniSevITC-BookOS.eot?#iefix') format('embedded-opentype'),
+        url('BodoniSevITC-BookOS.woff2') format('woff2'),
+        url('BodoniSevITC-BookOS.woff') format('woff'),
+        url('BodoniSevITC-BookOS.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Bodoni Seventytwo ITC';
+    src: url('BodoniSevITC-BoldItalOS.eot');
+    src: local('Bodoni Seventytwo ITC Bold Italic OS'), local('BodoniSevITC-BoldItalOS'),
+        url('BodoniSevITC-BoldItalOS.eot?#iefix') format('embedded-opentype'),
+        url('BodoniSevITC-BoldItalOS.woff2') format('woff2'),
+        url('BodoniSevITC-BoldItalOS.woff') format('woff'),
+        url('BodoniSevITC-BoldItalOS.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Bodoni Seventytwo ITC';
+    src: url('BodoniSevITC-BookItalOS.eot');
+    src: local('Bodoni Seventytwo ITC Book Italic OS'), local('BodoniSevITC-BookItalOS'),
+        url('BodoniSevITC-BookItalOS.eot?#iefix') format('embedded-opentype'),
+        url('BodoniSevITC-BookItalOS.woff2') format('woff2'),
+        url('BodoniSevITC-BookItalOS.woff') format('woff'),
+        url('BodoniSevITC-BookItalOS.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Bodoni Seventytwo ITC';
+    src: url('BodoniSevITC-Bold.eot');
+    src: local('Bodoni Seventytwo ITC Bold'), local('BodoniSevITC-Bold'),
+        url('BodoniSevITC-Bold.eot?#iefix') format('embedded-opentype'),
+        url('BodoniSevITC-Bold.woff2') format('woff2'),
+        url('BodoniSevITC-Bold.woff') format('woff'),
+        url('BodoniSevITC-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Bodoni Seventytwo ITC';
+    src: url('BodoniSevITC-BookItal.eot');
+    src: local('Bodoni Seventytwo ITC Book Italic'), local('BodoniSevITC-BookItal'),
+        url('BodoniSevITC-BookItal.eot?#iefix') format('embedded-opentype'),
+        url('BodoniSevITC-BookItal.woff2') format('woff2'),
+        url('BodoniSevITC-BookItal.woff') format('woff'),
+        url('BodoniSevITC-BookItal.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Bodoni Seventytwo ITC';
+    src: url('BodoniSevITC-BoldOS.eot');
+    src: local('Bodoni Seventytwo ITC Bold OS'), local('BodoniSevITC-BoldOS'),
+        url('BodoniSevITC-BoldOS.eot?#iefix') format('embedded-opentype'),
+        url('BodoniSevITC-BoldOS.woff2') format('woff2'),
+        url('BodoniSevITC-BoldOS.woff') format('woff'),
+        url('BodoniSevITC-BoldOS.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Bodoni Seventytwo ITC';
+    src: url('BodoniSevITC-BoldItal.eot');
+    src: local('Bodoni Seventytwo ITC Bold Italic'), local('BodoniSevITC-BoldItal'),
+        url('BodoniSevITC-BoldItal.eot?#iefix') format('embedded-opentype'),
+        url('BodoniSevITC-BoldItal.woff2') format('woff2'),
+        url('BodoniSevITC-BoldItal.woff') format('woff'),
+        url('BodoniSevITC-BoldItal.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Bodoni Seventytwo ITC';
+    src: url('BodoniSevITC-BookSC.eot');
+    src: local('Bodoni Seventytwo ITC Book SC'), local('BodoniSevITC-BookSC'),
+        url('BodoniSevITC-BookSC.eot?#iefix') format('embedded-opentype'),
+        url('BodoniSevITC-BookSC.woff2') format('woff2'),
+        url('BodoniSevITC-BookSC.woff') format('woff'),
+        url('BodoniSevITC-BookSC.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Bodoni Seventytwo ITC';
+    src: url('BodoniSevITC-Book.eot');
+    src: local('Bodoni Seventytwo ITC Book'), local('BodoniSevITC-Book'),
+        url('BodoniSevITC-Book.eot?#iefix') format('embedded-opentype'),
+        url('BodoniSevITC-Book.woff2') format('woff2'),
+        url('BodoniSevITC-Book.woff') format('woff'),
+        url('BodoniSevITC-Book.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+

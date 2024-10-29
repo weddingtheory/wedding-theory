@@ -19,14 +19,14 @@ const navItems = [
 
 const menuVariants = {
   closedDesktop: { x: '100%', opacity: 0 },
-  openDesktop: { 
-    x: 0, 
+  openDesktop: {
+    x: 0,
     opacity: 1,
-    transition: { 
+    transition: {
       type: 'spring',
       stiffness: 100,
-      damping: 20
-    }
+      damping: 20,
+    },
   },
   closedMobile: { y: '100%', opacity: 0 },
   openMobile: {
@@ -35,9 +35,9 @@ const menuVariants = {
     transition: {
       type: 'spring',
       stiffness: 100,
-      damping: 20
-    }
-  }
+      damping: 20,
+    },
+  },
 };
 
 const itemVariants = {
@@ -48,9 +48,9 @@ const itemVariants = {
       delay: i * 0.1,
       type: 'spring',
       stiffness: 100,
-      damping: 20
-    }
-  })
+      damping: 20,
+    },
+  }),
 };
 
 export default function Navbar() {
@@ -74,12 +74,12 @@ export default function Navbar() {
         <div className='max-w-6xl mx-auto flex justify-between items-center'>
           <div className='flex items-center'>
             <Image
-              src="/weddinglogo.png"
-              alt="Wedding Theory Logo"
+              src='/weddinglogo.png'
+              alt='Wedding Theory Logo'
               width={60}
               height={60}
-                          className="mr-4"
-                          unoptimized
+              className='mr-4'
+              unoptimized
             />
             <div className='text-left'>
               <h1 className='font-serif text-2xl md:text-4xl font-normal text-gray-800 tracking-wide'>
@@ -95,7 +95,7 @@ export default function Navbar() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            {!isMobile && <span className="mr-2 font-sans text-sm">MENU</span>}
+            {!isMobile && <span className='mr-2 font-sans text-sm'>MENU</span>}
             <motion.div
               animate={isOpen ? { rotate: 180 } : { rotate: 0 }}
               transition={{ duration: 0.6, ease: [0.6, 0.05, -0.01, 0.9] }}
@@ -137,22 +137,28 @@ export default function Navbar() {
         {isOpen && (
           <motion.div
             variants={menuVariants}
-            initial={isMobile ? "closedMobile" : "closedDesktop"}
-            animate={isMobile ? "openMobile" : "openDesktop"}
-            exit={isMobile ? "closedMobile" : "closedDesktop"}
-            className={`fixed ${isMobile ? 'inset-0' : 'inset-y-0 right-0'} bg-white z-40 flex items-center justify-center ${isMobile ? 'w-full h-full' : 'w-full md:w-1/3'} shadow-lg`}
+            initial={isMobile ? 'closedMobile' : 'closedDesktop'}
+            animate={isMobile ? 'openMobile' : 'openDesktop'}
+            exit={isMobile ? 'closedMobile' : 'closedDesktop'}
+            className={`fixed ${
+              isMobile ? 'inset-0' : 'inset-y-0 right-0'
+            } bg-white z-40 flex items-center justify-center ${
+              isMobile ? 'w-full h-full' : 'w-full md:w-1/3'
+            } shadow-lg`}
           >
             {isMobile && (
-              <div className="absolute top-6 left-4 flex items-center">
+              <div className='absolute top-6 left-4 flex items-center'>
                 <Image
-                  src="/weddinglogo.png"
-                  alt="Wedding Theory Logo"
+                  src='/weddinglogo.png'
+                  alt='Wedding Theory Logo'
                   width={40}
                   height={40}
-                                  className="mr-2"
-                                  unoptimized
+                  className='mr-2'
+                  unoptimized
                 />
-                <span className="font-serif text-xl text-gray-800">WEDDING THEORY</span>
+                <span className='font-serif text-xl text-gray-800'>
+                  WEDDING THEORY
+                </span>
               </div>
             )}
             <ul className={`${isMobile ? 'text-center' : 'text-right pr-8'}`}>
@@ -161,9 +167,9 @@ export default function Navbar() {
                   key={item.href}
                   variants={itemVariants}
                   custom={index}
-                  initial="closed"
-                  animate="open"
-                  exit="closed"
+                  initial='closed'
+                  animate='open'
+                  exit='closed'
                   className='mb-6'
                 >
                   <Link
