@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
 const desktopImages = [
@@ -43,7 +43,6 @@ const mobileImages = [
 
 export default function Carousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   // Check if we're on mobile
@@ -60,11 +59,7 @@ export default function Carousel() {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setIsTransitioning(true);
-      setTimeout(() => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % (isMobile ? mobileImages.length : desktopImages.length));
-        setIsTransitioning(false);
-      }, 500);
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % (isMobile ? mobileImages.length : desktopImages.length));
     }, 5000);
 
     return () => clearInterval(timer);
