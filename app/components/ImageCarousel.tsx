@@ -16,12 +16,12 @@ const portfolioImages = [
   },
   {
     desktop: '/images/pic3.jpg',
-    mobile: '',
+  mobile :'',
     alt: 'Portfolio image 3',
   },
   {
     desktop: '/images/pic4.jpg',
-    mobile: '/images/pic4.jpg',
+    mobile : '/images/pic4.jpg',
     alt: 'Portfolio image 4',
   },
   {
@@ -94,7 +94,7 @@ export default function ImageCarousel() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % displayImages.length);
-    }, 6000);
+    }, 10000);
 
     return () => clearInterval(timer);
   }, [displayImages.length]);
