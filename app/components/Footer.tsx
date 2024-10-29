@@ -1,12 +1,16 @@
+import Link from 'next/link';
+
 export default function Footer() {
   return (
     <footer className='w-full bg-[#f3efe7] border-t border-gray-200 py-8 md:py-12'>
       <div className='max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-start md:items-center'>
         {/* Logo and Social Links */}
         <div className='mb-6 md:mb-0'>
-          <h3 className='font-serif text-2xl md:text-3xl text-gray-800 mb-4'>
-            Wedding Theory
-          </h3>
+          <Link href="/">
+            <h3 className='font-serif text-2xl md:text-3xl text-gray-800 mb-4 hover:text-gray-600 transition-colors'>
+              Wedding Theory
+            </h3>
+          </Link>
           <div className='flex gap-4'>
             <a 
               href="https://www.instagram.com/wedding_theory/" 

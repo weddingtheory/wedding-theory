@@ -72,7 +72,7 @@ export default function Navbar() {
     <nav className='w-full bg-white border-t border-b border-gray-200'>
       <header className='w-full py-6 px-4 bg-white shadow-sm'>
         <div className='max-w-6xl mx-auto flex justify-between items-center'>
-          <div className='flex items-center'>
+          <Link href="/" className='flex items-center'>
             <Image
               src='/weddinglogo.png'
               alt='Wedding Theory Logo'
@@ -82,11 +82,11 @@ export default function Navbar() {
               unoptimized
             />
             <div className='text-left'>
-              <h1 className='font-serif text-2xl md:text-4xl font-normal text-gray-800 tracking-wide'>
+              <h1 className='font-serif text-2xl md:text-4xl font-normal text-gray-800 tracking-wide cursor-pointer'>
                 WEDDING THEORY
               </h1>
             </div>
-          </div>
+          </Link>
           <motion.button
             onClick={toggleMenu}
             className='text-gray-700 focus:outline-none z-50 relative flex items-center'
