@@ -14,11 +14,7 @@ const portfolioImages = [
     mobile: '/images/mobilepic2.jpg',
     alt: 'Portfolio image 2',
   },
-  {
-    desktop: '/images/pic3.jpg',
-  mobile :'',
-    alt: 'Portfolio image 3',
-  },
+
   {
     desktop: '/images/pic4.jpg',
     mobile : '/images/pic4.jpg',
