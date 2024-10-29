@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
+import { useSwipeable } from 'react-swipeable';
 
 const portfolioImages = [
   {
@@ -40,32 +41,24 @@ export default function ImageCarousel() {
   const [isMobile, setIsMobile] = useState(false);
 
   const checkMobile = useCallback(() => {
-    // Using both width and userAgent for better detection
     const isMobileByWidth = window.innerWidth < 768;
     const isMobileByAgent = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    
     const newIsMobile = isMobileByWidth || isMobileByAgent;
     if (newIsMobile !== isMobile) {
       setIsMobile(newIsMobile);
-      console.log('Mobile status:', newIsMobile); // For debugging
     }
   }, [isMobile]);
 
   useEffect(() => {
-    // Avoid hydration mismatch by running on mount
     if (typeof window !== 'undefined') {
       checkMobile();
-      
       const handleResize = () => {
-        // Debounce the resize event
         let timeoutId: NodeJS.Timeout | null = null;
         if (timeoutId) clearTimeout(timeoutId);
         timeoutId = setTimeout(checkMobile, 150);
       };
 
       window.addEventListener('resize', handleResize);
-      
-      // Also check on orientation change for mobile devices
       window.addEventListener('orientationchange', checkMobile);
 
       return () => {
@@ -75,42 +68,25 @@ export default function ImageCarousel() {
     }
   }, [checkMobile]);
 
-  // Add a className that reflects the current state
-  const imageClassName = `object-cover ${isMobile ? 'mobile-image' : 'desktop-image'}`;
-
-  // Filter images based on device type
-  const displayImages = portfolioImages.filter(image => 
-    !isMobile || (isMobile && image.mobile)
-  );
-
-  // Update the goToNext and goToPrevious functions to use displayImages length
   const goToNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % displayImages.length);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % portfolioImages.length);
   };
 
   const goToPrevious = () => {
     setCurrentIndex((prevIndex) => 
-      prevIndex === 0 ? displayImages.length - 1 : prevIndex - 1
+      prevIndex === 0 ? portfolioImages.length - 1 : prevIndex - 1
     );
   };
 
-  // Update the auto-advance effect to use 4000ms interval
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % displayImages.length);
-    }, 10000);
-
-    return () => clearInterval(timer);
-  }, [displayImages.length]);
-
-  const goToSlide = (index: number) => {
-    setCurrentIndex(index);
-  };
+  const handlers = useSwipeable({
+    onSwipedLeft: goToNext,
+    onSwipedRight: goToPrevious,
+    trackMouse: true,
+  });
 
   return (
-    <div className="relative h-screen overflow-hidden w-full">
-      {/* Images */}
-      {displayImages.map((image, index) => (
+    <div {...handlers} className="relative h-full w-full">
+      {portfolioImages.map((image, index) => (
         <div
           key={`${image.desktop}-${index}`}
           className={`absolute inset-0 transition-opacity duration-1000 ${
@@ -123,14 +99,15 @@ export default function ImageCarousel() {
             src={isMobile ? image.mobile : image.desktop}
             alt={image.alt}
             fill
-            className={imageClassName}
+            className={`object-cover ${isMobile ? 'mobile-image' : 'desktop-image'}`}
             unoptimized
             priority={index === 0}
             sizes="100vw"
             style={{ 
               objectFit: 'cover',
+              objectPosition: 'center',
               width: '100%',
-              height: '100%'
+              height: '100%',
             }}
             onError={(e) => {
               console.error(`Failed to load image: ${isMobile ? image.mobile : image.desktop}`);
@@ -142,10 +119,9 @@ export default function ImageCarousel() {
         </div>
       ))}
 
-      {/* Navigation Arrows */}
       <button
         onClick={goToPrevious}
-        className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white w-12 h-12 rounded-full flex items-center justify-center transition-colors duration-300"
+        className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white w-8 h-8 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-colors duration-300"
         aria-label="Previous slide"
       >
         <svg
@@ -166,7 +142,7 @@ export default function ImageCarousel() {
 
       <button
         onClick={goToNext}
-        className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white w-12 h-12 rounded-full flex items-center justify-center transition-colors duration-300"
+        className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white w-8 h-8 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-colors duration-300"
         aria-label="Next slide"
       >
         <svg
@@ -185,13 +161,12 @@ export default function ImageCarousel() {
         </svg>
       </button>
 
-      {/* Dot Indicators */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-        {displayImages.map((_, index) => (
+      <div className="absolute bottom-2 md:bottom-4 left-1/2 -translate-x-1/2 flex gap-1 md:gap-2">
+        {portfolioImages.map((_, index) => (
           <button
             key={index}
-            onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+            onClick={() => setCurrentIndex(index)}
+            className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-all duration-300 ${
               index === currentIndex
                 ? 'bg-white scale-110'
                 : 'bg-white/50 hover:bg-white/75'
@@ -200,8 +175,6 @@ export default function ImageCarousel() {
           />
         ))}
       </div>
-
-      
     </div>
   );
 } 

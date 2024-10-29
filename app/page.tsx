@@ -20,7 +20,7 @@ export default function Home() {
           </div>
 
           <div className='relative z-0 md:ml-[15%] md:mt-24'>
-            <div className='h-[60vh] md:h-[75vh] max-h-[800px]'>
+            <div className='w-[90%] mx-auto md:w-full h-[45vh] md:h-[75vh] max-h-[800px]'>
               <Carousel />
             </div>
             <div className='mt-8 md:mt-10'>
@@ -35,8 +35,7 @@ export default function Home() {
         </div>
       </main>
 
-      {/* Portfolio Section */}
-      <section className="w-full h-screen relative">
+      <section className='w-full h-[45vh] md:h-screen'>
         <ImageCarousel />
       </section>
     </div>
