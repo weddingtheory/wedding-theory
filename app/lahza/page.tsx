@@ -222,7 +222,7 @@ export default function Lahza() {
                     <p className='font-sans text-gray-700 leading-relaxed text-lg'>
                       Let us help you create a timeless wedding album. Our
                       in-house experts craft custom-made albums with
-                      professionally designed templates, ensuring your memories
+                      professionally designed templates ensuring your memories
                       are preserved in elegant style.
                     </p>
                   </div>
