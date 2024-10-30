@@ -28,7 +28,7 @@ export default function Lahza() {
         {/* Elegant Introduction */}
         <section className='max-w-4xl mx-auto px-4 py-16 text-center'>
           <p className='font-serif text-2xl md:text-3xl text-gray-800 leading-relaxed'>
-            "Every moment tells a story, every frame captures an emotion"
+            &ldquo;Every moment tells a story, every frame captures an emotion&rdquo;
           </p>
           <div className='w-24 h-[1px] bg-gray-400 mx-auto my-8'></div>
           <p className='font-sans text-gray-700 leading-relaxed max-w-2xl mx-auto'>
