@@ -90,7 +90,7 @@ export default function Lahza() {
                     </h3>
                   </div>
                   <p className='font-sans text-gray-700 leading-relaxed'>
-                    Imagine your love story as the most romantic movie you've ever
+                    Imagine your love story as the most romantic movie you&apos;ve ever
                     seen! With 10+ years of industry experience, our film experts
                     create cinematic masterpieces that capture the essence of your
                     special day.
@@ -181,7 +181,7 @@ export default function Lahza() {
         <section className='relative py-24 md:py-32 px-4 bg-[#f8f5f0]'>
           <div className='max-w-4xl mx-auto text-center'>
             <h2 className='font-serif text-4xl md:text-5xl mb-6 text-gray-800'>
-              Let's Create Your Story Together
+              Let&apos;s Create Your Story Together
             </h2>
             <p className='font-sans text-lg md:text-xl mb-12 leading-relaxed text-gray-700'>
               Every love story is unique. Let us help you preserve yours in the
