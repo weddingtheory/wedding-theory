@@ -9,11 +9,10 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        'eb-garamond': ['EB Garamond', 'serif'],
-        'montserrat': ['Montserrat', 'sans-serif'],
-        // Keep these for backward compatibility
-        sans: ['Montserrat', 'sans-serif'],
-        serif: ['EB Garamond', 'serif'],
+        'gotu': ['Gotu', 'sans-serif'],
+        // Keep these for backward compatibility if needed
+        sans: ['Gotu', 'sans-serif'],
+        serif: ['Gotu', 'serif'],
       },
     },
   },
