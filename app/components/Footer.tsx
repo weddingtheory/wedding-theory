@@ -18,8 +18,9 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="flex flex-col items-center space-y-8">
           {/* Main logo */}
-          <div className="w-48 h-auto">
-            <Image
+          <Link href="/">   
+            <div className="w-48 h-auto">
+              <Image
               src="/weddinglogo.png"
               alt="Wedding Theory"
               width={200}
@@ -27,7 +28,7 @@ const Footer = () => {
               className="w-full h-auto"
             />
           </div>
-
+          </Link>
           {/* Contact Information */}
           <div className="flex flex-col items-center space-y-3 text-gray-600">
             <Link href="tel:+919902584820" className="flex items-center gap-2 hover:text-gray-900">
@@ -60,7 +61,7 @@ const Footer = () => {
           <div className="flex flex-wrap justify-center gap-8 text-sm text-gray-600">
             <Link href="/about" className="hover:text-gray-900">About</Link>
             <Link href="/contact" className="hover:text-gray-900">Contact</Link>
-            <Link href="/blog" className="hover:text-gray-900">Blog</Link>
+            <Link href="/blogs" className="hover:text-gray-900">Blogs</Link>
             <Link href="/testimonial" className="hover:text-gray-900">Testimonial</Link>
           </div>
 

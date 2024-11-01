@@ -249,7 +249,7 @@ export default function Lahza() {
                 font-sans text-lg transition-all duration-300
                 hover:bg-gray-800 hover:shadow-lg'
             >
-              Book a Consultation
+              Get in Touch
             </Link>
           </div>
         </section>

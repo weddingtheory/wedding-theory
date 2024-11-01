@@ -23,6 +23,22 @@ export default function Home() {
             <div className='w-[90%] mx-auto md:w-full h-[45vh] md:h-[75vh] max-h-[800px]'>
               <Carousel />
             </div>
+            <div className='mt-8 text-center'>
+              <a
+                href='/contact'
+                className='inline-block px-10 py-3.5 text-sm md:text-base 
+                    bg-[#68401b] hover:bg-[#5e4429] 
+                    text-white font-medium 
+                    rounded-full border border-[#D4B08C]
+                    transition-all duration-300 ease-in-out
+                    shadow-[0_4px_14px_0_rgba(198,160,124,0.39)]
+                    hover:shadow-[0_6px_20px_rgba(198,160,124,0.45)]
+                    hover:transform hover:scale-105
+                    tracking-wide'
+              >
+                Get in Touch
+              </a>
+            </div>
             <div className='mt-8 md:mt-10'>
               <p className='font-sans text-sm md:text-base text-gray-700 leading-relaxed text-center max-w-2xl mx-auto'>
                 At Wedding Theory, we capture the vibrant colors and rich
