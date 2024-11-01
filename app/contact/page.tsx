@@ -131,7 +131,7 @@ export default function ContactPage() {
             Thank You! 🎉
           </h2>
           <p className='text-gray-700'>
-            We've received your message and will get back to you soon.
+            We&apos;ve received your message and will get back to you soon.
           </p>
         </motion.div>
       </div>
