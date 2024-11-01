@@ -104,8 +104,8 @@ export default function Films() {
             <div className='h-[1px] w-16 bg-gray-300'></div>
           </div>
           <p className='text-lg text-gray-600 font-light italic'>
-            "Every wedding tells a unique story - let us help you tell yours
-            through our lens."
+            &quot;Every wedding tells a unique story - let us help you tell yours
+            through our lens.&quot;
           </p>
         </div>
       </main>

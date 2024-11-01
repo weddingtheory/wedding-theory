@@ -13,7 +13,6 @@ interface FormErrors {
 
 export default function ContactPage() {
   const [state, handleSubmit] = useForm('xkgnjzjb');
-  const [focused, setFocused] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
   const [formData, setFormData] = useState({
     name: '',
@@ -150,7 +149,7 @@ export default function ContactPage() {
           Let&apos;s Connect
         </h1>
         <p className='text-gray-700 mb-8 text-center'>
-          We'd love to hear about your special day
+          We&apos;d love to hear about your special day
         </p>
 
         <motion.form
@@ -190,8 +189,6 @@ export default function ContactPage() {
                       ? 'border-red-500'
                       : 'border-gray-200'
                   } rounded-lg focus:ring-2 focus:ring-[#B08E6A] focus:border-transparent transition-all`}
-                  onFocus={() => setFocused(true)}
-                  onBlur={() => setFocused(false)}
                 />
                 {errors[field as keyof FormErrors] && (
                   <p className='text-red-500 text-sm mt-1'>
@@ -215,8 +212,6 @@ export default function ContactPage() {
                 value={formData.story}
                 onChange={handleInputChange}
                 className='w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#B08E6A] focus:border-transparent transition-all'
-                onFocus={() => setFocused(true)}
-                onBlur={() => setFocused(false)}
               />
             </motion.div>
           </div>
