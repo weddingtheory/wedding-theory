@@ -22,3 +22,8 @@ body {
   font-family: 'Gotu', sans-serif;
   overflow-x: hidden;
 }
+
+/* Add these to your existing styles */
+.transition-all {
+  transition: all 0.3s ease-in-out;
+}

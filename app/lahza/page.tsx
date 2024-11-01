@@ -17,7 +17,7 @@ export default function Lahza() {
             unoptimized
           />
           <div className='absolute inset-0 z-20 flex flex-col items-center justify-center text-white'>
-            <h1 className='font-serif text-6xl md:text-8xl text-center tracking-[0.2em]'>
+            <h1 className='font-serif text-4xl md:text-8xl text-center tracking-[0.2em]'>
               L A H Z A
             </h1>
             <p className='font-sans text-xl md:text-2xl mt-6 text-center font-light tracking-wider'>

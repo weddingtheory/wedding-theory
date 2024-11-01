@@ -26,10 +26,10 @@ export default function TestimonialCard({
             &ldquo;
           </span>
           <div className='space-y-6'>
-            <h2 className='font-serif text-4xl md:text-6xl text-gray-800 leading-tight'>
+            <h2 className='font-serif text-3xl md:text-6xl text-gray-800 leading-tight'>
               {name}
             </h2>
-            <div className='text-gray-600 text-lg leading-relaxed space-y-4'>
+            <div className='text-gray-600 text-md leading-relaxed space-y-4'>
               {content.map((paragraph, index) => (
                 <p key={index}>{paragraph}</p>
               ))}
