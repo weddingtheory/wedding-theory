@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useForm } from '@formspree/react';
-import Link from 'next/link';
 
 interface FormErrors {
   name?: string;
@@ -14,7 +13,7 @@ interface FormErrors {
 
 export default function ContactPage() {
   const [state, handleSubmit] = useForm('xkgnjzjb');
-  const [_focused, setFocused] = useState<string | null>(null);
+  const [focused, setFocused] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
   const [formData, setFormData] = useState({
     name: '',
@@ -191,8 +190,8 @@ export default function ContactPage() {
                       ? 'border-red-500'
                       : 'border-gray-200'
                   } rounded-lg focus:ring-2 focus:ring-[#B08E6A] focus:border-transparent transition-all`}
-                  onFocus={() => setFocused(field)}
-                  onBlur={() => setFocused(null)}
+                  onFocus={() => setFocused(true)}
+                  onBlur={() => setFocused(false)}
                 />
                 {errors[field as keyof FormErrors] && (
                   <p className='text-red-500 text-sm mt-1'>
@@ -216,8 +215,8 @@ export default function ContactPage() {
                 value={formData.story}
                 onChange={handleInputChange}
                 className='w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#B08E6A] focus:border-transparent transition-all'
-                onFocus={() => setFocused('story')}
-                onBlur={() => setFocused(null)}
+                onFocus={() => setFocused(true)}
+                onBlur={() => setFocused(false)}
               />
             </motion.div>
           </div>
