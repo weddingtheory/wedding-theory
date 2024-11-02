@@ -30,26 +30,26 @@ const Footer = () => {
   return (
     <footer className="bg-white">
       {/* Floating buttons container */}
-      <div className="fixed bottom-8 right-8 flex flex-col items-center gap-4 z-50">
+      <div className="fixed bottom-12 sm:bottom-8 right-1 sm:right-8 flex flex-col items-center gap-2 sm:gap-4 z-50">
         {/* Scroll to top button */}
         <button
           onClick={scrollToTop}
-          className={`bg-[#544b47a3] w-14 h-14 flex items-center justify-center rounded-full shadow-lg hover:bg-gray-700 transition-all duration-300 transform ${
+          className={`bg-[#544b47a3] w-12 h-12 sm:w-12 sm:h-12 flex items-center justify-center rounded-full shadow-lg hover:bg-gray-700 active:bg-[#544b47a3] transition-all duration-300 transform ${
             showScrollTop ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0 pointer-events-none'
           }`}
           aria-label="Scroll to top"
         >
-          <FaArrowUp className="text-white w-6 h-6" />
+          <FaArrowUp className="text-white w-5 h-5 sm:w-5 sm:h-5" />
         </button>
 
         {/* WhatsApp button */}
         <Link 
           href="https://wa.me/919902584820" 
-          className="bg-[#25D366] w-14 h-14 flex items-center justify-center rounded-full shadow-lg hover:bg-[#20bd5a] transition-all"
+          className="bg-[#25D366] w-12 h-12 sm:w-12 sm:h-12 flex items-center justify-center rounded-full shadow-lg hover:bg-[#20bd5a] active:bg-[#25D366] transition-all"
           target="_blank"
           aria-label="Chat on WhatsApp"
         >
-          <FaWhatsapp className="text-white w-8 h-8" />
+          <FaWhatsapp className="text-white w-7 h-7 sm:w-7 sm:h-7" />
         </Link>
       </div>
 
