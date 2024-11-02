@@ -26,7 +26,7 @@ export default function Home() {
             className='relative z-0 md:ml-[15%] md:mt-24'
             delay={0.3}
           >
-            <div className='w-[90%] mx-auto md:w-full h-[45vh] md:h-[75vh] max-h-[800px]'>
+            <div className='w-[90%] mx-auto md:w-full h-[45vh] md:h-[75vh] max-h-[800px] rounded-xl overflow-hidden'>
               <Carousel />
             </div>
           </AnimatedSection>
@@ -127,7 +127,7 @@ export default function Home() {
             <AnimatedStats
               stats={[
                 { number: '500+', label: 'Weddings Captured' },
-                { number: '12+', label: 'Years Experience' },
+                { number: '10+', label: 'Years Experience' },
                 { number: '50+', label: 'Cities Covered' },
                 { number: '1000+', label: 'Happy Couples' },
               ]}
@@ -146,7 +146,7 @@ export default function Home() {
                   hover:transform hover:scale-105
                   tracking-wide'
               >
-                Explore Our Stories
+                Explore Their Stories
               </Link>
             </div>
           </div>
@@ -222,9 +222,7 @@ export default function Home() {
 
           {/* Image Grid with enhanced hover animations */}
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16'>
-            <AnimatedSection
-              className='relative group h-[400px] overflow-hidden rounded-2xl'
-            >
+            <AnimatedSection className='relative group h-[400px] overflow-hidden rounded-2xl'>
               <div className='absolute inset-0 bg-black/20 group-hover:bg-black/40 md:group-hover:bg-black/40 transition-all duration-500 z-10' />
               <Image
                 src='https://ik.imagekit.io/weddingtheory/Photos/WT-2.jpg'
@@ -240,10 +238,7 @@ export default function Home() {
               </div>
             </AnimatedSection>
 
-            <AnimatedSection
-              className='relative group h-[400px] overflow-hidden rounded-2xl'
-              
-            >
+            <AnimatedSection className='relative group h-[400px] overflow-hidden rounded-2xl'>
               <div className='absolute inset-0 bg-black/20 group-hover:bg-black/40 md:group-hover:bg-black/40 transition-all duration-500 z-10' />
               <Image
                 src='https://ik.imagekit.io/weddingtheory/Photos/MMP01287.jpg'
@@ -259,9 +254,7 @@ export default function Home() {
               </div>
             </AnimatedSection>
 
-            <AnimatedSection
-              className='relative group h-[400px] overflow-hidden rounded-2xl'
-            >
+            <AnimatedSection className='relative group h-[400px] overflow-hidden rounded-2xl'>
               <div className='absolute inset-0 bg-black/20 group-hover:bg-black/40 md:group-hover:bg-black/40 transition-all duration-500 z-10' />
               <Image
                 src='https://ik.imagekit.io/weddingtheory/Photos/0A4A8443-Edit.jpg'
@@ -270,7 +263,9 @@ export default function Home() {
                 className='object-cover transform group-hover:scale-110 transition-transform duration-700'
               />
               <div className='absolute bottom-0 left-0 right-0 p-8 text-white z-20 md:transform md:translate-y-6 md:group-hover:translate-y-0 transition-transform duration-500'>
-                <h4 className='font-serif text-2xl mb-3'>Complete Experience</h4>
+                <h4 className='font-serif text-2xl mb-3'>
+                  Complete Experience
+                </h4>
                 <p className='text-sm md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500'>
                   Harmonizing visuals, music, and print into lasting memories
                 </p>
