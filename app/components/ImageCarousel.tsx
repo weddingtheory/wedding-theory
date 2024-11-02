@@ -57,7 +57,7 @@ export default function ImageCarousel() {
     }
     timerRef.current = setInterval(() => {
       setCurrentIndex(prev => (prev + 1) % portfolioImages.length);
-    }, 4000);
+    }, 6000);
   }, []);
 
   const goToNext = useCallback(() => {
@@ -135,16 +135,16 @@ export default function ImageCarousel() {
             opacity: 1,
             scale: 1,
             transition: {
-              opacity: { duration: 0.5 },
-              scale: { duration: 0.7, ease: [0.645, 0.045, 0.355, 1] }
+              opacity: { duration: 0.7 },
+              scale: { duration: 0.9, ease: [0.645, 0.045, 0.355, 1] }
             }
           }}
           exit={{ 
             opacity: 0,
             scale: 0.95,
             transition: {
-              opacity: { duration: 0.5 },
-              scale: { duration: 0.5, ease: [0.645, 0.045, 0.355, 1] }
+              opacity: { duration: 0.7 },
+              scale: { duration: 0.7, ease: [0.645, 0.045, 0.355, 1] }
             }
           }}
           className="absolute inset-0"
@@ -155,7 +155,7 @@ export default function ImageCarousel() {
             animate={{ scale: 1.05 }}
             transition={{
               scale: {
-                duration: 8,
+                duration: 12,
                 ease: 'linear',
                 repeat: Infinity,
                 repeatType: 'reverse'
@@ -182,8 +182,8 @@ export default function ImageCarousel() {
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ 
-              delay: 0.3,
-              duration: 0.5,
+              delay: 0.4,
+              duration: 0.7,
               ease: 'easeOut'
             }}
           >
@@ -191,7 +191,7 @@ export default function ImageCarousel() {
               className="text-sm font-light mb-2 opacity-90"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.4, duration: 0.5 }}
+              transition={{ delay: 0.5, duration: 0.7 }}
             >
               {portfolioImages[currentIndex].date} / {portfolioImages[currentIndex].location}
             </motion.p>
@@ -199,7 +199,7 @@ export default function ImageCarousel() {
               className="font-serif text-2xl md:text-4xl mb-3 leading-tight"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
+              transition={{ delay: 0.6, duration: 0.7 }}
             >
               {portfolioImages[currentIndex].title}
             </motion.h3>
@@ -207,14 +207,14 @@ export default function ImageCarousel() {
               className="text-sm md:text-base mb-5 opacity-80 line-clamp-2"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.6, duration: 0.5 }}
+              transition={{ delay: 0.7, duration: 0.7 }}
             >
               {portfolioImages[currentIndex].excerpt}
             </motion.p>
             <motion.div
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.7, duration: 0.5 }}
+              transition={{ delay: 0.8, duration: 0.7 }}
             >
               <Link
                 href="/wedding-stories"
@@ -237,7 +237,7 @@ export default function ImageCarousel() {
               setCurrentIndex(index);
               resetTimer();
             }}
-            className={`h-1.5 rounded-full transition-all duration-500 ${
+            className={`h-1.5 rounded-full transition-all duration-700 ${
               currentIndex === index 
                 ? 'bg-white w-6' 
                 : 'bg-white/50 hover:bg-white/75 w-1.5'
