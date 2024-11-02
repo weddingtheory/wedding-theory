@@ -94,9 +94,9 @@ export default function Home() {
           <Link
             href='/blogs'
             className='inline-block px-10 py-3.5 text-sm md:text-base 
-                bg-[#68401b] hover:bg-[#5e4429] 
-                text-white font-medium 
-                rounded-full border border-[#D4B08C]
+                bg-transparent hover:bg-[#68401b] 
+                text-[#68401b] hover:text-white font-medium 
+                rounded-full border-2 border-[#68401b]
                 transition-all duration-300 ease-in-out
                 shadow-[0_4px_14px_0_rgba(198,160,124,0.39)]
                 hover:shadow-[0_6px_20px_rgba(198,160,124,0.45)]
@@ -137,9 +137,9 @@ export default function Home() {
               <Link
                 href='/testimonial'
                 className='inline-block px-10 py-3.5 text-sm md:text-base 
-                  bg-[#68401b] hover:bg-[#5e4429] 
-                  text-white font-medium 
-                  rounded-full border border-[#D4B08C]
+                  bg-transparent hover:bg-[#68401b] 
+                  text-[#68401b] hover:text-white font-medium 
+                  rounded-full border-2 border-[#68401b]
                   transition-all duration-300 ease-in-out
                   shadow-[0_4px_14px_0_rgba(198,160,124,0.39)]
                   hover:shadow-[0_6px_20px_rgba(198,160,124,0.45)]
@@ -191,9 +191,9 @@ export default function Home() {
             <Link
               href='/films'
               className='inline-block px-10 py-3.5 text-sm md:text-base 
-                  bg-[#68401b] hover:bg-[#5e4429] 
-                  text-white font-medium 
-                  rounded-full border border-[#D4B08C]
+                  bg-transparent hover:bg-[#68401b] 
+                  text-[#68401b] hover:text-white font-medium 
+                  rounded-full border-2 border-[#68401b]
                   transition-all duration-300 ease-in-out
                   shadow-[0_4px_14px_0_rgba(198,160,124,0.39)]
                   hover:shadow-[0_6px_20px_rgba(198,160,124,0.45)]
@@ -295,9 +295,9 @@ export default function Home() {
             <Link
               href='/lahza'
               className='inline-block px-12 py-4 text-base 
-                bg-[#68401b] hover:bg-[#5e4429] 
-                text-white font-medium 
-                rounded-full border border-[#D4B08C]
+                bg-transparent hover:bg-[#68401b] 
+                text-[#68401b] hover:text-white font-medium 
+                rounded-full border-2 border-[#68401b]
                 transition-all duration-300 ease-in-out
                 shadow-[0_4px_14px_0_rgba(198,160,124,0.39)]
                 hover:shadow-[0_6px_20px_rgba(198,160,124,0.45)]
