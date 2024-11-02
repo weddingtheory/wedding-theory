@@ -112,7 +112,7 @@ export default function Home() {
       <AnimatedSection className='w-full bg-[#f8f5f0] py-24 md:py-32'>
         <div className='max-w-6xl mx-auto px-4'>
           <div className='text-center'>
-            <h3 className='font-serif text-4xl md:text-5xl lg:text-6xl text-gray-800 mb-8'>
+            <h3 className='font-serif text-3xl md:text-5xl lg:text-6xl text-gray-800 mb-8'>
               Wedding Stories That Inspire
             </h3>
             <div className='w-32 h-[1px] bg-[#D4B08C] mx-auto mb-12'></div>
