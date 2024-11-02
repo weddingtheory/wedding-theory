@@ -93,7 +93,7 @@ export default function Home() {
           </p>
           <Link
             href='/blogs'
-            className='inline-block px-10 py-3.5 text-sm md:text-base 
+            className='inline-block px-8 sm:px-10 py-3 sm:py-3.5 text-sm sm:text-base 
                 bg-transparent hover:bg-[#68401b] 
                 text-[#68401b] hover:text-white font-medium 
                 rounded-full border-2 border-[#68401b]
@@ -136,7 +136,7 @@ export default function Home() {
             <div className='text-center mt-16'>
               <Link
                 href='/testimonial'
-                className='inline-block px-10 py-3.5 text-sm md:text-base 
+                className='inline-block px-8 sm:px-10 py-3 sm:py-3.5 text-sm sm:text-base 
                   bg-transparent hover:bg-[#68401b] 
                   text-[#68401b] hover:text-white font-medium 
                   rounded-full border-2 border-[#68401b]
@@ -190,7 +190,7 @@ export default function Home() {
           <div className='mt-16 text-center'>
             <Link
               href='/films'
-              className='inline-block px-10 py-3.5 text-sm md:text-base 
+              className='inline-block px-8 sm:px-10 py-3 sm:py-3.5 text-sm sm:text-base 
                   bg-transparent hover:bg-[#68401b] 
                   text-[#68401b] hover:text-white font-medium 
                   rounded-full border-2 border-[#68401b]
@@ -294,7 +294,7 @@ export default function Home() {
           <div className='text-center'>
             <Link
               href='/lahza'
-              className='inline-block px-12 py-4 text-base 
+              className='inline-block px-8 sm:px-12 py-3 sm:py-4 text-sm sm:text-base 
                 bg-transparent hover:bg-[#68401b] 
                 text-[#68401b] hover:text-white font-medium 
                 rounded-full border-2 border-[#68401b]
