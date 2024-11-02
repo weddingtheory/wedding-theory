@@ -74,7 +74,7 @@ export default function TestimonialCard({
       >
         <div className='relative'>
           <motion.span 
-            className='absolute -top-20 -left-4 text-[120px] text-gray-200 font-serif'
+            className='absolute -top-20 -left-4 text-[120px] text-gray-300 font-serif'
             initial={{ opacity: 0, rotate: -10 }}
             whileInView={{ opacity: 1, rotate: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
