@@ -1,19 +1,57 @@
+"use client"
+
 import Image from 'next/image'
 import Link from 'next/link'
-import { FaFacebook, FaInstagram, FaWhatsapp, FaYoutube, FaPinterest, FaEnvelope, FaPhone } from 'react-icons/fa'
+import { FaFacebook, FaInstagram, FaWhatsapp, FaYoutube, FaPinterest, FaEnvelope, FaPhone, FaArrowUp } from 'react-icons/fa'
+import { useEffect, useState } from 'react'
 
 const Footer = () => {
+  const [showScrollTop, setShowScrollTop] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Calculate 40% of page height
+      const scrollThreshold = document.documentElement.scrollHeight * 0.3
+      const shouldShow = window.scrollY > scrollThreshold
+      setShowScrollTop(shouldShow)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
+  }
+
   return (
     <footer className="bg-white">
-      {/* WhatsApp floating button */}
-      <Link 
-        href="https://wa.me/919902584820" 
-        className="fixed bottom-8 right-8 bg-[#25D366] w-14 h-14 flex items-center justify-center rounded-full shadow-lg hover:bg-[#20bd5a] transition-all z-50"
-        target="_blank"
-        aria-label="Chat on WhatsApp"
-      >
-        <FaWhatsapp className="text-white w-8 h-8" />
-      </Link>
+      {/* Floating buttons container */}
+      <div className="fixed bottom-8 right-8 flex flex-col items-center gap-4 z-50">
+        {/* Scroll to top button */}
+        <button
+          onClick={scrollToTop}
+          className={`bg-[#544b47a3] w-14 h-14 flex items-center justify-center rounded-full shadow-lg hover:bg-gray-700 transition-all duration-300 transform ${
+            showScrollTop ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0 pointer-events-none'
+          }`}
+          aria-label="Scroll to top"
+        >
+          <FaArrowUp className="text-white w-6 h-6" />
+        </button>
+
+        {/* WhatsApp button */}
+        <Link 
+          href="https://wa.me/919902584820" 
+          className="bg-[#25D366] w-14 h-14 flex items-center justify-center rounded-full shadow-lg hover:bg-[#20bd5a] transition-all"
+          target="_blank"
+          aria-label="Chat on WhatsApp"
+        >
+          <FaWhatsapp className="text-white w-8 h-8" />
+        </Link>
+      </div>
 
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="flex flex-col items-center space-y-8">

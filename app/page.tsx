@@ -1,6 +1,7 @@
 import Carousel from './components/Carousel';
 import ImageCarousel from './components/ImageCarousel';
 import VideoGallery from './components/VideoGallery';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -24,7 +25,7 @@ export default function Home() {
               <Carousel />
             </div>
             <div className='mt-8 text-center'>
-              <a
+              <Link
                 href='/contact'
                 className='inline-block px-10 py-3.5 text-sm md:text-base 
                     bg-[#68401b] hover:bg-[#5e4429] 
@@ -37,7 +38,7 @@ export default function Home() {
                     tracking-wide'
               >
                 Get in Touch
-              </a>
+              </Link>
             </div>
             <div className='mt-8 md:mt-10'>
               <p className='font-sans text-sm md:text-base text-gray-700 leading-relaxed text-center max-w-2xl mx-auto'>
@@ -51,8 +52,8 @@ export default function Home() {
         </div>
       </main>
 
-      <section className='w-full h-[45vh] md:h-screen px-4 md:px-8'>
-        <div className='h-full w-full p-4 md:p-8'>
+      <section className='w-full h-[60vh] md:h-screen bg-[#f8f5f0] px-4 md:px-8'>
+        <div className='h-full w-full max-w-[1400px] mx-auto rounded-2xl overflow-hidden'>
           <ImageCarousel />
         </div>
       </section>

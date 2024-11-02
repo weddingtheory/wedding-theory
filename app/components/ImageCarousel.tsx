@@ -1,44 +1,93 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import Image from 'next/image';
 import { useSwipeable } from 'react-swipeable';
+import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
+import { IoChevronBackOutline, IoChevronForwardOutline } from 'react-icons/io5';
 
 const portfolioImages = [
   {
-    desktop:
-      'https://ik.imagekit.io/weddingtheory/Photos/N&JFIRSTLOOK-96.jpg?updatedAt=1730140144622',
-    mobile:
-      'https://ik.imagekit.io/weddingtheory/Photos/N&JFIRSTLOOK-96.jpg?updatedAt=1730140144622',
+    desktop: 'https://ik.imagekit.io/weddingtheory/Photos/N&JFIRSTLOOK-96.jpg?updatedAt=1730140144622',
+    mobile: 'https://ik.imagekit.io/weddingtheory/Photos/N&JFIRSTLOOK-96.jpg?updatedAt=1730140144622',
     alt: 'Portfolio image 1',
+    title: 'Neha & Jay - A Timeless Romance',
+    date: 'MARCH 15, 2024',
+    location: 'Mumbai, India',
+    excerpt: 'A beautiful celebration of love that blended modern elegance with traditional charm...'
   },
   {
-    desktop:
-      'https://ik.imagekit.io/weddingtheory/Photos/MMP01287.jpg?updatedAt=1730140146040',
-    mobile:
-      'https://ik.imagekit.io/weddingtheory/Photos/MMP01287.jpg?updatedAt=1730140146040',
+    desktop: 'https://ik.imagekit.io/weddingtheory/Photos/MMP01287.jpg?updatedAt=1730140146040',
+    mobile: 'https://ik.imagekit.io/weddingtheory/Photos/MMP01287.jpg?updatedAt=1730140146040',
     alt: 'Portfolio image 2',
+    title: 'Priya & Arjun - Royal Celebrations',
+    date: 'FEBRUARY 28, 2024',
+    location: 'Udaipur, India',
+    excerpt: 'A majestic wedding set against the backdrop of palace architecture...'
   },
   {
-    desktop:
-      'https://ik.imagekit.io/weddingtheory/Photos/S&CPREWEDFIRSTSET-6.JPG?updatedAt=1730140170874',
-    mobile:
-      'https://ik.imagekit.io/weddingtheory/Photos/ADL00536.jpg?updatedAt=1730140142519',
+    desktop: 'https://ik.imagekit.io/weddingtheory/Photos/S&CPREWEDFIRSTSET-6.JPG?updatedAt=1730140170874',
+    mobile: 'https://ik.imagekit.io/weddingtheory/Photos/ADL00536.jpg?updatedAt=1730140142519',
     alt: 'Portfolio image 3',
+    title: 'Sneha & Chirag - A Dreamy Destination Wedding',
+    date: 'JANUARY 10, 2024',
+    location: 'Maldives',
+    excerpt: 'A breathtaking destination wedding that combined the beauty of the Maldives with traditional Indian festivities...'
   },
   {
-    desktop:
-      'https://ik.imagekit.io/weddingtheory/Photos/0A4A8443-Edit.jpg?updatedAt=1730140135728',
-    mobile:
-      'https://ik.imagekit.io/weddingtheory/Photos/0A4A8443-Edit.jpg?updatedAt=1730140135728',
+    desktop: 'https://ik.imagekit.io/weddingtheory/Photos/0A4A8443-Edit.jpg?updatedAt=1730140135728',
+    mobile: 'https://ik.imagekit.io/weddingtheory/Photos/0A4A8443-Edit.jpg?updatedAt=1730140135728',
     alt: 'Portfolio image 4',
+    title: 'Aarav & Aanya - A Magical Garden Wedding',
+    date: 'DECEMBER 20, 2023',
+    location: 'Bangalore, India',
+    excerpt: 'A magical garden wedding that combined the beauty of Bangalore with traditional Indian rituals...'
   },
-  
 ];
 
 export default function ImageCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const resetTimer = useCallback(() => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+    }
+    timerRef.current = setInterval(() => {
+      setCurrentIndex(prev => (prev + 1) % portfolioImages.length);
+    }, 4000);
+  }, []);
+
+  const goToNext = useCallback(() => {
+    setCurrentIndex(prev => (prev + 1) % portfolioImages.length);
+    resetTimer();
+  }, [resetTimer]);
+
+  const goToPrevious = useCallback(() => {
+    setCurrentIndex(prev => prev === 0 ? portfolioImages.length - 1 : prev - 1);
+    resetTimer();
+  }, [resetTimer]);
+
+  const handlers = useSwipeable({
+    onSwipedLeft: goToNext,
+    onSwipedRight: goToPrevious,
+    trackMouse: true,
+    trackTouch: true,
+    delta: 10,
+    swipeDuration: 500,
+    touchEventOptions: { passive: false }
+  });
+
+  useEffect(() => {
+    resetTimer();
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+    };
+  }, [resetTimer]);
 
   const checkMobile = useCallback(() => {
     const isMobileByWidth = window.innerWidth < 768;
@@ -68,113 +117,162 @@ export default function ImageCarousel() {
     }
   }, [checkMobile]);
 
-  const goToNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % portfolioImages.length);
-  };
-
-  const goToPrevious = () => {
-    setCurrentIndex((prevIndex) => 
-      prevIndex === 0 ? portfolioImages.length - 1 : prevIndex - 1
-    );
-  };
-
-  const handlers = useSwipeable({
-    onSwipedLeft: goToNext,
-    onSwipedRight: goToPrevious,
-    trackMouse: true,
-  });
-
   return (
-    <div {...handlers} className="relative h-full w-full">
-      {portfolioImages.map((image, index) => (
-        <div
-          key={`${image.desktop}-${index}`}
-          className={`absolute inset-0 transition-opacity duration-1000 ${
-            index === currentIndex
-              ? 'opacity-100'
-              : 'opacity-0 pointer-events-none'
-          }`}
+    <div 
+      {...handlers} 
+      className="relative h-full w-full overflow-hidden touch-pan-y"
+      style={{ touchAction: 'pan-y pinch-zoom' }}
+    >
+      <AnimatePresence initial={false} custom={currentIndex} mode='wait'>
+        <motion.div
+          key={currentIndex}
+          custom={currentIndex}
+          initial={{ 
+            opacity: 0,
+            scale: 1.15
+          }}
+          animate={{ 
+            opacity: 1,
+            scale: 1,
+            transition: {
+              opacity: { duration: 0.5 },
+              scale: { duration: 0.7, ease: [0.645, 0.045, 0.355, 1] }
+            }
+          }}
+          exit={{ 
+            opacity: 0,
+            scale: 0.95,
+            transition: {
+              opacity: { duration: 0.5 },
+              scale: { duration: 0.5, ease: [0.645, 0.045, 0.355, 1] }
+            }
+          }}
+          className="absolute inset-0"
         >
-          <Image
-            src={isMobile ? image.mobile : image.desktop}
-            alt={image.alt}
-            fill
-            className={`object-cover ${isMobile ? 'mobile-image' : 'desktop-image'}`}
-            unoptimized
-            priority={index === 0}
-            sizes="100vw"
-            style={{ 
-              objectFit: 'cover',
-              objectPosition: 'center',
-              width: '100%',
-              height: '100%',
-            }}
-            onError={(e) => {
-              console.error(`Failed to load image: ${isMobile ? image.mobile : image.desktop}`);
-              if (isMobile) {
-                (e.target as HTMLImageElement).src = image.desktop;
+          <motion.div 
+            className="relative h-full w-full"
+            initial={{ scale: 1 }}
+            animate={{ scale: 1.05 }}
+            transition={{
+              scale: {
+                duration: 8,
+                ease: 'linear',
+                repeat: Infinity,
+                repeatType: 'reverse'
               }
             }}
-          />
-        </div>
-      ))}
+          >
+            <Image
+              src={isMobile ? portfolioImages[currentIndex].mobile : portfolioImages[currentIndex].desktop}
+              alt={portfolioImages[currentIndex].alt}
+              fill
+              className="object-cover rounded-2xl transform"
+              priority={currentIndex === 0}
+              sizes="(max-width: 768px) 100vw, 1400px"
+              style={{ 
+                objectPosition: 'center',
+                objectFit: 'cover'
+              }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/60 rounded-2xl" />
+          </motion.div>
+          
+          <motion.div
+            className="absolute bottom-10 left-6 lg:bottom-16 lg:left-16 text-white z-10 max-w-xl"
+            initial={{ y: 30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ 
+              delay: 0.3,
+              duration: 0.5,
+              ease: 'easeOut'
+            }}
+          >
+            <motion.p 
+              className="text-sm font-light mb-2 opacity-90"
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.4, duration: 0.5 }}
+            >
+              {portfolioImages[currentIndex].date} / {portfolioImages[currentIndex].location}
+            </motion.p>
+            <motion.h3 
+              className="font-serif text-2xl md:text-4xl mb-3 leading-tight"
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.5, duration: 0.5 }}
+            >
+              {portfolioImages[currentIndex].title}
+            </motion.h3>
+            <motion.p 
+              className="text-sm md:text-base mb-5 opacity-80 line-clamp-2"
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.6, duration: 0.5 }}
+            >
+              {portfolioImages[currentIndex].excerpt}
+            </motion.p>
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.7, duration: 0.5 }}
+            >
+              <Link
+                href="/wedding-stories"
+                className="inline-block px-5 py-2 border border-white/80 rounded-full text-sm 
+                  hover:bg-white hover:text-black transition-all duration-300
+                  transform hover:scale-105"
+              >
+                View Story
+              </Link>
+            </motion.div>
+          </motion.div>
+        </motion.div>
+      </AnimatePresence>
 
-      <button
-        onClick={goToPrevious}
-        className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white w-8 h-8 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-colors duration-300"
-        aria-label="Previous slide"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={2}
-          stroke="currentColor"
-          className="w-6 h-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M15.75 19.5L8.25 12l7.5-7.5"
-          />
-        </svg>
-      </button>
-
-      <button
-        onClick={goToNext}
-        className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white w-8 h-8 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-colors duration-300"
-        aria-label="Next slide"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={2}
-          stroke="currentColor"
-          className="w-6 h-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M8.25 4.5l7.5 7.5-7.5 7.5"
-          />
-        </svg>
-      </button>
-
-      <div className="absolute bottom-2 md:bottom-4 left-1/2 -translate-x-1/2 flex gap-1 md:gap-2">
+      <div className="absolute bottom-10 right-6 lg:bottom-16 lg:right-16 flex gap-1.5">
         {portfolioImages.map((_, index) => (
-          <button
+          <motion.button
             key={index}
-            onClick={() => setCurrentIndex(index)}
-            className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-all duration-300 ${
-              index === currentIndex
-                ? 'bg-white scale-110'
-                : 'bg-white/50 hover:bg-white/75'
+            onClick={() => {
+              setCurrentIndex(index);
+              resetTimer();
+            }}
+            className={`h-1.5 rounded-full transition-all duration-500 ${
+              currentIndex === index 
+                ? 'bg-white w-6' 
+                : 'bg-white/50 hover:bg-white/75 w-1.5'
             }`}
+            whileHover={{ scale: 1.2 }}
             aria-label={`Go to slide ${index + 1}`}
           />
         ))}
       </div>
+
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          goToPrevious();
+        }}
+        className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 
+          text-white/90 p-2 rounded-full transition-all duration-300
+          hover:scale-110 backdrop-blur-sm"
+        aria-label="Previous slide"
+      >
+        <IoChevronBackOutline size={20} />
+      </button>
+
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          goToNext();
+        }}
+        className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 
+          text-white/90 p-2 rounded-full transition-all duration-300
+          hover:scale-110 backdrop-blur-sm"
+        aria-label="Next slide"
+      >
+        <IoChevronForwardOutline size={20} />
+      </button>
     </div>
   );
 } 

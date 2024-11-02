@@ -29,7 +29,8 @@ export default function Lahza() {
         {/* Elegant Introduction */}
         <section className='max-w-4xl mx-auto px-4 py-16 text-center'>
           <p className='font-serif text-2xl md:text-3xl text-gray-800 leading-relaxed'>
-            &ldquo;Every moment tells a story, every frame captures an emotion&rdquo;
+            &ldquo;Every moment tells a story, every frame captures an
+            emotion&rdquo;
           </p>
           <div className='w-24 h-[1px] bg-gray-400 mx-auto my-8'></div>
           <p className='font-sans text-gray-700 leading-relaxed max-w-2xl mx-auto'>
@@ -78,10 +79,11 @@ export default function Lahza() {
                       </h3>
                     </div>
                     <p className='font-sans text-gray-700 leading-relaxed text-lg'>
-                      Relive an authentic moment with our candid photography! Our
-                      team of 2-3 technical experts brings hands-on expertise, a
-                      sharp eye for detail, and swift presence of mind to capture
-                      every precious moment using the photojournalistic method.
+                      Relive an authentic moment with our candid photography!
+                      Our team of 2-3 technical experts brings hands-on
+                      expertise, a sharp eye for detail, and swift presence of
+                      mind to capture every precious moment using the
+                      photojournalistic method.
                     </p>
                   </div>
                   <div className='flex-1 w-full'>
@@ -119,10 +121,15 @@ export default function Lahza() {
                           />
                         </svg>
                       </div>
-                      <h3 className='font-serif text-3xl text-gray-800'>Film</h3>
+                      <h3 className='font-serif text-3xl text-gray-800'>
+                        Film
+                      </h3>
                     </div>
                     <p className='font-sans text-gray-700 leading-relaxed text-lg'>
-                      Imagine your love story as the most romantic movie you&apos;ve ever seen! With 10+ years of industry experience, our film experts create cinematic masterpieces that capture the essence of your special day.
+                      Imagine your love story as the most romantic movie
+                      you&apos;ve ever seen! With 10+ years of industry
+                      experience, our film experts create cinematic masterpieces
+                      that capture the essence of your special day.
                     </p>
                   </div>
                   <div className='flex-1 w-full'>
@@ -169,22 +176,26 @@ export default function Lahza() {
                           />
                         </svg>
                       </div>
-                      <h3 className='font-serif text-3xl text-gray-800'>Music</h3>
+                      <h3 className='font-serif text-3xl text-gray-800'>
+                        Music
+                      </h3>
                     </div>
                     <p className='font-sans text-gray-700 leading-relaxed text-lg'>
-                      Your wedding film deserves a unique soundtrack. We collaborate with independent artists to compose an original track for your fairy tale story.
+                      Your wedding film deserves a unique soundtrack. We
+                      collaborate with independent artists to compose an
+                      original track for your fairy tale story.
                     </p>
                   </div>
                   <div className='flex-1 w-full'>
-                    <iframe 
-                      style={{ borderRadius: '12px' }} 
-                      src="https://open.spotify.com/embed/track/4AM44o1sPhmoWHjt7GmpSl?utm_source=generator&theme=0" 
-                      width="100%" 
-                      height="352" 
-                      frameBorder="0" 
-                      allowFullScreen 
-                      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                      loading="lazy"
+                    <iframe
+                      style={{ borderRadius: '12px' }}
+                      src='https://open.spotify.com/embed/track/4AM44o1sPhmoWHjt7GmpSl?utm_source=generator&theme=0'
+                      width='100%'
+                      height='352'
+                      frameBorder='0'
+                      allowFullScreen
+                      allow='autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture'
+                      loading='lazy'
                     />
                   </div>
                 </div>
@@ -211,10 +222,15 @@ export default function Lahza() {
                           />
                         </svg>
                       </div>
-                      <h3 className='font-serif text-3xl text-gray-800'>Print</h3>
+                      <h3 className='font-serif text-3xl text-gray-800'>
+                        Print
+                      </h3>
                     </div>
                     <p className='font-sans text-gray-700 leading-relaxed text-lg'>
-                      Let us help you create a timeless wedding album. Our in-house experts craft custom-made albums with professionally designed templates ensuring your memories are preserved in elegant style.
+                      Let us help you create a timeless wedding album. Our
+                      in-house experts craft custom-made albums with
+                      professionally designed templates ensuring your memories
+                      are preserved in elegant style.
                     </p>
                   </div>
                   <div className='flex-1 w-full'>
@@ -241,13 +257,28 @@ export default function Lahza() {
               Let&apos;s Create Your Story Together
             </h2>
             <p className='font-sans text-lg md:text-xl mb-12 leading-relaxed text-gray-700'>
-              Every love story is unique. Let us help you preserve yours in the most beautiful way possible.
+              Every love story is unique. Let us help you preserve yours in the
+              most beautiful way possible.
             </p>
+            {/* <Link
+              href='/contact'
+              className='inline-block bg-[#412e0d] text-white px-8 py-4 rounded-full
+                font-sans text-lg transition-all duration-300
+                hover:bg-gray-800 hover:shadow-lg '
+            >
+              Get in Touch
+            </Link> */}
             <Link
               href='/contact'
-              className='inline-block bg-[#412e0d] text-white px-8 py-4 rounded-md
-                font-sans text-lg transition-all duration-300
-                hover:bg-gray-800 hover:shadow-lg'
+              className='inline-block px-10 py-3.5 text-sm md:text-base 
+                    bg-[#68401b] hover:bg-[#5e4429] 
+                    text-white font-medium 
+                    rounded-full border border-[#D4B08C]
+                    transition-all duration-300 ease-in-out
+                    shadow-[0_4px_14px_0_rgba(198,160,124,0.39)]
+                    hover:shadow-[0_6px_20px_rgba(198,160,124,0.45)]
+                    hover:transform hover:scale-105
+                    tracking-wide'
             >
               Get in Touch
             </Link>

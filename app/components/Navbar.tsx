@@ -70,19 +70,19 @@ export default function Navbar() {
 
   return (
     <nav className='w-full bg-white border-t border-b border-gray-200'>
-      <header className='w-full py-6 px-4 bg-white shadow-sm'>
+      <header className='w-full py-3 px-4 bg-white shadow-sm'>
         <div className='max-w-6xl mx-auto flex justify-between items-center'>
-          <Link href="/" className='flex items-center'>
+          <Link href='/' className='flex items-center'>
             <Image
               src='/weddinglogo.png'
               alt='Wedding Theory Logo'
-              width={60}
-              height={60}
-              className='mr-4'
+              width={45}
+              height={45}
+              className='mr-3'
               unoptimized
             />
             <div className='text-left'>
-              <h1 className='font-serif text-2xl md:text-4xl font-normal text-gray-800 tracking-wide cursor-pointer'>
+              <h1 className='font-serif text-lg md:text-xl font-normal text-gray-800 tracking-wide cursor-pointer'>
                 WEDDING THEORY
               </h1>
             </div>
@@ -156,7 +156,7 @@ export default function Navbar() {
                   className='mr-2'
                   unoptimized
                 />
-                <span className='font-serif text-xl text-gray-800'>
+                <span className='font-serif text-lg text-gray-800'>
                   WEDDING THEORY
                 </span>
               </div>
