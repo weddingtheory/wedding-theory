@@ -1,114 +1,155 @@
-import React from 'react';
+'use client';
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 interface VideoData {
   url: string;
   title: string;
   description: string;
-  thumbnail?: string;
+  location?: string;
+  management?: string;
 }
 
 const videoData: VideoData[] = [
   {
-    url: 'https://www.youtube.com/watch?v=jcUgRdejFys',
-    title: 'Priya & Rohan - "Moments of Forever"',
-    description: 'A Magical Celebration of Love and Family Traditions',
+    url: 'https://www.youtube.com/watch?v=o2oDhA8qWLQ',
+    title: 'Jiya & Rahul',
+    description: 'A Magical Celebration of Love in Paradise',
+    location: 'Ayana Resort, Bali',
+    management: 'Eventures Asia',
   },
   {
     url: 'https://www.youtube.com/watch?v=EEdf1Wt8tX4',
-    title: 'Zara & Ali - "Love\'s Sacred Journey"',
-    description:
-      'An Enchanting Wedding Celebration Blending Modern Romance with Tradition',
+    title: 'Rakhi & Mitra',
+    description: 'An Enchanting Wedding Celebration',
+    location: 'Suryagarh, Jaisalmer',
+    management: 'KKings Events',
   },
-  {
-    url: 'https://www.youtube.com/watch?v=o2oDhA8qWLQ',
-    title: 'Elena & Michael - "Love in Paradise"',
-    description: 'A Destination Wedding Film - Sunset Vows in Bali',
-  },
-  {
-    url: 'https://www.youtube.com/watch?v=ZLbq7UGm4CU',
-    title: 'Aisha & Omar - "Forever Begins"',
-    description: 'An Intimate Nikah Ceremony Filled with Love and Tradition',
-  },
+  // ... other videos
 ];
 
 export default function Films() {
+  const [scale, setScale] = useState(2);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScale(window.innerWidth < 640 ? 2.8 : 2);
+    };
+
+    // Set initial scale
+    handleResize();
+
+    // Add event listener
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div className='min-h-screen bg-[#f8f5f0]'>
-      <main className='px-4 py-12 md:py-16'>
-        {/* Hero Section */}
-        <div className='max-w-6xl mx-auto mb-20 text-center'>
-          <h1 className='text-4xl md:text-6xl font-light mb-8 text-gray-800 font-serif tracking-wide'>
-            Wedding Films
-          </h1>
-          <p className='text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed font-light'>
-            Every love story deserves to be told in its most authentic form. We
-            craft cinematic experiences that celebrate the beauty of cultural
-            traditions and personal connections.
-          </p>
+      {/* Hero Video Section */}
+      <section className='relative h-[40vh] sm:h-[70vh] md:h-[80vh] w-full overflow-hidden'>
+        <div className='absolute inset-0 w-full h-full'>
+          <iframe
+            src='https://www.youtube.com/embed/o2oDhA8qWLQ?start=10&autoplay=1&mute=1&controls=0&loop=1&playlist=o2oDhA8qWLQ&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3'
+            className='absolute w-full h-full object-cover scale-[2] sm:scale-125'
+            style={{
+              pointerEvents: 'none',
+              border: 'none',
+              outline: 'none',
+              transform: `translate(-50%, -50%) scale(${scale})`,
+              top: '50%',
+              left: '50%',
+            }}
+            allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+            allowFullScreen
+          ></iframe>
+          <div className='absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60'></div>
         </div>
 
-        {/* Videos Grid */}
-        <div className='max-w-7xl mx-auto'>
-          <div className='flex items-center justify-center mb-12'>
-            <div className='h-[1px] w-24 bg-gray-300'></div>
-            <div className='mx-4 text-rose-400 text-2xl'>♥</div>
-            <div className='h-[1px] w-24 bg-gray-300'></div>
-          </div>
-
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12'>
-            {videoData.map((video, index) => (
-              <div key={index} className='group'>
-                <div
-                  className='bg-white rounded-xl overflow-hidden shadow-sm 
-                           transition-all duration-500 ease-in-out transform hover:-translate-y-2
-                           relative isolate
-                           before:absolute before:inset-0 before:bg-gradient-to-t 
-                           before:from-rose-20/50 before:to-violet-40/50
-                           before:opacity-0 before:transition-opacity before:duration-500
-                           hover:before:opacity-100 before:-z-10
-                           hover:shadow-xl hover:shadow-rose-100/20'
-                >
-                  <div className='aspect-video relative'>
-                    <iframe
-                      className='w-full h-full absolute inset-0'
-                      src={video.url.replace('watch?v=', 'embed/')}
-                      title={video.title}
-                      frameBorder='0'
-                      allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-                      allowFullScreen
-                    ></iframe>
-                  </div>
-                  <div className='p-6 md:p-8'>
-                    <h3 className='text-xl md:text-2xl font-serif text-gray-800 mb-3 leading-relaxed 
-                                 group-hover:text-rose-900 transition-colors duration-300'>
-                      {video.title}
-                    </h3>
-                    <div className='h-[1px] w-16 bg-gray-200 mb-4 
-                                  group-hover:bg-rose-200 transition-colors duration-300'></div>
-                    <p className='text-gray-600 text-sm md:text-base font-light leading-relaxed
-                                group-hover:text-gray-700 transition-colors duration-300'>
-                      {video.description}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
+        <div className='relative z-10 h-full flex items-center justify-center text-center text-white px-4'>
+          <div>
+            <h1 className='font-serif text-2xl sm:text-4xl md:text-5xl lg:text-6xl mb-2 sm:mb-4 md:mb-6 tracking-wide font-light'>
+              Wedding Films
+            </h1>
+            <p className='text-sm sm:text-lg md:text-xl max-w-2xl mx-auto font-light tracking-wider opacity-90'>
+              Turning weddings into the rom-coms they are
+            </p>
           </div>
         </div>
+      </section>
 
-        {/* Bottom Content */}
-        <div className='max-w-4xl mx-auto mt-24 text-center'>
-          <div className='flex items-center justify-center mb-12'>
-            <div className='h-[1px] w-16 bg-gray-300'></div>
-            <div className='mx-4 text-rose-400 text-2xl'>♥</div>
-            <div className='h-[1px] w-16 bg-gray-300'></div>
+      {/* Videos Section */}
+      <section className='py-8 sm:py-12 md:py-16 px-4 sm:px-6 bg-[#f8f5f0]'>
+        {videoData.map((video, index) => (
+          <div
+            key={index}
+            className={`max-w-7xl mx-auto mb-12 sm:mb-16 md:mb-24 flex flex-col ${
+              index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+            } gap-4 sm:gap-6 md:gap-8 items-center`}
+          >
+            {/* Video */}
+            <div
+              className='w-full md:w-2/3 relative aspect-video overflow-hidden 
+                          rounded-lg md:rounded-xl
+                          shadow-[0_4px_20px_rgba(0,0,0,0.08)] group'
+            >
+              <iframe
+                className='w-full h-full absolute inset-0 transition-transform duration-700 
+                          group-hover:scale-105'
+                style={{ border: 'none' }}
+                src={video.url.replace('watch?v=', 'embed/')}
+                title={video.title}
+                allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+                allowFullScreen
+              ></iframe>
+            </div>
+
+            {/* Content */}
+            <div className='w-full md:w-1/3 text-center md:text-left pt-4 sm:pt-6 md:pt-0 px-2 sm:px-0'>
+              <h2 className='font-serif text-xl sm:text-2xl md:text-3xl mb-2 sm:mb-3 md:mb-4 tracking-wide font-light'>
+                {video.title}
+              </h2>
+              <div className='w-12 md:w-16 h-[1px] bg-[#D4B08C] mx-auto md:mx-0 mb-2 sm:mb-3 md:mb-4'></div>
+              <p className='text-gray-600 mb-2 sm:mb-3 md:mb-4 font-light text-sm sm:text-base'>
+                {video.description}
+              </p>
+              {video.location && (
+                <p className='text-xs sm:text-sm text-gray-500 font-light mb-0.5'>
+                  Location - {video.location}
+                </p>
+              )}
+              {video.management && (
+                <p className='text-xs sm:text-sm text-gray-500 font-light'>
+                  Management by {video.management}
+                </p>
+              )}
+            </div>
           </div>
-          <p className='text-lg text-gray-600 font-light italic'>
-            &quot;Every wedding tells a unique story - let us help you tell yours
-            through our lens.&quot;
-          </p>
-        </div>
-      </main>
+        ))}
+      </section>
+
+      {/* Contact CTA */}
+      <section className='py-16 md:py-20 text-center bg-[#fcfaf7]'>
+        <h3 className='font-serif text-2xl sm:text-3xl md:text-4xl mb-6 font-light'>
+          Ready to tell your story?
+        </h3>
+        <Link
+          href='/contact'
+          className='inline-block px-8 sm:px-10 py-3 sm:py-3.5 text-sm md:text-base 
+                    bg-[#68401b] hover:bg-[#5e4429] 
+                    text-white font-medium 
+                    rounded-full border border-[#D4B08C]
+                    transition-all duration-300 ease-in-out
+                    shadow-[0_4px_14px_0_rgba(198,160,124,0.39)]
+                    hover:shadow-[0_6px_20px_rgba(198,160,124,0.45)]
+                    hover:transform hover:scale-105
+                    tracking-wide'
+        >
+          Get in Touch
+        </Link>
+      </section>
     </div>
   );
 } 

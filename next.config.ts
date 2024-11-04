@@ -2,9 +2,21 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ['ik.imagekit.io', 'cdn0.weddingwire.in', 'ik.imagekit.io'], // Add the domain here
+    domains: ['ik.imagekit.io', 'cdn0.weddingwire.in', 'ik.imagekit.io'],
   },
-  /* other config options here */
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: "frame-src 'self' https://www.youtube.com https://youtube.com",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;

@@ -1,3 +1,5 @@
+'use client';
+import React, { useState, useEffect } from 'react';
 import AnimatedSection from './components/AnimatedSection';
 import Carousel from './components/Carousel';
 import ImageCarousel from './components/ImageCarousel';
@@ -6,6 +8,23 @@ import Image from 'next/image';
 import AnimatedStats from './components/AnimatedStats';
 
 export default function Home() {
+  const [scale, setScale] = useState(2);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScale(window.innerWidth < 640 ? 2.8 : 2);
+    };
+
+    // Set initial scale
+    handleResize();
+
+    // Add event listener
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div className='flex flex-col min-h-screen bg-[#f8f5f0]'>
       <main className='flex-grow flex flex-col items-center justify-center px-4 py-4 md:py-8'>
@@ -154,54 +173,54 @@ export default function Home() {
       </AnimatedSection>
 
       {/* Video Gallery Section */}
-      <AnimatedSection className='w-full px-4 md:px-8 py-16 md:py-24 bg-[#fcfaf7]'>
-        <div className='max-w-6xl mx-auto'>
-          <div className='text-center mb-16'>
-            <h2 className='font-serif text-3xl md:text-4xl lg:text-5xl text-gray-800 mb-4'>
-              Featured Films
-            </h2>
-            <p className='font-sans text-gray-600 text-sm md:text-base max-w-2xl mx-auto leading-relaxed'>
-              Immerse yourself in these handpicked wedding films that showcase
-              our signature storytelling style and cinematic excellence.
-            </p>
+      <AnimatedSection className='w-full relative bg-[#fcfaf7] overflow-hidden'>
+        {/* Full-width video background */}
+        <div className='absolute inset-0 w-full h-full overflow-hidden'>
+          <div className='relative w-full h-full'>
+            <iframe
+              src='https://www.youtube.com/embed/I2rtiytCzi8?start=10&autoplay=1&mute=1&controls=0&loop=1&playlist=I2rtiytCzi8&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&enablejsapi=1&playsinline=1&fs=0&disablekb=1&origin=yourwebsite.com'
+              className='absolute top-1/2 left-1/2 w-[150%] h-[150%] -translate-x-1/2 -translate-y-1/2 scale-125'
+              style={{
+                pointerEvents: 'none',
+                transform: `translate(-50%, -50%) scale(${scale})`,
+              }}
+              allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+              allowFullScreen
+              frameBorder='0'
+            ></iframe>
+            {/* Gradient overlay for better text visibility */}
+            <div className='absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70'></div>
           </div>
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12'>
-            {/* First Video */}
-            <div className='relative overflow-hidden rounded-2xl bg-gray-200 shadow-lg'>
-              <iframe
-                title='Wedding Theory Film 1'
-                src='https://www.youtube.com/embed/CVOfQ_54Br8'
-                className='w-full aspect-video'
-                allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-                allowFullScreen
-              ></iframe>
-            </div>
-            {/* Second Video */}
-            <div className='relative overflow-hidden rounded-2xl bg-gray-200 shadow-lg'>
-              <iframe
-                title='Wedding Theory Film 2'
-                src='https://www.youtube.com/embed/0Ky81YMuR7k'
-                className='w-full aspect-video'
-                allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-                allowFullScreen
-              ></iframe>
-            </div>
-          </div>
-          <div className='mt-16 text-center'>
-            <Link
-              href='/films'
-              className='inline-block px-8 sm:px-10 py-3 sm:py-3.5 text-sm sm:text-base 
-                  bg-transparent hover:bg-[#68401b] 
-                  text-[#68401b] hover:text-white font-medium 
-                  rounded-full border-2 border-[#68401b]
+        </div>
+
+        {/* Content */}
+        <div className='relative z-10 px-4 md:px-8 py-32 md:py-48'>
+          <div className='max-w-6xl mx-auto'>
+            <div className='text-center mb-16'>
+              <h2 className='font-serif text-3xl sm:text-5xl md:text-7xl text-white mb-6 tracking-wide'>
+                EXPLORE Films
+              </h2>
+              <p className='font-sans text-white/90 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-8'>
+                Fine art DOCUMENTARY wedding film
+              </p>
+              <p className='font-sans text-white/80 text-base md:text-lg max-w-2xl mx-auto leading-relaxed mb-12'>
+                YOUR LOVE IS OUR LOVE
+              </p>
+              <Link
+                href='/films'
+                className='inline-block px-8 sm:px-10 py-3 sm:py-3.5 text-sm sm:text-base 
+                  bg-transparent hover:bg-white/10
+                  text-white font-medium 
+                  rounded-full border-2 border-white
                   transition-all duration-300 ease-in-out
-                  shadow-[0_4px_14px_0_rgba(198,160,124,0.39)]
-                  hover:shadow-[0_6px_20px_rgba(198,160,124,0.45)]
+                  shadow-[0_4px_14px_0_rgba(255,255,255,0.39)]
+                  hover:shadow-[0_6px_20px_rgba(255,255,255,0.45)]
                   hover:transform hover:scale-105
-                  tracking-wide'
-            >
-              View All Films
-            </Link>
+                  tracking-wider'
+              >
+                VIEW FILMS
+              </Link>
+            </div>
           </div>
         </div>
       </AnimatedSection>
