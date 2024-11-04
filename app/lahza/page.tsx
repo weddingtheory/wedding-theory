@@ -96,7 +96,8 @@ export default function Lahza() {
             transition={{ duration: 0.8 }}
             className='font-serif text-2xl md:text-3xl text-gray-800 leading-relaxed'
           >
-            &ldquo;Every moment tells a story, every frame captures an emotion&rdquo;
+            &ldquo;Every moment tells a story, every frame captures an
+            emotion&rdquo;
           </motion.p>
           <motion.div
             initial={{ scaleX: 0 }}
@@ -112,8 +113,9 @@ export default function Lahza() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className='font-sans text-gray-700 leading-relaxed max-w-2xl mx-auto'
           >
-            LAHZA represents the pinnacle of wedding documentation, where artistry meets 
-            technical excellence to create timeless memories of your special day.
+            LAHZA represents the pinnacle of wedding documentation, where
+            artistry meets technical excellence to create timeless memories of
+            your special day.
           </motion.p>
         </section>
 
@@ -131,8 +133,8 @@ export default function Lahza() {
             </motion.h2>
             <div className='flex flex-col gap-16'>
               <AnimatedServiceCard
-                title="Candid Photography"
-                description="Relive an authentic moment with our candid photography! Our team of 2-3 technical experts brings hands-on expertise, a sharp eye for detail, and swift presence of mind to capture every precious moment using the photojournalistic method."
+                title='Candid Photography'
+                description='Relive an authentic moment with our candid photography! Our team of 2-3 technical experts brings hands-on expertise, a sharp eye for detail, and swift presence of mind to capture every precious moment using the photojournalistic method.'
                 icon={cameraIcon}
                 media={
                   <div className='aspect-[4/3] relative rounded-2xl overflow-hidden shadow-md'>
@@ -148,7 +150,7 @@ export default function Lahza() {
               />
 
               <AnimatedServiceCard
-                title="Film"
+                title='Film'
                 description="Imagine your love story as the most romantic movie you've ever seen! With 10+ years of industry experience, our film experts create cinematic masterpieces that capture the essence of your special day."
                 icon={filmIcon}
                 media={
@@ -181,8 +183,8 @@ export default function Lahza() {
             </motion.h2>
             <div className='flex flex-col gap-16'>
               <AnimatedServiceCard
-                title="Music"
-                description="Your wedding film deserves a unique soundtrack. We collaborate with independent artists to compose an original track for your fairy tale story."
+                title='Music'
+                description='Your wedding film deserves a unique soundtrack. We collaborate with independent artists to compose an original track for your fairy tale story.'
                 icon={musicIcon}
                 media={
                   <iframe
@@ -194,13 +196,13 @@ export default function Lahza() {
                     allowFullScreen
                     allow='autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture'
                     loading='lazy'
-                  />
+                  ></iframe>
                 }
               />
 
               <AnimatedServiceCard
-                title="Print"
-                description="Let us help you create a timeless wedding album. Our in-house experts craft custom-made albums with professionally designed templates ensuring your memories are preserved in elegant style."
+                title='Print'
+                description='Let us help you create a timeless wedding album. Our in-house experts craft custom-made albums with professionally designed templates ensuring your memories are preserved in elegant style.'
                 icon={printIcon}
                 media={
                   <div className='aspect-[4/3] relative rounded-2xl overflow-hidden shadow-md'>
@@ -232,7 +234,8 @@ export default function Lahza() {
               Let&apos;s Create Your Story Together
             </h2>
             <p className='font-sans text-lg md:text-xl mb-12 leading-relaxed text-gray-700'>
-              Every love story is unique. Let us help you preserve yours in the most beautiful way possible.
+              Every love story is unique. Let us help you preserve yours in the
+              most beautiful way possible.
             </p>
             <motion.div
               whileHover={{ scale: 1.05 }}
