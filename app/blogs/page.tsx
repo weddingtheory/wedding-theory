@@ -137,35 +137,36 @@ export default function BlogsPage() {
             />
             <div className='absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black opacity-60' />
             <motion.div
-              className='absolute bottom-24 left-6 lg:bottom-32 lg:left-20 text-white z-10 max-w-xl
-                backdrop-blur-md bg-black/20 p-6 rounded-xl
-                border border-white/10 shadow-lg
-                before:absolute before:inset-0 before:backdrop-blur-sm before:bg-gradient-to-r 
-                before:from-white/10 before:to-transparent before:rounded-xl'
+              className='absolute bottom-12 left-4 right-4 lg:bottom-24 lg:left-20 lg:right-auto text-white z-10 
+                max-w-[calc(100%-2rem)] lg:max-w-lg
+                backdrop-blur-md bg-black/30 p-3 lg:p-4 rounded-lg
+                border border-white/10 shadow-lg'
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
             >
-              <p className='text-xs md:text-sm font-light mb-2 relative z-10 text-white/70'>
-                {blogPosts[currentIndex].date} /{' '}
-                {blogPosts[currentIndex].category}
-              </p>
-              <h3 className='font-serif text-2xl md:text-4xl mb-3 leading-tight relative z-10 text-white/90'>
-                {blogPosts[currentIndex].title}
-              </h3>
-              <Link
-                href={`/blogs/${blogPosts[currentIndex].id}`}
-                className='inline-block px-5 py-2 border border-white/60 rounded-full text-xs md:text-sm 
-                  hover:bg-white hover:text-black transition-all duration-300
-                  transform hover:scale-105 backdrop-blur-sm bg-black/10 relative z-10
-                  text-white/80 hover:text-black'
-              >
-                Read Story
-              </Link>
+              <div className='flex flex-col gap-1 lg:gap-2'>
+                <p className='text-[10px] lg:text-xs font-light relative z-10 text-white/70 tracking-wide'>
+                  {blogPosts[currentIndex].date} /{' '}
+                  {blogPosts[currentIndex].category}
+                </p>
+                <h3 className='font-serif text-base lg:text-3xl leading-tight relative z-10 text-white/90'>
+                  {blogPosts[currentIndex].title}
+                </h3>
+                <Link
+                  href={`/blogs/${blogPosts[currentIndex].id}`}
+                  className='inline-block mt-1 px-3 py-1 lg:px-4 lg:py-1.5 border border-white/40 rounded-full 
+                    text-[10px] lg:text-xs hover:bg-white hover:text-black transition-all duration-300
+                    transform hover:scale-105 backdrop-blur-sm bg-black/10
+                    text-white/80 hover:text-black w-fit'
+                >
+                  Read Story
+                </Link>
+              </div>
             </motion.div>
 
-            {/* Navigation Dots - Moved above the frosted glass panel */}
-            <div className='absolute bottom-8 right-6 lg:bottom-12 lg:right-20 flex gap-2'>
+            {/* Navigation Dots - Adjusted for mobile */}
+            <div className='absolute bottom-4 right-4 lg:bottom-12 lg:right-20 flex gap-1.5 lg:gap-2'>
               {blogPosts.map((_, index) => (
                 <button
                   key={index}
@@ -174,9 +175,9 @@ export default function BlogsPage() {
                     setCurrentIndex(index);
                     lastTransitionTimeRef.current = Date.now();
                   }}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  className={`w-1.5 h-1.5 lg:w-2 lg:h-2 rounded-full transition-all duration-300 ${
                     currentIndex === index
-                      ? 'bg-white w-6'
+                      ? 'bg-white w-4 lg:w-6'
                       : 'bg-white/50 hover:bg-white/75'
                   }`}
                 />

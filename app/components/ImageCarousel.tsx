@@ -178,11 +178,11 @@ export default function ImageCarousel() {
           </motion.div>
           
           <motion.div
-            className="absolute bottom-10 left-6 lg:bottom-16 lg:left-16 text-white z-10 max-w-xl
-              backdrop-blur-md bg-black/20 p-6 rounded-xl
+            className="absolute bottom-12 left-4 right-4 lg:bottom-24 lg:left-16 lg:right-auto text-white 
+              max-w-[calc(100%-2rem)] lg:max-w-md
+              backdrop-blur-md bg-black/30 p-2.5 lg:p-3.5 rounded-lg
               border border-white/10 shadow-lg
-              before:absolute before:inset-0 before:backdrop-blur-sm before:bg-gradient-to-r 
-              before:from-white/10 before:to-transparent before:rounded-xl"
+              z-[5]"
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ 
@@ -191,93 +191,93 @@ export default function ImageCarousel() {
               ease: 'easeOut'
             }}
           >
-            <motion.p 
-              className="text-sm font-light mb-2 text-white/90 relative z-10"
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.5, duration: 0.7 }}
-            >
-              {portfolioImages[currentIndex].date} / {portfolioImages[currentIndex].location}
-            </motion.p>
-            <motion.h3 
-              className="font-serif text-2xl md:text-4xl mb-3 leading-tight relative z-10"
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.6, duration: 0.7 }}
-            >
-              {portfolioImages[currentIndex].title}
-            </motion.h3>
-            <motion.p 
-              className="text-sm md:text-base mb-5 text-white/90 line-clamp-2 relative z-10"
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.7, duration: 0.7 }}
-            >
-              {portfolioImages[currentIndex].excerpt}
-            </motion.p>
-            <motion.div
-              className="relative z-10"
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.8, duration: 0.7 }}
-            >
-              <Link
-                href="/wedding-stories"
-                className="inline-block px-5 py-2 border border-white/80 rounded-full text-sm 
-                  hover:bg-white hover:text-black transition-all duration-300
-                  transform hover:scale-105 backdrop-blur-sm bg-black/10"
+            <div className='flex flex-col gap-0.5 lg:gap-1.5'>
+              <motion.p 
+                className="text-[10px] lg:text-xs font-light relative text-white/70 tracking-wide"
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.5, duration: 0.7 }}
               >
-                View Story
-              </Link>
-            </motion.div>
+                {portfolioImages[currentIndex].date} / {portfolioImages[currentIndex].location}
+              </motion.p>
+              <motion.h3 
+                className="font-serif text-sm lg:text-2xl leading-tight relative text-white/90"
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.6, duration: 0.7 }}
+              >
+                {portfolioImages[currentIndex].title}
+              </motion.h3>
+              <motion.p 
+                className="text-[9px] lg:text-xs mb-1 text-white/80 line-clamp-2 relative"
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.7, duration: 0.7 }}
+              >
+                {portfolioImages[currentIndex].excerpt}
+              </motion.p>
+              <motion.div
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.8, duration: 0.7 }}
+              >
+                <Link
+                  href="/wedding-stories"
+                  className="inline-block px-2.5 py-0.5 lg:px-3.5 lg:py-1 border border-white/40 rounded-full 
+                    text-[9px] lg:text-xs hover:bg-white hover:text-black transition-all duration-300
+                    transform hover:scale-105 backdrop-blur-sm bg-black/10 text-white/80 hover:text-black"
+                >
+                  View Story
+                </Link>
+              </motion.div>
+            </div>
           </motion.div>
+
+          <div className='absolute bottom-4 right-4 lg:bottom-12 lg:right-16 flex gap-1.5 lg:gap-2 z-10'>
+            {portfolioImages.map((_, index) => (
+              <button
+                key={index}
+                aria-label={`Go to slide ${index + 1}`}
+                onClick={() => {
+                  setCurrentIndex(index);
+                  resetTimer();
+                }}
+                className={`w-1.5 h-1.5 lg:w-2 lg:h-2 rounded-full transition-all duration-300 ${
+                  currentIndex === index
+                    ? 'bg-white w-4 lg:w-6'
+                    : 'bg-white/50 hover:bg-white/75'
+                }`}
+              />
+            ))}
+          </div>
+
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              goToPrevious();
+            }}
+            className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 
+              text-white/90 p-2 rounded-full transition-all duration-300
+              hover:scale-110 backdrop-blur-sm z-10"
+            aria-label="Previous slide"
+          >
+            <IoChevronBackOutline size={20} />
+          </button>
+
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              goToNext();
+            }}
+            className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 
+              text-white/90 p-2 rounded-full transition-all duration-300
+              hover:scale-110 backdrop-blur-sm z-10"
+            aria-label="Next slide"
+          >
+            <IoChevronForwardOutline size={20} />
+          </button>
         </motion.div>
       </AnimatePresence>
-
-      <div className="absolute bottom-10 right-6 lg:bottom-16 lg:right-16 flex gap-1.5">
-        {portfolioImages.map((_, index) => (
-          <motion.button
-            key={index}
-            onClick={() => {
-              setCurrentIndex(index);
-              resetTimer();
-            }}
-            className={`h-1.5 rounded-full transition-all duration-700 ${
-              currentIndex === index 
-                ? 'bg-white w-6' 
-                : 'bg-white/50 hover:bg-white/75 w-1.5'
-            }`}
-            whileHover={{ scale: 1.2 }}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
-      </div>
-
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          goToPrevious();
-        }}
-        className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 
-          text-white/90 p-2 rounded-full transition-all duration-300
-          hover:scale-110 backdrop-blur-sm"
-        aria-label="Previous slide"
-      >
-        <IoChevronBackOutline size={20} />
-      </button>
-
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          goToNext();
-        }}
-        className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 
-          text-white/90 p-2 rounded-full transition-all duration-300
-          hover:scale-110 backdrop-blur-sm"
-        aria-label="Next slide"
-      >
-        <IoChevronForwardOutline size={20} />
-      </button>
     </div>
   );
 } 
