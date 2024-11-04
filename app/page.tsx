@@ -225,106 +225,47 @@ export default function Home() {
         </div>
       </AnimatedSection>
 
-      {/* LAHZA Promotion Section */}
+      {/* LAHZA Promotion Section - Elegant */}
       <AnimatedSection className='w-full bg-[#f8f5f0] py-20 md:py-32'>
         <div className='max-w-7xl mx-auto px-4'>
-          {/* Header */}
-          <div className='text-center mb-16'>
-            <h3 className='font-serif text-5xl md:text-7xl text-gray-800 mb-6'>
-              LAHZA
-            </h3>
-            <p className='text-lg md:text-xl text-gray-600 max-w-2xl mx-auto'>
-              Our signature service crafting timeless memories through photo,
-              video, music, and print
-            </p>
-          </div>
-
-          {/* Image Grid with enhanced hover animations */}
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16'>
-            <AnimatedSection className='relative group h-[400px] overflow-hidden rounded-2xl'>
-              <div className='absolute inset-0 bg-black/20 group-hover:bg-black/40 md:group-hover:bg-black/40 transition-all duration-500 z-10' />
+          <div className='relative'>
+            {/* Hero Image */}
+            <div className='relative h-[60vh] md:h-[80vh] rounded-2xl overflow-hidden mb-16'>
               <Image
                 src='https://ik.imagekit.io/weddingtheory/Photos/WT-2.jpg'
-                alt='LAHZA Wedding Service'
+                alt='LAHZA Premium Wedding Package'
                 fill
-                className='object-cover transform group-hover:scale-110 transition-transform duration-700'
+                className='object-cover'
+                style={{ scale: 1.2   }}
+                priority
               />
-              <div className='absolute bottom-0 left-0 right-0 p-8 text-white z-20 md:transform md:translate-y-6 md:group-hover:translate-y-0 transition-transform duration-500'>
-                <h4 className='font-serif text-2xl mb-3'>Photography</h4>
-                <p className='text-sm md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500'>
-                  Capturing authentic moments with artistic precision
+              <div className='absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/40' />
+              
+              {/* Overlay Content */}
+              <div className='absolute inset-0 flex flex-col items-center justify-center text-center px-4'>
+                <h3 className='font-serif text-5xl md:text-7xl text-white mb-6'>
+                  LAHZA
+                </h3>
+                <div className='w-24 h-[1px] bg-white/70 mx-auto mb-6'></div>
+                <p className='text-lg md:text-xl text-white/90 max-w-2xl mx-auto mb-12 tracking-wide'>
+                  Our Premium Wedding Package
                 </p>
+                <Link
+                  href='/lahza'
+                  className='inline-block px-8 sm:px-12 py-3 sm:py-4 text-sm sm:text-base 
+                    bg-transparent hover:bg-white/10 
+                    text-white font-medium 
+                    rounded-full border-2 border-white
+                    transition-all duration-300 ease-in-out
+                    shadow-[0_4px_14px_0_rgba(255,255,255,0.39)]
+                    hover:shadow-[0_6px_20px_rgba(255,255,255,0.45)]
+                    hover:transform hover:scale-105
+                    tracking-wider'
+                >
+                  Discover LAHZA
+                </Link>
               </div>
-            </AnimatedSection>
-
-            <AnimatedSection className='relative group h-[400px] overflow-hidden rounded-2xl'>
-              <div className='absolute inset-0 bg-black/20 group-hover:bg-black/40 md:group-hover:bg-black/40 transition-all duration-500 z-10' />
-              <Image
-                src='https://ik.imagekit.io/weddingtheory/Photos/MMP01287.jpg'
-                alt='LAHZA Wedding Cinematography'
-                fill
-                className='object-cover transform group-hover:scale-110 transition-transform duration-700'
-              />
-              <div className='absolute bottom-0 left-0 right-0 p-8 text-white z-20 md:transform md:translate-y-6 md:group-hover:translate-y-0 transition-transform duration-500'>
-                <h4 className='font-serif text-2xl mb-3'>Cinematography</h4>
-                <p className='text-sm md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500'>
-                  Weaving your love story into cinematic masterpieces
-                </p>
-              </div>
-            </AnimatedSection>
-
-            <AnimatedSection className='relative group h-[400px] overflow-hidden rounded-2xl'>
-              <div className='absolute inset-0 bg-black/20 group-hover:bg-black/40 md:group-hover:bg-black/40 transition-all duration-500 z-10' />
-              <Image
-                src='https://ik.imagekit.io/weddingtheory/Photos/0A4A8443-Edit.jpg'
-                alt='LAHZA Complete Wedding Service'
-                fill
-                className='object-cover transform group-hover:scale-110 transition-transform duration-700'
-              />
-              <div className='absolute bottom-0 left-0 right-0 p-8 text-white z-20 md:transform md:translate-y-6 md:group-hover:translate-y-0 transition-transform duration-500'>
-                <h4 className='font-serif text-2xl mb-3'>
-                  Complete Experience
-                </h4>
-                <p className='text-sm md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500'>
-                  Harmonizing visuals, music, and print into lasting memories
-                </p>
-              </div>
-            </AnimatedSection>
-          </div>
-
-          {/* Features List */}
-          <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 mb-16'>
-            {[
-              'Photography',
-              'Cinematography',
-              'Music Production',
-              'Premium Prints',
-            ].map((feature) => (
-              <div key={feature} className='text-center p-4  rounded-lg'>
-                <h5 className='font-serif text-base md:text-xl text-gray-800 mb-2'>
-                  {feature}
-                </h5>
-                <div className='w-8 md:w-12 h-[1px] bg-[#68401b] mx-auto' />
-              </div>
-            ))}
-          </div>
-
-          {/* CTA */}
-          <div className='text-center'>
-            <Link
-              href='/lahza'
-              className='inline-block px-8 sm:px-12 py-3 sm:py-4 text-sm sm:text-base 
-                bg-transparent hover:bg-[#68401b] 
-                text-[#68401b] hover:text-white font-medium 
-                rounded-full border-2 border-[#68401b]
-                transition-all duration-300 ease-in-out
-                shadow-[0_4px_14px_0_rgba(198,160,124,0.39)]
-                hover:shadow-[0_6px_20px_rgba(198,160,124,0.45)]
-                hover:transform hover:scale-105
-                tracking-wider'
-            >
-              Discover LAHZA
-            </Link>
+            </div>
           </div>
         </div>
       </AnimatedSection>
