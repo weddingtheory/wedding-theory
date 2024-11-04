@@ -178,7 +178,11 @@ export default function ImageCarousel() {
           </motion.div>
           
           <motion.div
-            className="absolute bottom-10 left-6 lg:bottom-16 lg:left-16 text-white z-10 max-w-xl"
+            className="absolute bottom-10 left-6 lg:bottom-16 lg:left-16 text-white z-10 max-w-xl
+              backdrop-blur-md bg-black/20 p-6 rounded-xl
+              border border-white/10 shadow-lg
+              before:absolute before:inset-0 before:backdrop-blur-sm before:bg-gradient-to-r 
+              before:from-white/10 before:to-transparent before:rounded-xl"
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ 
@@ -188,7 +192,7 @@ export default function ImageCarousel() {
             }}
           >
             <motion.p 
-              className="text-sm font-light mb-2 opacity-90"
+              className="text-sm font-light mb-2 text-white/90 relative z-10"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.7 }}
@@ -196,7 +200,7 @@ export default function ImageCarousel() {
               {portfolioImages[currentIndex].date} / {portfolioImages[currentIndex].location}
             </motion.p>
             <motion.h3 
-              className="font-serif text-2xl md:text-4xl mb-3 leading-tight"
+              className="font-serif text-2xl md:text-4xl mb-3 leading-tight relative z-10"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.6, duration: 0.7 }}
@@ -204,7 +208,7 @@ export default function ImageCarousel() {
               {portfolioImages[currentIndex].title}
             </motion.h3>
             <motion.p 
-              className="text-sm md:text-base mb-5 opacity-80 line-clamp-2"
+              className="text-sm md:text-base mb-5 text-white/90 line-clamp-2 relative z-10"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.7, duration: 0.7 }}
@@ -212,6 +216,7 @@ export default function ImageCarousel() {
               {portfolioImages[currentIndex].excerpt}
             </motion.p>
             <motion.div
+              className="relative z-10"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.8, duration: 0.7 }}
@@ -220,7 +225,7 @@ export default function ImageCarousel() {
                 href="/wedding-stories"
                 className="inline-block px-5 py-2 border border-white/80 rounded-full text-sm 
                   hover:bg-white hover:text-black transition-all duration-300
-                  transform hover:scale-105"
+                  transform hover:scale-105 backdrop-blur-sm bg-black/10"
               >
                 View Story
               </Link>

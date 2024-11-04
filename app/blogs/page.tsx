@@ -137,25 +137,51 @@ export default function BlogsPage() {
             />
             <div className='absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black opacity-60' />
             <motion.div
-              className='absolute bottom-10 left-6 lg:bottom-20 lg:left-20 text-white z-10 max-w-xl'
+              className='absolute bottom-24 left-6 lg:bottom-32 lg:left-20 text-white z-10 max-w-xl
+                backdrop-blur-md bg-black/20 p-6 rounded-xl
+                border border-white/10 shadow-lg
+                before:absolute before:inset-0 before:backdrop-blur-sm before:bg-gradient-to-r 
+                before:from-white/10 before:to-transparent before:rounded-xl'
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
             >
-              <p className='text-sm font-light mb-3'>
+              <p className='text-xs md:text-sm font-light mb-2 relative z-10 text-white/70'>
                 {blogPosts[currentIndex].date} /{' '}
                 {blogPosts[currentIndex].category}
               </p>
-              <h3 className='font-serif text-3xl lg:text-5xl mb-4 leading-tight'>
+              <h3 className='font-serif text-2xl md:text-4xl mb-3 leading-tight relative z-10 text-white/90'>
                 {blogPosts[currentIndex].title}
               </h3>
               <Link
                 href={`/blogs/${blogPosts[currentIndex].id}`}
-                className='inline-block px-6 py-2 border border-white rounded-full text-sm hover:bg-white hover:text-black transition-all duration-300'
+                className='inline-block px-5 py-2 border border-white/60 rounded-full text-xs md:text-sm 
+                  hover:bg-white hover:text-black transition-all duration-300
+                  transform hover:scale-105 backdrop-blur-sm bg-black/10 relative z-10
+                  text-white/80 hover:text-black'
               >
                 Read Story
               </Link>
             </motion.div>
+
+            {/* Navigation Dots - Moved above the frosted glass panel */}
+            <div className='absolute bottom-8 right-6 lg:bottom-12 lg:right-20 flex gap-2'>
+              {blogPosts.map((_, index) => (
+                <button
+                  key={index}
+                  aria-label={`Go to slide ${index + 1}`}
+                  onClick={() => {
+                    setCurrentIndex(index);
+                    lastTransitionTimeRef.current = Date.now();
+                  }}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    currentIndex === index
+                      ? 'bg-white w-6'
+                      : 'bg-white/50 hover:bg-white/75'
+                  }`}
+                />
+              ))}
+            </div>
           </motion.div>
         </AnimatePresence>
 
@@ -174,25 +200,6 @@ export default function BlogsPage() {
         >
           <IoChevronForwardOutline size={24} />
         </button>
-
-        {/* Modified Carousel Navigation Dots */}
-        <div className='absolute bottom-10 right-6 lg:bottom-20 lg:right-20 flex gap-2'>
-          {blogPosts.map((_, index) => (
-            <button
-              key={index}
-              aria-label={`Go to slide ${index + 1}`}
-              onClick={() => {
-                setCurrentIndex(index);
-                lastTransitionTimeRef.current = Date.now(); // Reset timer on dot navigation
-              }}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                currentIndex === index
-                  ? 'bg-white w-6'
-                  : 'bg-white/50 hover:bg-white/75'
-              }`}
-            />
-          ))}
-        </div>
       </div>
     );
   };
