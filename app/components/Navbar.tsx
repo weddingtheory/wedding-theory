@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 
 const navItems = [
   { href: '/', label: 'Home' },
@@ -56,6 +57,8 @@ const itemVariants = {
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const pathname = usePathname();
+  const isHomePage = pathname === '/';
 
   useEffect(() => {
     const checkMobile = () => {
@@ -76,16 +79,18 @@ export default function Navbar() {
             <Image
               src='/weddinglogo.png'
               alt='Wedding Theory Logo'
-              width={45}
-              height={45}
-              className='mr-3'
+              width={isHomePage ? 45 : 50}
+              height={isHomePage ? 45 : 50}
+              className={`${isHomePage ? 'mr-3' : ''}`}
               unoptimized
             />
-            <div className='text-left'>
-              <h1 className='font-serif text-lg md:text-xl font-normal text-gray-800 tracking-wide cursor-pointer'>
-                WEDDING THEORY
-              </h1>
-            </div>
+            {isHomePage && (
+              <div className='text-left'>
+                <h1 className='font-serif text-lg md:text-xl font-normal text-gray-800 tracking-wide cursor-pointer'>
+                  WEDDING THEORY
+                </h1>
+              </div>
+            )}
           </Link>
           <motion.button
             onClick={toggleMenu}
@@ -153,12 +158,14 @@ export default function Navbar() {
                   alt='Wedding Theory Logo'
                   width={40}
                   height={40}
-                  className='mr-2'
+                  className={`${isHomePage ? 'mr-2' : ''}`}
                   unoptimized
                 />
-                <span className='font-serif text-lg text-gray-800'>
-                  WEDDING THEORY
-                </span>
+                {isHomePage && (
+                  <span className='font-serif text-lg text-gray-800'>
+                    WEDDING THEORY
+                  </span>
+                )}
               </div>
             )}
             <ul className={`${isMobile ? 'text-center' : 'text-right pr-8'}`}>
