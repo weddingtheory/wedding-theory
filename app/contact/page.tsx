@@ -39,13 +39,7 @@ const formatDateForInput = (date: Date): string => {
   });
 };
 
-interface DateRangeSelection {
-  selection: {
-    startDate: Date;
-    endDate: Date;
-    key: string;
-  };
-}
+
 
 export default function ContactPage() {
   const [errors, setErrors] = useState<FormErrors>({});
