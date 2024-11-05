@@ -143,13 +143,9 @@ const Footer = () => {
           {/* Developer Credit */}
           <div className='text-sm text-gray-500'>
             Designed and developed with ❤️ by{' '}
-            <Link 
-              href='https://www.abhinavkr.in/' 
-              target='_blank'
-          
-            >
+            <a href='https://www.abhinavkr.in/' target='_blank' rel='noopener noreferrer' className='hover:text-gray-900'>
               Abhinav Kumar
-            </Link>
+            </a>
           </div>
         </div>
       </div>
