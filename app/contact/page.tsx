@@ -2,7 +2,10 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { useForm } from '@formspree/react';
+import { DateRange } from 'react-date-range';
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
+import './date-picker.css';
 
 interface FormErrors {
   name?: string;
@@ -11,16 +14,96 @@ interface FormErrors {
   weddingDate?: string;
 }
 
+interface FormData {
+  name: string;
+  email: string;
+  phone: string;
+  weddingDate: {
+    startDate: Date | undefined;
+    endDate: Date | undefined;
+    key: string;
+  };
+  story: string;
+}
+
+interface SelectedDateDisplay {
+  startDate: string;
+  endDate: string;
+}
+
+const formatDateForInput = (date: Date): string => {
+  return date.toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  });
+};
+
+const parseDateString = (dateString: string): Date | null => {
+  const formats = [
+    (str: string) => new Date(str),
+    (str: string) => new Date(str),
+    (str: string) => {
+      const cleaned = str.replace(/[./,-]/g, '/');
+      const parts = cleaned.split('/');
+      if (parts.length === 3) {
+        const month = parseInt(parts[0]) - 1;
+        const day = parseInt(parts[1]);
+        const year = parseInt(parts[2]);
+        return new Date(year, month, day);
+      }
+      return new Date('invalid');
+    },
+    (str: string) => {
+      const cleaned = str.replace(/[./,-]/g, '/');
+      const parts = cleaned.split('/');
+      if (parts.length === 3) {
+        const month = parseInt(parts[0]) - 1;
+        const day = parseInt(parts[1]);
+        const year = parseInt(parts[2]);
+        if (!isNaN(month) && !isNaN(day) && !isNaN(year)) {
+          return new Date(year, month, day);
+        }
+      }
+      return new Date('invalid');
+    },
+  ];
+
+  for (const format of formats) {
+    const date = format(dateString);
+    if (!isNaN(date.getTime())) {
+      return date;
+    }
+  }
+
+  return null;
+};
+
 export default function ContactPage() {
-  const [state, handleSubmit] = useForm('xkgnjzjb');
   const [errors, setErrors] = useState<FormErrors>({});
-  const [formData, setFormData] = useState({
+
+  const today = new Date();
+  const formattedToday = formatDateForInput(today);
+
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
     phone: '',
-    weddingDate: '',
+    weddingDate: {
+      startDate: today,
+      endDate: today,
+      key: 'selection',
+    },
     story: '',
   });
+
+  const [selectedDates, setSelectedDates] = useState<SelectedDateDisplay>({
+    startDate: formattedToday,
+    endDate: formattedToday,
+  });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const validateForm = (name: string, value: string) => {
     const newErrors: FormErrors = { ...errors };
@@ -61,9 +144,16 @@ export default function ContactPage() {
         }
         break;
       case 'weddingDate':
-        const selectedDate = new Date(value);
+        let selectedDate;
+        if (typeof value === 'string') {
+          selectedDate = new Date(value);
+        } else {
+          selectedDate = value;
+        }
         const today = new Date();
-        if (value && selectedDate < today) {
+        today.setHours(0, 0, 0, 0);
+
+        if (selectedDate < today) {
           newErrors.weddingDate = 'Wedding date cannot be in the past';
         } else {
           delete newErrors.weddingDate;
@@ -104,7 +194,7 @@ export default function ContactPage() {
     validateForm(name, value);
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     let isValid = true;
@@ -114,12 +204,70 @@ export default function ContactPage() {
       }
     });
 
-    if (isValid) {
-      handleSubmit(e as React.FormEvent<HTMLFormElement>);
+    if (!isValid) return;
+
+    setIsSubmitting(true);
+
+    const formattedData = {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      weddingDate: `From ${selectedDates.startDate} to ${selectedDates.endDate}`,
+      story: formData.story
+    };
+
+    try {
+      const response = await fetch('https://formcarry.com/s/s7XU213etq7', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(formattedData),
+      });
+
+      if (response.ok) {
+        setIsSubmitted(true);
+      } else {
+        throw new Error('Submission failed');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
-  if (state.succeeded) {
+  const handleDateChange = (ranges: any) => {
+    const { startDate, endDate } = ranges.selection;
+
+    setFormData((prev) => ({
+      ...prev,
+      weddingDate: {
+        startDate,
+        endDate,
+        key: 'selection',
+      },
+    }));
+
+    // Format dates for display
+    const formatDate = (date: Date) => {
+      return date.toLocaleDateString('en-US', {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+      });
+    };
+
+    setSelectedDates({
+      startDate: startDate ? formatDate(startDate) : '',
+      endDate: endDate ? formatDate(endDate) : '',
+    });
+
+    validateForm('weddingDate', startDate?.toISOString() || '');
+  };
+
+  if (isSubmitted) {
     return (
       <div className='min-h-screen flex items-center justify-center bg-[#f8f5f0]'>
         <motion.div
@@ -131,7 +279,7 @@ export default function ContactPage() {
             Thank You! 🎉
           </h2>
           <p className='text-gray-700'>
-            We&apos;ve received your message and will get back to you soon.
+            We've received your message and will get back to you soon.
           </p>
         </motion.div>
       </div>
@@ -157,46 +305,131 @@ export default function ContactPage() {
           className='space-y-6 bg-white p-8 rounded-xl shadow-lg'
         >
           <div className='space-y-4'>
-            {['name', 'email', 'phone', 'weddingDate'].map((field) => (
-              <motion.div
-                key={field}
-                whileFocus={{ scale: 1.02 }}
-                className='form-group'
-              >
-                <label
-                  htmlFor={field}
-                  className='block text-sm font-medium text-gray-700 mb-1'
+            {['name', 'email', 'phone', 'weddingDate'].map((field) =>
+              field === 'weddingDate' ? (
+                <motion.div
+                  key={field}
+                  whileFocus={{ scale: 1.02 }}
+                  className='form-group'
                 >
-                  {field.charAt(0).toUpperCase() +
-                    field.slice(1).replace(/([A-Z])/g, ' $1')}
-                  {field === 'email' && ' *'}
-                </label>
-                <input
-                  type={
-                    field === 'email'
-                      ? 'email'
-                      : field === 'weddingDate'
-                      ? 'date'
-                      : 'text'
-                  }
-                  id={field}
-                  name={field}
-                  value={formData[field as keyof typeof formData]}
-                  onChange={handleInputChange}
-                  required={field === 'email'}
-                  className={`w-full px-4 py-2 border ${
-                    errors[field as keyof FormErrors]
-                      ? 'border-red-500'
-                      : 'border-gray-200'
-                  } rounded-lg focus:ring-2 focus:ring-[#B08E6A] focus:border-transparent transition-all`}
-                />
-                {errors[field as keyof FormErrors] && (
-                  <p className='text-red-500 text-sm mt-1'>
-                    {errors[field as keyof FormErrors]}
-                  </p>
-                )}
-              </motion.div>
-            ))}
+                  <label className='block text-sm font-medium text-gray-700 mb-1'>
+                    Wedding Event Dates
+                  </label>
+                  <div className='space-y-3'>
+                    <div className='flex flex-col sm:flex-row gap-4 text-sm'>
+                      <div className='flex-1'>
+                        <label
+                          htmlFor='startDate'
+                          className='text-gray-600 mb-1 block'
+                        >
+                          From
+                        </label>
+                        <input
+                          id='startDate'
+                          name='startDate'
+                          type='text'
+                          value={selectedDates.startDate}
+                          readOnly
+                          className='w-full p-3 border border-gray-200 rounded-lg bg-gray-50 min-h-[42px] cursor-not-allowed'
+                          aria-label='Start date'
+                        />
+                      </div>
+                      <div className='flex-1'>
+                        <label
+                          htmlFor='endDate'
+                          className='text-gray-600 mb-1 block'
+                        >
+                          To
+                        </label>
+                        <input
+                          id='endDate'
+                          name='endDate'
+                          type='text'
+                          value={selectedDates.endDate}
+                          readOnly
+                          className='w-full p-3 border border-gray-200 rounded-lg bg-gray-50 min-h-[42px] cursor-not-allowed'
+                          aria-label='End date'
+                        />
+                      </div>
+                    </div>
+                    <div className='border border-gray-200 rounded-lg overflow-hidden calendar-wrapper'>
+                      <DateRange
+                        editableDateInputs={true}
+                        onChange={handleDateChange}
+                        moveRangeOnFirstSelection={false}
+                        ranges={[formData.weddingDate]}
+                        minDate={new Date()}
+                        maxDate={
+                          new Date(
+                            new Date().setFullYear(new Date().getFullYear() + 5)
+                          )
+                        }
+                        rangeColors={['#68401b']}
+                        color='#68401b'
+                        className='text-sm'
+                        showMonthAndYearPickers={true}
+                        showDateDisplay={false}
+                        monthDisplayFormat='MMMM yyyy'
+                        weekdayDisplayFormat='EEEEEE'
+                        months={1}
+                        direction='horizontal'
+                        preventSnapRefocus={true}
+                        showPreview={false}
+                      />
+                    </div>
+                  </div>
+                  {errors.weddingDate && (
+                    <p className='text-red-500 text-sm mt-1'>
+                      {errors.weddingDate}
+                    </p>
+                  )}
+                </motion.div>
+              ) : (
+                <motion.div
+                  key={field}
+                  whileFocus={{ scale: 1.02 }}
+                  className='form-group'
+                >
+                  <label
+                    htmlFor={field}
+                    className='block text-sm font-medium text-gray-700 mb-1'
+                  >
+                    {field.charAt(0).toUpperCase() +
+                      field.slice(1).replace(/([A-Z])/g, ' $1')}
+                    {field === 'email' && ' *'}
+                  </label>
+                  <input
+                    type={
+                      field === 'email'
+                        ? 'email'
+                        : field === 'weddingDate'
+                        ? 'date'
+                        : 'text'
+                    }
+                    id={field}
+                    name={field}
+                    value={
+                      typeof formData[field as keyof typeof formData] ===
+                      'object'
+                        ? ''
+                        : formData[field as keyof typeof formData].toString()
+                    }
+                    onChange={handleInputChange}
+                    required={field === 'email'}
+                    className={`w-full px-4 py-2 border ${
+                      errors[field as keyof FormErrors]
+                        ? 'border-red-500'
+                        : 'border-gray-200'
+                    } rounded-lg focus:ring-2 focus:ring-[#B08E6A] focus:border-transparent transition-all`}
+                  />
+                  {errors[field as keyof FormErrors] && (
+                    <p className='text-red-500 text-sm mt-1'>
+                      {errors[field as keyof FormErrors]}
+                    </p>
+                  )}
+                </motion.div>
+              )
+            )}
 
             <motion.div whileFocus={{ scale: 1.02 }} className='form-group'>
               <label
@@ -218,7 +451,7 @@ export default function ContactPage() {
 
           <motion.button
             type='submit'
-            disabled={state.submitting || Object.keys(errors).length > 0}
+            disabled={isSubmitting || Object.keys(errors).length > 0}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             className='w-full bg-[#68401b] hover:bg-[#B08E6A] text-white py-3 px-6 rounded-full 
@@ -227,7 +460,7 @@ export default function ContactPage() {
                       hover:shadow-[0_6px_20px_rgba(198,160,124,0.45)]
                       disabled:opacity-50 disabled:cursor-not-allowed'
           >
-            {state.submitting ? 'Sending...' : 'Send Message'}
+            {isSubmitting ? 'Sending...' : 'Send Message'}
           </motion.button>
         </motion.form>
       </motion.div>
