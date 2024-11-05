@@ -146,11 +146,7 @@ const Footer = () => {
             <Link 
               href='https://www.abhinavkr.in/' 
               target='_blank'
-              className='relative text-gray-700 hover:text-gray-900 transition-colors duration-300
-                after:content-[""] after:absolute after:w-full after:h-[1px] after:bg-gray-700 
-                after:bottom-0 after:left-0 
-                after:scale-x-0 hover:after:scale-x-100
-                after:transition-transform after:duration-300 after:origin-left'
+          
             >
               Abhinav Kumar
             </Link>
