@@ -179,11 +179,11 @@ export default function ContactPage() {
     };
 
     try {
-      const response = await fetch('https://formcarry.com/s/s7XU213etq7', {
+      const response = await fetch('https://formspree.io/f/xkgnjzjb', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          Accept: 'application/json',
         },
         body: JSON.stringify(formattedData),
       });
