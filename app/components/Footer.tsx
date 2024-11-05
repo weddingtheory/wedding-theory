@@ -143,9 +143,9 @@ const Footer = () => {
           {/* Developer Credit */}
           <div className='text-sm text-gray-500'>
             Designed and developed with ❤️ by{' '}
-            <a href='https://www.abhinavkr.in/' target='_blank' rel='noopener noreferrer' className='hover:text-gray-900'>
+            <Link href='https://www.abhinavkr.in/' target='_blank' rel='noopener noreferrer' prefetch={false} className='hover:text-gray-900'>
               Abhinav Kumar
-            </a>
+            </Link>
           </div>
         </div>
       </div>
