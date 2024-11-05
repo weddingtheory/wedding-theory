@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { DateRange } from 'react-date-range';
+import { DateRange, Range, RangeKeyDict } from 'react-date-range';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import './date-picker.css';
@@ -206,20 +206,21 @@ export default function ContactPage() {
     }
   };
 
-  const handleDateChange = (ranges: DateRangeSelection) => {
-    const { startDate, endDate } = ranges.selection;
+  const handleDateChange = (rangesByKey: RangeKeyDict) => {
+    const range = rangesByKey.selection as Range;
+    const { startDate, endDate } = range;
 
     setFormData((prev) => ({
       ...prev,
       weddingDate: {
-        startDate,
-        endDate,
+        startDate: startDate || today,
+        endDate: endDate || today,
         key: 'selection',
       },
     }));
 
-    // Format dates for display
-    const formatDate = (date: Date) => {
+    const formatDate = (date: Date | undefined) => {
+      if (!date) return '';
       return date.toLocaleDateString('en-US', {
         month: 'long',
         day: 'numeric',
@@ -228,8 +229,8 @@ export default function ContactPage() {
     };
 
     setSelectedDates({
-      startDate: startDate ? formatDate(startDate) : '',
-      endDate: endDate ? formatDate(endDate) : '',
+      startDate: formatDate(startDate),
+      endDate: formatDate(endDate),
     });
 
     validateForm('weddingDate', startDate?.toISOString() || '');
