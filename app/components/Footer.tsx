@@ -124,7 +124,7 @@ const Footer = () => {
               target="_blank"
               className="font-medium hover:underline text-blue-600 hover:text-blue-800"
             >
-              Abhinav Kumar
+              Abhinav 
             </Link>
           </div>
         </div>
