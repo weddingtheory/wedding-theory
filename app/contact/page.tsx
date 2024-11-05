@@ -39,45 +39,13 @@ const formatDateForInput = (date: Date): string => {
   });
 };
 
-const parseDateString = (dateString: string): Date | null => {
-  const formats = [
-    (str: string) => new Date(str),
-    (str: string) => new Date(str),
-    (str: string) => {
-      const cleaned = str.replace(/[./,-]/g, '/');
-      const parts = cleaned.split('/');
-      if (parts.length === 3) {
-        const month = parseInt(parts[0]) - 1;
-        const day = parseInt(parts[1]);
-        const year = parseInt(parts[2]);
-        return new Date(year, month, day);
-      }
-      return new Date('invalid');
-    },
-    (str: string) => {
-      const cleaned = str.replace(/[./,-]/g, '/');
-      const parts = cleaned.split('/');
-      if (parts.length === 3) {
-        const month = parseInt(parts[0]) - 1;
-        const day = parseInt(parts[1]);
-        const year = parseInt(parts[2]);
-        if (!isNaN(month) && !isNaN(day) && !isNaN(year)) {
-          return new Date(year, month, day);
-        }
-      }
-      return new Date('invalid');
-    },
-  ];
-
-  for (const format of formats) {
-    const date = format(dateString);
-    if (!isNaN(date.getTime())) {
-      return date;
-    }
-  }
-
-  return null;
-};
+interface DateRangeSelection {
+  selection: {
+    startDate: Date;
+    endDate: Date;
+    key: string;
+  };
+}
 
 export default function ContactPage() {
   const [errors, setErrors] = useState<FormErrors>({});
@@ -238,7 +206,7 @@ export default function ContactPage() {
     }
   };
 
-  const handleDateChange = (ranges: any) => {
+  const handleDateChange = (ranges: DateRangeSelection) => {
     const { startDate, endDate } = ranges.selection;
 
     setFormData((prev) => ({
