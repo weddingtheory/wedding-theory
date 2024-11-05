@@ -112,15 +112,23 @@ export default function Home() {
           </p>
           <Link
             href='/blogs'
-            className='inline-block px-8 sm:px-10 py-3 sm:py-3.5 text-sm sm:text-base 
-                bg-transparent hover:bg-[#68401b] 
-                text-[#68401b] hover:text-white font-medium 
-                rounded-full border-2 border-[#68401b]
-                transition-all duration-300 ease-in-out
-                shadow-[0_4px_14px_0_rgba(198,160,124,0.39)]
-                hover:shadow-[0_6px_20px_rgba(198,160,124,0.45)]
-                hover:transform hover:scale-105
-                tracking-wide'
+            className='inline-block px-4 py-2 text-base
+              text-[#68401b] font-medium 
+              transition-all duration-300 ease-in-out
+              hover:text-[#8B5E2B]
+              relative after:content-[""] after:absolute 
+              after:w-full after:h-0.5 after:bg-[#68401b]/30 
+              after:left-0 after:bottom-0
+              after:transition-all after:duration-500
+              hover:after:transform hover:after:scale-x-0
+              before:content-[""] before:absolute 
+              before:w-full before:h-0.5 before:bg-[#68401b] 
+              before:left-0 before:bottom-0
+              before:origin-left
+              before:scale-x-0
+              before:transition-transform before:duration-500
+              hover:before:scale-x-100
+              hover:before:origin-right'
           >
             Read Our Blog
           </Link>
@@ -155,15 +163,23 @@ export default function Home() {
             <div className='text-center mt-16'>
               <Link
                 href='/testimonial'
-                className='inline-block px-8 sm:px-10 py-3 sm:py-3.5 text-sm sm:text-base 
-                  bg-transparent hover:bg-[#68401b] 
-                  text-[#68401b] hover:text-white font-medium 
-                  rounded-full border-2 border-[#68401b]
+                className='inline-block px-4 py-2 text-base
+                  text-[#68401b] font-medium 
                   transition-all duration-300 ease-in-out
-                  shadow-[0_4px_14px_0_rgba(198,160,124,0.39)]
-                  hover:shadow-[0_6px_20px_rgba(198,160,124,0.45)]
-                  hover:transform hover:scale-105
-                  tracking-wide'
+                  hover:text-[#8B5E2B]
+                  relative after:content-[""] after:absolute 
+                  after:w-full after:h-0.5 after:bg-[#68401b]/30 
+                  after:left-0 after:bottom-0
+                  after:transition-all after:duration-500
+                  hover:after:transform hover:after:scale-x-0
+                  before:content-[""] before:absolute 
+                  before:w-full before:h-0.5 before:bg-[#68401b] 
+                  before:left-0 before:bottom-0
+                  before:origin-left
+                  before:scale-x-0
+                  before:transition-transform before:duration-500
+                  hover:before:scale-x-100
+                  hover:before:origin-right'
               >
                 Explore Their Stories
               </Link>
@@ -178,7 +194,7 @@ export default function Home() {
         <div className='absolute inset-0 w-full h-full overflow-hidden'>
           <div className='relative w-full h-full'>
             <iframe
-              src='https://www.youtube.com/embed/I2rtiytCzi8?start=10&autoplay=1&mute=1&controls=0&loop=1&playlist=I2rtiytCzi8&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&enablejsapi=1&playsinline=1&fs=0&disablekb=1&origin=yourwebsite.com'
+              src='https://www.youtube.com/embed/0Ky81YMuR7k?start=10&autoplay=1&mute=1&controls=0&loop=1&playlist=0Ky81YMuR7k&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&enablejsapi=1&playsinline=1&fs=0&disablekb=1&origin=yourwebsite.com'
               className='absolute top-1/2 left-1/2 w-[150%] h-[150%] -translate-x-1/2 -translate-y-1/2 scale-125'
               style={{
                 pointerEvents: 'none',

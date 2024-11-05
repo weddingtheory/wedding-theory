@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ['ik.imagekit.io', 'cdn0.weddingwire.in', 'ik.imagekit.io'],
+    domains: ['ik.imagekit.io', 'cdn0.weddingwire.in'],
   },
   async headers() {
     return [
