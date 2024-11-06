@@ -141,14 +141,16 @@ const Footer = () => {
             © {new Date().getFullYear()} Wedding Theory. All rights reserved.{' '}
           </div>
 
-          {/* Developer Credit */}
-          <div className='text-sm text-gray-500'>
-            Designed and developed with ❤️ by{' '}
+          {/* Developer Credit - Updated with subtle styling and animations */}
+          <div className='text-xs text-gray-400 opacity-80 hover:opacity-100 transition-opacity duration-300'>
+            Made with{' '}
+            <span className="inline-block hover:scale-110 transition-transform duration-300">❤️</span>{' '}
+            by{' '}
             <Link
               href='https://www.abhinavkr.in/'
               target='_blank'
               rel='noopener noreferrer'
-              className='text-blue-600 hover:text-blue-800 underline'
+              className='relative inline-block after:content-[""] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-gray-400 after:transition-transform after:duration-300 hover:after:scale-x-100'
             >
               Abhinav Kumar
             </Link>
