@@ -133,25 +133,13 @@ const Footer = () => {
             <Link href='/testimonial' className='hover:text-gray-900'>
               Testimonial
             </Link>
-            <Link
-              href='https://www.abhinavkr.in/'
-              target='_blank'
-              rel='noopener noreferrer'
-              prefetch={false}
-              className='hover:text-gray-900'
-            >
-              Abhinav Kumar
-            </Link>
+            
           </div>
 
           {/* Copyright */}
           <div className='text-sm text-gray-500'>
-            © {new Date().getFullYear()} Wedding Theory. All rights reserved.
-          </div>
-
-          {/* Developer Credit */}
-          <div className='text-sm text-gray-500'>
-            Designed and developed with ❤️ by{' '}
+            © {new Date().getFullYear()} Wedding Theory. All rights reserved{' '}|
+            Designed and developed with ❤️{' '}
             <Link
               href='https://www.abhinavkr.in/'
               target='_blank'
@@ -162,6 +150,8 @@ const Footer = () => {
               Abhinav Kumar
             </Link>
           </div>
+
+      
         </div>
       </div>
     </footer>
