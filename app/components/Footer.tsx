@@ -133,6 +133,15 @@ const Footer = () => {
             <Link href='/testimonial' className='hover:text-gray-900'>
               Testimonial
             </Link>
+            <Link
+              href='https://www.abhinavkr.in/'
+              target='_blank'
+              rel='noopener noreferrer'
+              prefetch={false}
+              className='hover:text-gray-900'
+            >
+              Abhinav Kumar
+            </Link>
           </div>
 
           {/* Copyright */}
@@ -143,7 +152,13 @@ const Footer = () => {
           {/* Developer Credit */}
           <div className='text-sm text-gray-500'>
             Designed and developed with ❤️ by{' '}
-            <Link href='https://www.abhinavkr.in/' target='_blank' rel='noopener noreferrer' prefetch={false} className='hover:text-gray-900'>
+            <Link
+              href='https://www.abhinavkr.in/'
+              target='_blank'
+              rel='noopener noreferrer'
+              prefetch={false}
+              className='hover:text-gray-900'
+            >
               Abhinav Kumar
             </Link>
           </div>
