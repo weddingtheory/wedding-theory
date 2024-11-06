@@ -133,15 +133,18 @@ const Footer = () => {
             <Link href='/testimonial' className='hover:text-gray-900'>
               Testimonial
             </Link>
-            
           </div>
 
           {/* Copyright */}
           <div className='text-sm text-gray-500'>
-            © {new Date().getFullYear()} Wedding Theory. All rights reserved{' '}|
-            Designed and developed with ❤️{' '}
+            © {new Date().getFullYear()} Wedding Theory. All rights reserved.{' '}
+          </div>
+
+          {/* Developer Credit */}
+          <div className='text-sm text-gray-500'>
+            Designed and developed with ❤️ by{' '}
             <Link
-              href='https://www.abhinavkr.in/'
+              href='https://x.com/home'
               target='_blank'
               rel='noopener noreferrer'
               prefetch={false}
@@ -150,8 +153,6 @@ const Footer = () => {
               Abhinav Kumar
             </Link>
           </div>
-
-      
         </div>
       </div>
     </footer>
