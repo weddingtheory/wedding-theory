@@ -8,6 +8,7 @@ import Image from 'next/image';
 import AnimatedStats from './components/AnimatedStats';
 import WeddingLogo from '../public/weddinglogo.png';
 import { motion } from 'framer-motion';
+import WeddingGalleryCarousel from './components/WeddingGalleryCarousel';
 
 export default function Home() {
   const [scale, setScale] = useState(2);
@@ -111,8 +112,13 @@ export default function Home() {
             </Link>
           </AnimatedSection>
 
+          {/* Update the Wedding Gallery section wrapper with more top spacing */}
+          <AnimatedSection className='w-full mt-32 md:mt-40'>
+            <WeddingGalleryCarousel />
+          </AnimatedSection>
+
           {/* Decorative Separator */}
-          <div className='my-16 md:my-20 flex items-center justify-center max-w-4xl mx-auto px-4'>
+          <div className='my-10 md:my-12 flex items-center justify-center max-w-4xl mx-auto px-4'>
             <div className='flex-grow h-[1px] bg-gradient-to-r from-transparent via-[#D4B08C] to-transparent'></div>
             <div className='mx-4 text-[#D4B08C]'>
               <svg
