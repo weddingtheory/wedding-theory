@@ -39,8 +39,8 @@ export default function Home() {
                 <Image
                   src={WeddingLogo}
                   alt="Wedding Theory"
-                  width={30}
-                  height={30}
+                  width={100}
+                  height={100}
                   className='w-14 md:w-20 h-auto object-contain'
                   priority
                 />
@@ -228,7 +228,7 @@ export default function Home() {
       {/* Video Gallery Section */}
       <AnimatedSection className='w-full relative bg-[#fcfaf7]'>
         {/* Full-width video background */}
-        <div className='w-full h-[60vh] sm:h-[80vh] md:h-screen overflow-hidden'>
+        <div className='w-full h-[60vh] sm:h-[80vh] md:h-screen overflow-hidden relative'>
           <div className='relative w-full h-full'>
             <iframe
               src='https://www.youtube.com/embed/0Ky81YMuR7k?start=10&autoplay=1&mute=1&controls=0&loop=1&playlist=0Ky81YMuR7k&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&enablejsapi=1&playsinline=1&fs=0&disablekb=1&origin=yourwebsite.com'
@@ -241,25 +241,48 @@ export default function Home() {
               allowFullScreen
               frameBorder='0'
             ></iframe>
+            
+            {/* Gradient overlay */}
+            <div className='absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent' />
+            
+            {/* Button container */}
+            <div className='absolute bottom-0 left-0 right-0 flex justify-center items-center pb-12 sm:pb-16 md:pb-20'>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5, duration: 0.8 }}
+              >
+                <Link
+                  href='/films'
+                  className='group relative inline-flex items-center gap-2 px-8 sm:px-12 py-4 sm:py-5
+                    bg-white/10 backdrop-blur-sm
+                    hover:bg-white/20
+                    border border-white/30
+                    rounded-full
+                    transition-all duration-500 ease-in-out
+                    hover:shadow-[0_8px_30px_rgba(255,255,255,0.3)]
+                    hover:scale-105'
+                >
+                  <span className='text-white font-medium tracking-[0.2em] uppercase text-sm sm:text-base'>
+                    View Films
+                  </span>
+                  <svg 
+                    className="w-4 h-4 text-white transition-transform duration-300 group-hover:translate-x-1" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      strokeWidth={2} 
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </Link>
+              </motion.div>
+            </div>
           </div>
-        </div>
-
-        {/* Button Section Below Video */}
-        <div className='w-full bg-[#fcfaf7] py-10 sm:py-16 text-center'>
-          <Link
-            href='/films'
-            className='inline-block px-8 sm:px-12 md:px-16 py-3 sm:py-4 md:py-5 text-sm sm:text-base md:text-lg
-              bg-[#68401b] hover:bg-[#8B5E2B]
-              text-white font-medium 
-              rounded-full border border-[#D4B08C]
-              transition-all duration-500 ease-in-out
-              shadow-[0_4px_20px_0_rgba(104,64,27,0.3)]
-              hover:shadow-[0_8px_30px_rgba(104,64,27,0.4)]
-              hover:transform hover:scale-105
-              tracking-[0.15em] sm:tracking-[0.2em] uppercase'
-          >
-            Films
-          </Link>
         </div>
       </AnimatedSection>
 
@@ -274,33 +297,32 @@ export default function Home() {
                 alt='LAHZA Premium Wedding Package'
                 fill
                 className='object-cover'
-                style={{ scale: 1.2   }}
+                style={{ scale: 1.2 }}
                 priority
               />
-              <div className='absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/40' />
+              <div className='absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60' />
               
-              {/* Overlay Content */}
-              <div className='absolute inset-0 flex flex-col items-center justify-center text-center px-4'>
-                <h3 className='font-serif text-5xl md:text-7xl text-white mb-6'>
+              {/* Overlay Content - Moved to bottom */}
+              <div className='absolute inset-x-0 bottom-0 flex flex-col items-center justify-end text-center px-4 pb-12 md:pb-16'>
+                <h3 className='font-serif text-3xl md:text-4xl text-white mb-3'>
                   LAHZA
                 </h3>
-                <div className='w-24 h-[1px] bg-white/70 mx-auto mb-6'></div>
-                <p className='text-lg md:text-xl text-white/90 max-w-2xl mx-auto mb-12 tracking-wide'>
+                <div className='w-16 h-[1px] bg-white/70 mx-auto mb-4'></div>
+                <p className='text-sm md:text-base text-white/90 max-w-xl mx-auto mb-6 tracking-wide'>
                   Our Premium Wedding Package
                 </p>
                 <Link
                   href='/lahza'
-                  className='inline-block px-8 sm:px-12 py-3 sm:py-4 text-sm sm:text-base 
+                  className='inline-block px-6 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm 
                     bg-transparent hover:bg-white/10 
                     text-white font-medium 
-                    rounded-full border-2 border-white
+                    rounded-full border border-white/80
                     transition-all duration-300 ease-in-out
-                    shadow-[0_4px_14px_0_rgba(255,255,255,0.39)]
-                    hover:shadow-[0_6px_20px_rgba(255,255,255,0.45)]
+                    hover:shadow-[0_4px_14px_0_rgba(255,255,255,0.3)]
                     hover:transform hover:scale-105
                     tracking-wider'
                 >
-                  Discover LAHZA
+                  Learn More
                 </Link>
               </div>
             </div>
