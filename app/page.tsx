@@ -261,8 +261,8 @@ export default function Home() {
                 <Link
                   href='/films'
                   className='group relative inline-flex items-center gap-2 px-8 sm:px-12 py-4 sm:py-5
-                    bg-white/10 backdrop-blur-sm
-                    hover:bg-white/20
+                    bg-transparent
+                    hover:bg-white/10
                     border border-white/30
                     rounded-full
                     transition-all duration-500 ease-in-out

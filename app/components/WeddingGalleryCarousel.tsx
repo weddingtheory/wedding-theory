@@ -324,7 +324,7 @@ export default function WeddingGalleryCarousel() {
               </motion.div>
             </AnimatePresence>
 
-            <div className="absolute inset-y-0 -left-2 md:-left-4 flex items-center">
+            <div className="absolute inset-y-0 left-0 md:-left-4 lg:-left-16 flex items-center">
               <button
                 onClick={(e) => {
                   e.stopPropagation();
@@ -332,12 +332,13 @@ export default function WeddingGalleryCarousel() {
                   resetAutoScroll();
                 }}
                 className="group bg-white/80 hover:bg-white 
-                  text-gray-800 p-2.5
+                  text-gray-800 p-2 md:p-3 lg:p-4
                   rounded-full
                   transition-all duration-300 hover:scale-105
                   border border-[#D4B08C]/30
                   shadow-lg hover:shadow-xl
-                  backdrop-blur-sm"
+                  backdrop-blur-sm
+                  translate-x-1 md:translate-x-0"
                 aria-label="Previous slide"
               >
                 <IoChevronBackOutline 
@@ -347,7 +348,7 @@ export default function WeddingGalleryCarousel() {
               </button>
             </div>
 
-            <div className="absolute inset-y-0 -right-2 md:-right-4 flex items-center">
+            <div className="absolute inset-y-0 right-0 md:-right-4 lg:-right-16 flex items-center">
               <button
                 onClick={(e) => {
                   e.stopPropagation();
@@ -355,12 +356,13 @@ export default function WeddingGalleryCarousel() {
                   resetAutoScroll();
                 }}
                 className="group bg-white/80 hover:bg-white 
-                  text-gray-800 p-2.5
+                  text-gray-800 p-2 md:p-3 lg:p-4
                   rounded-full
                   transition-all duration-300 hover:scale-105
                   border border-[#D4B08C]/30
                   shadow-lg hover:shadow-xl
-                  backdrop-blur-sm"
+                  backdrop-blur-sm
+                  -translate-x-1 md:translate-x-0"
                 aria-label="Next slide"
               >
                 <IoChevronForwardOutline 
