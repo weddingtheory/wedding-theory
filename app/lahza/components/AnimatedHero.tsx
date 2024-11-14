@@ -15,7 +15,7 @@ export default function AnimatedHero() {
         priority
         unoptimized
       />
-      <motion.div 
+      {/* <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 0.2 }}
@@ -37,7 +37,7 @@ export default function AnimatedHero() {
         >
           Signature Weddings by Wedding Theory
         </motion.p>
-      </motion.div>
+      </motion.div> */}
     </section>
   );
 } 

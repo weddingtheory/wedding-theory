@@ -86,38 +86,62 @@ export default function Lahza() {
     <div className='flex flex-col min-h-screen bg-[#f8f5f0]'>
       <main className='flex-grow'>
         <AnimatedHero />
+        
+        {/* Add LAHZA heading below hero */}
+        <div className='text-center py-16'>
+          <div className="relative inline-block">
+            <motion.div className="overflow-hidden">
+              {/* Individual letters with stagger animation */}
+              <motion.h1 
+                className='text-5xl md:text-6xl tracking-[0.3em] font-serif text-gray-800'
+              >
+                {'LAHZA'.split('').map((letter, index) => (
+                  <motion.span
+                    key={index}
+                    initial={{ y: 100, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{
+                      duration: 0.7,
+                      delay: index * 0.1,
+                      ease: [0.33, 1, 0.68, 1]  // Custom easing
+                    }}
+                    className="inline-block"
+                  >
+                    {letter}
+                  </motion.span>
+                ))}
+              </motion.h1>
+            </motion.div>
 
-        {/* Elegant Introduction */}
-        <section className='max-w-4xl mx-auto px-4 py-16 text-center overflow-hidden'>
+            {/* Single elegant underline */}
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: '100%' }}
+              transition={{
+                duration: 1,
+                delay: 0.7,
+                ease: [0.33, 1, 0.68, 1]
+              }}
+              className="absolute left-0 right-0 mx-auto -bottom-4 h-[2px] bg-gradient-to-r from-transparent via-[#68401b] to-transparent"
+            />
+          </div>
+
+          {/* Subtitle */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className='font-serif text-2xl md:text-3xl text-gray-800 leading-relaxed'
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ 
+              duration: 0.8, 
+              delay: 1.2,
+              ease: [0.33, 1, 0.68, 1]
+            }}
+            className='text-xl text-gray-700 mt-8 tracking-wide'
           >
-            &ldquo;Every moment tells a story, every frame captures an
-            emotion&rdquo;
+            Signature Weddings by Wedding Theory
           </motion.p>
-          <motion.div
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className='w-24 h-[1px] bg-gray-400 mx-auto my-8'
-          />
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className='font-sans text-gray-700 leading-relaxed max-w-2xl mx-auto'
-          >
-            LAHZA represents the pinnacle of wedding documentation, where
-            artistry meets technical excellence to create timeless memories of
-            your special day.
-          </motion.p>
-        </section>
+        </div>
+
+        
 
         {/* Visual Artistry Section */}
         <section className='bg-white py-20 md:py-32'>
