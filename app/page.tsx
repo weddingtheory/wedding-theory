@@ -9,8 +9,10 @@ import AnimatedStats from './components/AnimatedStats';
 
 export default function Home() {
   const [scale, setScale] = useState(2);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     const handleResize = () => {
       setScale(window.innerWidth < 640 ? 2.8 : 2);
     };
@@ -198,7 +200,7 @@ export default function Home() {
               className='absolute top-1/2 left-1/2 w-[200%] sm:w-[150%] h-[150%] -translate-x-1/2 -translate-y-1/2'
               style={{
                 pointerEvents: 'none',
-                transform: `translate(-50%, -50%) scale(${window.innerWidth < 640 ? 3.5 : scale})`,
+                transform: `translate(-50%, -50%) scale(${isMounted ? (window.innerWidth < 640 ? 3.5 : scale) : 2})`,
               }}
               allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
               allowFullScreen
