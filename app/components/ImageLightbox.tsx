@@ -76,10 +76,39 @@ export default function ImageLightbox({
     setIsPlaying(false);
   }, []);
 
+  // Add keyboard event handler
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!isOpen) return;
+      
+      switch (e.key) {
+        case 'ArrowLeft':
+          handlePrevious();
+          break;
+        case 'ArrowRight':
+          handleNext();
+          break;
+        case 'Escape':
+          onClose();
+          break;
+        default:
+          break;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, handlePrevious, handleNext, onClose]);
+
   if (!isOpen) return null;
 
   return (
-    <div className='fixed inset-0 z-50 flex items-center justify-center bg-black/80'>
+    <div 
+      className='fixed inset-0 z-50 flex items-center justify-center bg-black/80'
+      role="dialog"
+      aria-modal="true"
+      aria-label="Image gallery"
+    >
       {/* Close button - Updated positioning and styling */}
       <button
         onClick={onClose}
