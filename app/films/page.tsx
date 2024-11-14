@@ -99,7 +99,7 @@ export default function Films() {
                 className='w-full h-full absolute inset-0 transition-transform duration-700 
                           group-hover:scale-105'
                 style={{ border: 'none' }}
-                src={video.url.replace('watch?v=', 'embed/')}
+                src={`${video.url.replace('watch?v=', 'embed/')}?autoplay=1&mute=1&loop=1&playlist=${video.url.split('v=')[1]}`}
                 title={video.title}
                 allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
                 allowFullScreen
