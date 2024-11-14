@@ -171,7 +171,7 @@ export default function ContactPage() {
     setIsSubmitting(true);
 
     const formattedData = {
-      name: formData.name,
+      coupleName: formData.name,
       email: formData.email,
       phone: formData.phone,
       weddingDate: `From ${selectedDates.startDate} to ${selectedDates.endDate}`,
@@ -357,8 +357,10 @@ export default function ContactPage() {
                     htmlFor={field}
                     className='block text-sm font-medium text-gray-700 mb-1'
                   >
-                    {field.charAt(0).toUpperCase() +
-                      field.slice(1).replace(/([A-Z])/g, ' $1')}
+                    {field === 'name' 
+                      ? 'Couple Name'
+                      : field.charAt(0).toUpperCase() +
+                        field.slice(1).replace(/([A-Z])/g, ' $1')}
                     {field === 'email' && ' *'}
                   </label>
                   <input
