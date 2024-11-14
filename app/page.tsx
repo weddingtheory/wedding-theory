@@ -260,7 +260,7 @@ export default function Home() {
               >
                 <Link
                   href='/films'
-                  className='group relative inline-flex items-center gap-2 px-8 sm:px-12 py-4 sm:py-5
+                  className='group relative inline-flex items-center gap-2 px-6 sm:px-12 py-3 sm:py-5
                     bg-transparent
                     hover:bg-white/10
                     border border-white/30
@@ -269,11 +269,11 @@ export default function Home() {
                     hover:shadow-[0_8px_30px_rgba(255,255,255,0.3)]
                     hover:scale-105'
                 >
-                  <span className='text-white font-medium tracking-[0.2em] uppercase text-sm sm:text-base'>
+                  <span className='text-white font-medium tracking-[0.2em] uppercase text-xs sm:text-base'>
                     View Films
                   </span>
                   <svg 
-                    className="w-4 h-4 text-white transition-transform duration-300 group-hover:translate-x-1" 
+                    className="w-3 h-3 sm:w-4 sm:h-4 text-white transition-transform duration-300 group-hover:translate-x-1" 
                     fill="none" 
                     stroke="currentColor" 
                     viewBox="0 0 24 24"
