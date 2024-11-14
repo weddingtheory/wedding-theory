@@ -131,7 +131,7 @@ export default function WeddingGalleryCarousel() {
 
   return (
     <div className="w-full overflow-hidden py-8 md:py-12">
-      <div className='mb-12 md:mb-16 flex items-center justify-center max-w-4xl mx-auto px-4'>
+      <div className='mb-16 md:mb-20 flex items-center justify-center max-w-4xl mx-auto px-4'>
         <div className='flex-grow h-[1px] bg-gradient-to-r from-transparent via-[#D4B08C] to-transparent'></div>
         <div className='mx-4 text-[#D4B08C]'>
           <svg
@@ -155,16 +155,16 @@ export default function WeddingGalleryCarousel() {
         <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-gray-800 mb-3">
           WEDDING GALLERY
         </h2>
-        <div className="w-16 md:w-20 h-[1px] bg-[#D4B08C] mx-auto mb-3"></div>
+        <div className="w-16 md:w-20 h-[1px] bg-[#D4B08C] mx-auto mb-4"></div>
         <p className="text-sm md:text-base text-gray-600 max-w-2xl mx-auto px-4">
           Explore our collection of beautiful wedding stories and celebrations
         </p>
       </motion.div>
 
-      <div className="relative w-full max-w-6xl mx-auto px-4 md:px-6">
+      <div className="relative w-full max-w-6xl mx-auto px-4 md:px-8 mb-10 md:mb-14">
         {!isMobile ? (
           <>
-            <div className="min-h-[450px] overflow-hidden">
+            <div className="min-h-[500px] overflow-hidden">
               <AnimatePresence mode="wait">
                 <motion.div 
                   key={currentIndex}
@@ -259,7 +259,7 @@ export default function WeddingGalleryCarousel() {
               </button>
             </div>
 
-            <div className="flex justify-center gap-3 mt-4">
+            <div className="flex justify-center gap-3 mt-8">
               {Array(Math.ceil(weddingStories.length / 3)).fill(null).map((_, index) => (
                 <button
                   key={index}
@@ -393,10 +393,10 @@ export default function WeddingGalleryCarousel() {
         )}
       </div>
 
-      <div className="mt-6 md:mt-12 text-center">
+      <div className="mt-8 md:mt-12 text-center">
         <Link
           href="/weddings"
-          className="inline-block px-4 py-2 text-base
+          className="inline-block px-6 py-3 text-base
             text-[#68401b] font-medium 
             transition-all duration-300 ease-in-out
             hover:text-[#8B5E2B]

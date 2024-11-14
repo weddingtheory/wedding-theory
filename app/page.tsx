@@ -112,8 +112,8 @@ export default function Home() {
             </Link>
           </AnimatedSection>
 
-          {/* Update the Wedding Gallery section wrapper with more top spacing */}
-          <AnimatedSection className='w-full mt-32 md:mt-40'>
+          {/* Update the Wedding Gallery section wrapper with less spacing */}
+          <AnimatedSection className='w-full mt-16 md:mt-20'>
             <WeddingGalleryCarousel />
           </AnimatedSection>
 
