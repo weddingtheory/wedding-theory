@@ -5,8 +5,33 @@ import AnimatedHero from './components/AnimatedHero';
 import AnimatedServiceCard from './components/AnimatedServiceCard';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useState, useEffect } from 'react';
 
 export default function Lahza() {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  const images = [
+    "https://ik.imagekit.io/weddingtheory/Photos/01%20copy.jpg?updatedAt=1730140124794",
+    "https://ik.imagekit.io/weddingtheory/Photos/T&DFIRSTSET-6.JPG?updatedAt=1730206583483",
+    "https://ik.imagekit.io/weddingtheory/Photos/S&CPREWEDFIRSTSET-6.JPG?updatedAt=1730140170874",
+    "https://ik.imagekit.io/weddingtheory/Photos/M&PEngagement-245%20(1).jpg?updatedAt=1730140149027"
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentImageIndex((prevIndex) => 
+          prevIndex === images.length - 1 ? 0 : prevIndex + 1
+        );
+        setIsTransitioning(false);
+      }, 300);
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   // Icons
   const cameraIcon = (
     <svg
@@ -161,14 +186,86 @@ export default function Lahza() {
                 description='Relive an authentic moment with our candid photography! Our team of 2-3 technical experts brings hands-on expertise, a sharp eye for detail, and swift presence of mind to capture every precious moment using the photojournalistic method.'
                 icon={cameraIcon}
                 media={
-                  <div className='aspect-[4/3] relative rounded-2xl overflow-hidden shadow-md'>
-                    <Image
-                      src='https://ik.imagekit.io/weddingtheory/Photos/01%20copy.jpg?updatedAt=1730140124794'
-                      alt='Candid Photography'
-                      fill
-                      className='object-cover'
-                      unoptimized
-                    />
+                  <div className='aspect-[4/3] relative rounded-2xl overflow-hidden shadow-md group'>
+                    <div className='relative w-full h-full'>
+                      {/* Current Image */}
+                      <motion.div
+                        initial={{ opacity: 1 }}
+                        animate={{ opacity: isTransitioning ? 0 : 1 }}
+                        transition={{ duration: 0.5, ease: "easeInOut" }}
+                        className="absolute inset-0"
+                      >
+                        <Image
+                          src={images[currentImageIndex]}
+                          alt='Candid Photography'
+                          fill
+                          className='object-cover transform scale-100 group-hover:scale-105 transition-transform duration-700'
+                          priority
+                        />
+                      </motion.div>
+
+                      {/* Overlay with gradient */}
+                      <div className='absolute inset-0 bg-gradient-to-b from-transparent to-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500' />
+
+                      {/* Navigation Dots */}
+                      <div className='absolute bottom-4 left-0 right-0 z-10'>
+                        <div className='flex justify-center gap-3'>
+                          {images.map((_, index) => (
+                            <button
+                              key={index}
+                              onClick={() => {
+                                setIsTransitioning(true);
+                                setTimeout(() => {
+                                  setCurrentImageIndex(index);
+                                  setIsTransitioning(false);
+                                }, 300);
+                              }}
+                              className={`w-2.5 h-2.5 rounded-full transition-all duration-500 
+                                ${currentImageIndex === index 
+                                  ? 'bg-white scale-125 shadow-lg' 
+                                  : 'bg-white/50 hover:bg-white/70'
+                                }`}
+                              aria-label={`Go to slide ${index + 1}`}
+                            />
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Left/Right Navigation Arrows */}
+                      <div className='absolute inset-0 flex items-center justify-between p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
+                        <button
+                          onClick={() => {
+                            setIsTransitioning(true);
+                            setTimeout(() => {
+                              setCurrentImageIndex(prev => prev === 0 ? images.length - 1 : prev - 1);
+                              setIsTransitioning(false);
+                            }, 300);
+                          }}
+                          className='p-2 rounded-full bg-black/30 hover:bg-black/50 transition-colors duration-300'
+                          aria-label="Previous image"
+                        >
+                          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                          </svg>
+                        </button>
+                        
+                        <button
+                          onClick={() => {
+                            setIsTransitioning(true);
+                            setTimeout(() => {
+                              setCurrentImageIndex(prev => prev === images.length - 1 ? 0 : prev + 1);
+                              setIsTransitioning(false);
+                            }, 300);
+                          }}
+                          className='p-2 rounded-full bg-black/30 hover:bg-black/50 transition-colors duration-300'
+                          aria-label="Next image"
+                        >
+                          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 }
               />
@@ -180,7 +277,7 @@ export default function Lahza() {
                 media={
                   <div className='aspect-[4/3] relative rounded-2xl overflow-hidden shadow-md'>
                     <iframe
-                      src='https://www.youtube.com/embed/flUyMnitCj4'
+                      src='https://www.youtube.com/embed/flUyMnitCj4?autoplay=1&mute=1&loop=1&playlist=flUyMnitCj4'
                       className='absolute inset-0 w-full h-full'
                       allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
                       allowFullScreen
