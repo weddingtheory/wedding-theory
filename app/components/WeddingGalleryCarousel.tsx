@@ -49,38 +49,47 @@ const weddingStories: WeddingStory[] = [
 export default function WeddingGalleryCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  const autoScrollRef = useRef<NodeJS.Timeout | null>(null);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const nextSlide = useCallback(() => {
-    if (isMobile) {
-      setCurrentIndex(prev => 
-        prev + 1 >= weddingStories.length ? 0 : prev + 1
-      );
-    } else {
-      setCurrentIndex(prev => 
-        prev + 3 >= weddingStories.length ? 0 : prev + 3
-      );
+  const resetTimer = useCallback(() => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
     }
+    timerRef.current = setInterval(() => {
+      setCurrentIndex(prev => {
+        if (isMobile) {
+          return (prev + 1) % weddingStories.length;
+        } else {
+          return (prev + 3 >= weddingStories.length) ? 0 : prev + 3;
+        }
+      });
+    }, 6000);
   }, [isMobile]);
 
-  const prevSlide = useCallback(() => {
+  const goToNext = useCallback(() => {
     if (isMobile) {
-      setCurrentIndex(prev => 
-        prev - 1 < 0 ? weddingStories.length - 1 : prev - 1
-      );
+      setCurrentIndex(prev => (prev + 1) % weddingStories.length);
     } else {
-      setCurrentIndex(prev => 
-        prev - 3 < 0 ? Math.max(weddingStories.length - 3, 0) : prev - 3
-      );
+      setCurrentIndex(prev => prev + 3 >= weddingStories.length ? 0 : prev + 3);
     }
-  }, [isMobile]);
+    resetTimer();
+  }, [isMobile, resetTimer]);
 
-  const resetAutoScroll = useCallback(() => {
-    if (autoScrollRef.current) {
-      clearInterval(autoScrollRef.current);
+  const goToPrevious = useCallback(() => {
+    if (isMobile) {
+      setCurrentIndex(prev => prev === 0 ? weddingStories.length - 1 : prev - 1);
+    } else {
+      setCurrentIndex(prev => prev - 3 < 0 ? Math.max(weddingStories.length - 3, 0) : prev - 3);
     }
-    autoScrollRef.current = setInterval(nextSlide, 8000);
-  }, [nextSlide]);
+    resetTimer();
+  }, [isMobile, resetTimer]);
+
+  const handlers = useSwipeable({
+    onSwipedLeft: goToNext,
+    onSwipedRight: goToPrevious,
+    trackMouse: true,
+    trackTouch: true
+  });
 
   useEffect(() => {
     const checkMobile = () => {
@@ -92,42 +101,32 @@ export default function WeddingGalleryCarousel() {
   }, []);
 
   useEffect(() => {
-    resetAutoScroll();
+    resetTimer();
     return () => {
-      if (autoScrollRef.current) {
-        clearInterval(autoScrollRef.current);
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
       }
     };
-  }, [isMobile, resetAutoScroll]);
+  }, [resetTimer]);
 
-  const handlers = useSwipeable({
-    onSwipedLeft: () => {
-      if (currentIndex < weddingStories.length - 1) {
-        setCurrentIndex(prev => prev + 1);
-      }
-    },
-    onSwipedRight: () => {
-      if (currentIndex > 0) {
-        setCurrentIndex(prev => prev - 1);
-      }
-    },
-    trackMouse: true
-  });
+  const handlePrevClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    goToPrevious();
+  };
 
-  useEffect(() => {
-    const autoScroll = () => {
-      if (isMobile) {
-        setCurrentIndex(prev => 
-          prev + 1 >= weddingStories.length ? 0 : prev + 1
-        );
-      } else {
-        nextSlide();
-      }
-    };
+  const handleNextClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    goToNext();
+  };
 
-    const timer = setInterval(autoScroll, 8000);
-    return () => clearInterval(timer);
-  }, [isMobile, nextSlide]);
+  const handleDotClick = (index: number) => {
+    if (isMobile) {
+      setCurrentIndex(index);
+    } else {
+      setCurrentIndex(index * 3);
+    }
+    resetTimer();
+  };
 
   return (
     <div className="w-full overflow-hidden py-8 md:py-12">
@@ -165,14 +164,26 @@ export default function WeddingGalleryCarousel() {
         {!isMobile ? (
           <>
             <div className="min-h-[500px] overflow-hidden">
-              <AnimatePresence mode="wait">
+              <AnimatePresence mode="wait" initial={false}>
                 <motion.div 
                   key={currentIndex}
                   className="flex gap-6 md:gap-10"
-                  initial={{ opacity: 0, x: 100 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -100 }}
-                  transition={{ duration: 0.8 }}
+                  initial={{ 
+                    opacity: 0,
+                    scale: 1.05
+                  }}
+                  animate={{ 
+                    opacity: 1,
+                    scale: 1
+                  }}
+                  exit={{ 
+                    opacity: 0,
+                    scale: 0.95
+                  }}
+                  transition={{ 
+                    duration: 0.7,
+                    ease: [0.645, 0.045, 0.355, 1]
+                  }}
                 >
                   {weddingStories.slice(currentIndex, currentIndex + 3).map((story, index) => (
                     <motion.div
@@ -215,49 +226,25 @@ export default function WeddingGalleryCarousel() {
               </AnimatePresence>
             </div>
 
-            <div className="absolute inset-y-0 -left-4 md:-left-12 lg:-left-16 flex items-center">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  prevSlide();
-                  resetAutoScroll();
-                }}
-                className="group bg-white/80 hover:bg-white 
-                  text-gray-800 p-3 md:p-4 rounded-full
-                  transition-all duration-300 hover:scale-105
-                  border border-[#D4B08C]/30
-                  shadow-lg hover:shadow-xl
-                  backdrop-blur-sm"
-                aria-label="Previous slides"
-              >
-                <IoChevronBackOutline 
-                  size={24} 
-                  className="transform transition-transform group-hover:-translate-x-0.5"
-                />
-              </button>
-            </div>
+            <button
+              onClick={handlePrevClick}
+              className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 
+                text-white/90 p-2 rounded-full transition-all duration-300
+                hover:scale-110 backdrop-blur-sm z-10"
+              aria-label="Previous slide"
+            >
+              <IoChevronBackOutline size={20} />
+            </button>
 
-            <div className="absolute inset-y-0 -right-4 md:-right-12 lg:-right-16 flex items-center">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  nextSlide();
-                  resetAutoScroll();
-                }}
-                className="group bg-white/80 hover:bg-white 
-                  text-gray-800 p-3 md:p-4 rounded-full
-                  transition-all duration-300 hover:scale-105
-                  border border-[#D4B08C]/30
-                  shadow-lg hover:shadow-xl
-                  backdrop-blur-sm"
-                aria-label="Next slides"
-              >
-                <IoChevronForwardOutline 
-                  size={24}
-                  className="transform transition-transform group-hover:translate-x-0.5"
-                />
-              </button>
-            </div>
+            <button
+              onClick={handleNextClick}
+              className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 
+                text-white/90 p-2 rounded-full transition-all duration-300
+                hover:scale-110 backdrop-blur-sm z-10"
+              aria-label="Next slide"
+            >
+              <IoChevronForwardOutline size={20} />
+            </button>
 
             <div className="flex justify-center gap-3 mt-8">
               {Array(Math.ceil(weddingStories.length / 3)).fill(null).map((_, index) => (
@@ -269,27 +256,32 @@ export default function WeddingGalleryCarousel() {
                       ? 'bg-[#D4B08C] w-8' 
                       : 'bg-gray-300 hover:bg-[#D4B08C]/50'
                   }`}
-                  onClick={() => {
-                    setCurrentIndex(index * 3);
-                    resetAutoScroll();
-                  }}
+                  onClick={() => handleDotClick(index)}
                 />
               ))}
             </div>
           </>
         ) : (
           <div {...handlers} className="relative overflow-hidden">
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode="wait" initial={false}>
               <motion.div 
                 key={currentIndex}
                 className="w-full"
-                initial={{ opacity: 0, x: 100 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -100 }}
+                initial={{ 
+                  opacity: 0,
+                  scale: 1.05
+                }}
+                animate={{ 
+                  opacity: 1,
+                  scale: 1
+                }}
+                exit={{ 
+                  opacity: 0,
+                  scale: 0.95
+                }}
                 transition={{ 
-                  type: "spring",
-                  stiffness: 300,
-                  damping: 30
+                  duration: 0.7,
+                  ease: [0.645, 0.045, 0.355, 1]
                 }}
               >
                 <div className="flex flex-col">
@@ -324,53 +316,25 @@ export default function WeddingGalleryCarousel() {
               </motion.div>
             </AnimatePresence>
 
-            <div className="absolute inset-y-0 left-0 md:-left-4 lg:-left-16 flex items-center">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  prevSlide();
-                  resetAutoScroll();
-                }}
-                className="group bg-white/80 hover:bg-white 
-                  text-gray-800 p-2 md:p-3 lg:p-4
-                  rounded-full
-                  transition-all duration-300 hover:scale-105
-                  border border-[#D4B08C]/30
-                  shadow-lg hover:shadow-xl
-                  backdrop-blur-sm
-                  translate-x-1 md:translate-x-0"
-                aria-label="Previous slide"
-              >
-                <IoChevronBackOutline 
-                  size={20} 
-                  className="transform transition-transform group-hover:-translate-x-0.5"
-                />
-              </button>
-            </div>
+            <button
+              onClick={handlePrevClick}
+              className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 
+                text-white/90 p-2 rounded-full transition-all duration-300
+                hover:scale-110 backdrop-blur-sm z-10"
+              aria-label="Previous slide"
+            >
+              <IoChevronBackOutline size={20} />
+            </button>
 
-            <div className="absolute inset-y-0 right-0 md:-right-4 lg:-right-16 flex items-center">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  nextSlide();
-                  resetAutoScroll();
-                }}
-                className="group bg-white/80 hover:bg-white 
-                  text-gray-800 p-2 md:p-3 lg:p-4
-                  rounded-full
-                  transition-all duration-300 hover:scale-105
-                  border border-[#D4B08C]/30
-                  shadow-lg hover:shadow-xl
-                  backdrop-blur-sm
-                  -translate-x-1 md:translate-x-0"
-                aria-label="Next slide"
-              >
-                <IoChevronForwardOutline 
-                  size={20}
-                  className="transform transition-transform group-hover:translate-x-0.5"
-                />
-              </button>
-            </div>
+            <button
+              onClick={handleNextClick}
+              className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 
+                text-white/90 p-2 rounded-full transition-all duration-300
+                hover:scale-110 backdrop-blur-sm z-10"
+              aria-label="Next slide"
+            >
+              <IoChevronForwardOutline size={20} />
+            </button>
 
             <div className="flex justify-center gap-2 mt-3">
               {weddingStories.map((_, index) => (
@@ -382,10 +346,7 @@ export default function WeddingGalleryCarousel() {
                       ? 'bg-[#D4B08C] w-6' 
                       : 'bg-gray-300 hover:bg-[#D4B08C]/50'
                   }`}
-                  onClick={() => {
-                    setCurrentIndex(index);
-                    resetAutoScroll();
-                  }}
+                  onClick={() => handleDotClick(index)}
                 />
               ))}
             </div>
