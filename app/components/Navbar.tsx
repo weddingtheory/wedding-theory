@@ -166,7 +166,11 @@ export default function Navbar() {
                 >
                   <Link
                     href={item.href}
-                    className='text-2xl font-serif text-gray-800 hover:text-black transition-colors'
+                    className={`text-2xl font-serif transition-colors ${
+                      pathname === item.href 
+                        ? 'text-black' 
+                        : 'text-gray-800 hover:text-black'
+                    }`}
                     onClick={toggleMenu}
                   >
                     {item.label}
