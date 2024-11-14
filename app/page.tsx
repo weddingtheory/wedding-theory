@@ -6,6 +6,8 @@ import ImageCarousel from './components/ImageCarousel';
 import Link from 'next/link';
 import Image from 'next/image';
 import AnimatedStats from './components/AnimatedStats';
+import WeddingLogo from '../public/weddinglogo.png';
+import { motion } from 'framer-motion';
 
 export default function Home() {
   const [scale, setScale] = useState(2);
@@ -30,24 +32,57 @@ export default function Home() {
   return (
     <div className='flex flex-col min-h-screen bg-[#f8f5f0]'>
       <main className='flex-grow flex flex-col items-center justify-center px-4 py-4 md:py-8'>
-        <div className='w-full max-w-6xl mx-auto relative'>
-          <AnimatedSection className='text-center md:text-left z-10 mb-8 md:mb-0 md:absolute md:top-0 md:left-0'>
-            <h2 className='font-serif text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-normal text-gray-800 leading-tight md:leading-none'>
-              Celebrating
-            </h2>
-            <h2 className='font-serif text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-normal text-gray-800 leading-tight md:leading-none md:-mt-1 lg:-mt-2'>
-              Indian
-            </h2>
-            <h2 className='font-serif text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-normal text-gray-800 leading-tight md:leading-none md:-mt-1 lg:-mt-2'>
-              love stories
-            </h2>
+        <div className='w-full max-w-[2000px] mx-auto relative'>
+          <AnimatedSection className='text-center z-10 mb-6 md:mb-12'>
+            <div className='flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6'>
+              <div className='flex-shrink-0 mb-2 md:mb-0'>
+                <Image
+                  src={WeddingLogo}
+                  alt="Wedding Theory"
+                  width={30}
+                  height={30}
+                  className='w-14 md:w-20 h-auto object-contain'
+                  priority
+                />
+              </div>
+              <div className='text-center md:text-left flex flex-col items-center md:items-start gap-1'>
+                <h1 className='font-serif text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-normal text-gray-800 leading-tight'>
+                  Wedding Theory
+                </h1>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ 
+                    duration: 0.8, 
+                    delay: 0.5,
+                    ease: "easeOut" 
+                  }}
+                  className="relative mt-0.5 md:mt-1"
+                >
+                  <p className='font-serif text-[11px] sm:text-sm md:text-base text-gray-500 tracking-wider whitespace-nowrap'>
+                    Celebrating Indian Love Stories
+                  </p>
+                  <motion.div 
+                    className="absolute bottom-0 left-0 w-full h-[1px] bg-gray-300"
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    transition={{ 
+                      duration: 0.8, 
+                      delay: 1,
+                      ease: "easeInOut" 
+                    }}
+                    style={{ transformOrigin: 'left' }}
+                  />
+                </motion.div>
+              </div>
+            </div>
           </AnimatedSection>
 
           <AnimatedSection
-            className='relative z-0 md:ml-[15%] md:mt-24'
+            className='relative z-0'
             delay={0.3}
           >
-            <div className='w-[90%] mx-auto md:w-full h-[45vh] md:h-[75vh] max-h-[800px] rounded-xl overflow-hidden'>
+            <div className='w-full h-[65vh] md:h-[92vh] max-h-[1200px] rounded-xl overflow-hidden'>
               <Carousel />
             </div>
           </AnimatedSection>

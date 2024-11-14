@@ -79,18 +79,10 @@ export default function Navbar() {
             <Image
               src='/weddinglogo.png'
               alt='Wedding Theory Logo'
-              width={isHomePage ? 45 : 50}
-              height={isHomePage ? 45 : 50}
-              className={`${isHomePage ? 'mr-3' : ''}`}
+              width={50}
+              height={50}
               unoptimized
             />
-            {isHomePage && (
-              <div className='text-left'>
-                <h1 className='font-serif text-lg md:text-xl font-normal text-gray-800 tracking-wide cursor-pointer'>
-                  WEDDING THEORY
-                </h1>
-              </div>
-            )}
           </Link>
           <motion.button
             onClick={toggleMenu}
@@ -158,14 +150,8 @@ export default function Navbar() {
                   alt='Wedding Theory Logo'
                   width={40}
                   height={40}
-                  className={`${isHomePage ? 'mr-2' : ''}`}
                   unoptimized
                 />
-                {isHomePage && (
-                  <span className='font-serif text-lg text-gray-800'>
-                    WEDDING THEORY
-                  </span>
-                )}
               </div>
             )}
             <ul className={`${isMobile ? 'text-center' : 'text-right pr-8'}`}>
