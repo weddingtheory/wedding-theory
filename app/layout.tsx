@@ -100,9 +100,7 @@ export const metadata: Metadata = {
     capable: true,
   },
 
-  verification: {
-    google: 'your-google-verification-code',
-  },
+ 
 
   // Additional metadata
   applicationName: 'Wedding Theory',
