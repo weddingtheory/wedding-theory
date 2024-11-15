@@ -147,7 +147,7 @@ const Footer = () => {
               href='https://www.abhinavkr.in/'
               target='_blank'
               rel='noopener noreferrer'
-              className='relative inline-block after:content-[""] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-gray-400 after:transition-transform after:duration-300 hover:after:scale-x-100'
+              className='relative inline-block after:content-[""] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-gray-400 after:transition-transform after:duration-300 hover:after:scale-x-100 text-gray-600 hover:text-gray-700 underline'
             >
     
               Abhinav Kumar
