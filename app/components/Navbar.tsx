@@ -74,15 +74,18 @@ export default function Navbar() {
     <nav className='w-full bg-white border-t border-b border-gray-200'>
       <header className='w-full py-3 px-4 bg-white shadow-sm'>
         <div className='max-w-6xl mx-auto flex justify-between items-center'>
-          <Link href='/' className='flex items-center'>
-            <Image
-              src='/weddinglogo.png'
-              alt='Wedding Theory Logo'
-              width={50}
-              height={50}
-              unoptimized
-            />
-          </Link>
+          {pathname !== '/' && (
+            <Link href='/' className='flex items-center'>
+              <Image
+                src='/weddinglogo.png'
+                alt='Wedding Theory Logo'
+                width={50}
+                height={50}
+                unoptimized
+              />
+            </Link>
+          )}
+          {pathname === '/' && <div></div>}
           <motion.button
             onClick={toggleMenu}
             className='text-gray-700 focus:outline-none z-50 relative flex items-center'
@@ -142,7 +145,7 @@ export default function Navbar() {
               isMobile ? 'w-full h-full' : 'w-full md:w-1/3'
             } shadow-lg`}
           >
-            {isMobile && (
+            {isMobile && pathname !== '/' && (
               <div className='absolute top-6 left-4 flex items-center'>
                 <Image
                   src='/weddinglogo.png'
