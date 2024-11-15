@@ -199,7 +199,7 @@ export default function Home() {
                 { number: '500+', label: 'Weddings Captured' },
                 { number: '10+', label: 'Years Experience' },
                 { number: '50+', label: 'Cities Covered' },
-                { number: '1000+', label: 'Happy Couples' },
+                { number: '500+', label: 'Happy Couples' },
               ]}
             />
 
