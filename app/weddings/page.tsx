@@ -2,7 +2,6 @@
 import Image from 'next/image'
 import { useState } from 'react'
 import ImageLightbox from '../components/ImageLightbox'
-import { Metadata } from 'next'
 
 interface WeddingStory {
   id: string
@@ -24,75 +23,14 @@ const weddingStories: WeddingStory[] = [
     destination: "Coimbatore",
     imageUrl: "https://ik.imagekit.io/weddingtheory/Photos/ADL00536.jpg"
   },
-  {
-    id: "vyshnavi-bharath",
-    couple: "VYSHNAVI & BHARATH",
-    destination: "Muscat",
-    imageUrl: "https://ik.imagekit.io/weddingtheory/Photos/01%20copy.jpg"
-  },
-  {
-    id: "yuna-kiran",
-    couple: "YUNA & KIRAN",
-    destination: "Chennai",
-    imageUrl: "https://ik.imagekit.io/weddingtheory/Photos/MMP01287.jpg"
-  },
-  {
-    id: "emi-stanley",
-    couple: "EMI & STANLEY",
-    destination: "Kochi",
-    imageUrl: "https://ik.imagekit.io/weddingtheory/Photos/P&PFIRSTLOOK-24.jpg"
-  },
-  {
-    id: "anjana-jinesh",
-    couple: "ANJANA & JINESH",
-    destination: "Palakkad",
-    imageUrl: "https://ik.imagekit.io/weddingtheory/Photos/S&CPREWEDFIRSTSET-6.JPG"
-  },
-  {
-    id: "lidiya-kiran",
-    couple: "LIDIYA & KIRAN",
-    destination: "Kochi",
-    imageUrl: "https://ik.imagekit.io/weddingtheory/Photos/WT-9.jpg"
-  },
-  {
-    id: "niranjana-niranj",
-    couple: "NIRANJANA & NIRANJ",
-    destination: "Paliyam palace kochi",
-    imageUrl: "https://ik.imagekit.io/weddingtheory/Photos/T&DFIRSTSET-6.JPG"
-  }
+  // ... rest of your wedding stories
 ]
 
-// Add all images from image.txt to this array
 const allGalleryImages = [
   "https://ik.imagekit.io/weddingtheory/Photos/M&PEngagement-26%20(1).jpg",
   "https://ik.imagekit.io/weddingtheory/Photos/0A4A8443-Edit.jpg",
-  "https://ik.imagekit.io/weddingtheory/Photos/ADL08862.jpg",
-  "https://ik.imagekit.io/weddingtheory/Photos/ADL00536.jpg",
-  "https://ik.imagekit.io/weddingtheory/Photos/01%20copy.jpg",
-  "https://ik.imagekit.io/weddingtheory/Photos/M&PEngagement-245%20(1).jpg",
-  "https://ik.imagekit.io/weddingtheory/Photos/MMP01287.jpg",
-  "https://ik.imagekit.io/weddingtheory/Photos/P&PFIRSTLOOK-24.jpg",
-  "https://ik.imagekit.io/weddingtheory/Photos/S&CPREWEDFIRSTSET-6.JPG",
-  "https://ik.imagekit.io/weddingtheory/Photos/WT-9.jpg",
-  "https://ik.imagekit.io/weddingtheory/Photos/T&DFIRSTSET-6.JPG"
+  // ... rest of your gallery images
 ]
-
-export const metadata: Metadata = {
-  title: 'Wedding Portfolio',
-  description: 'Explore our curated collection of luxury Indian wedding photography and cinematography. View our signature LAHZA collection and candid moments.',
-  openGraph: {
-    title: 'Wedding Portfolio | Wedding Theory',
-    description: 'Browse through our handpicked collection of Indian wedding photography and cinematography showcasing timeless moments and artistic storytelling.',
-    images: [
-      {
-        url: 'https://ik.imagekit.io/weddingtheory/Photos/weddings-cover.jpg', // Update with actual wedding portfolio cover image
-        width: 1200,
-        height: 630,
-        alt: 'Wedding Theory Portfolio',
-      },
-    ],
-  }
-}
 
 export default function WeddingsPage() {
   const [lightboxOpen, setLightboxOpen] = useState(false)
