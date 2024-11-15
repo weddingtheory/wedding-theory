@@ -133,7 +133,6 @@ const Footer = () => {
             <Link href='/testimonial' className='hover:text-gray-900'>
               Testimonial
             </Link>
-            
           </div>
 
           {/* Copyright */}
@@ -143,9 +142,7 @@ const Footer = () => {
 
           {/* Developer Credit - Updated with subtle styling and animations */}
           <div className='text-xs text-gray-400 opacity-80 hover:opacity-100 transition-opacity duration-300'>
-            Made with{' '}
-            <span className="inline-block hover:scale-110 transition-transform duration-300">❤️</span>{' '}
-            by{' '}
+            Designed and developed by
             <Link
               href='https://www.abhinavkr.in/'
               target='_blank'
