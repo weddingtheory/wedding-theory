@@ -2,6 +2,7 @@
 import Image from 'next/image'
 import { useState } from 'react'
 import ImageLightbox from '../components/ImageLightbox'
+import { Metadata } from 'next'
 
 interface WeddingStory {
   id: string
@@ -75,6 +76,23 @@ const allGalleryImages = [
   "https://ik.imagekit.io/weddingtheory/Photos/WT-9.jpg",
   "https://ik.imagekit.io/weddingtheory/Photos/T&DFIRSTSET-6.JPG"
 ]
+
+export const metadata: Metadata = {
+  title: 'Wedding Portfolio',
+  description: 'Explore our curated collection of luxury Indian wedding photography and cinematography. View our signature LAHZA collection and candid moments.',
+  openGraph: {
+    title: 'Wedding Portfolio | Wedding Theory',
+    description: 'Browse through our handpicked collection of Indian wedding photography and cinematography showcasing timeless moments and artistic storytelling.',
+    images: [
+      {
+        url: 'https://ik.imagekit.io/weddingtheory/Photos/weddings-cover.jpg', // Update with actual wedding portfolio cover image
+        width: 1200,
+        height: 630,
+        alt: 'Wedding Theory Portfolio',
+      },
+    ],
+  }
+}
 
 export default function WeddingsPage() {
   const [lightboxOpen, setLightboxOpen] = useState(false)

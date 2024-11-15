@@ -13,35 +13,46 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.weddingtheory.co.in'),
-  title: 'Wedding Theory - Premier Wedding Photography & Cinematography',
-  description: 'Wedding Theory specializes in luxury Indian wedding photography and cinematography. From intimate ceremonies to grand celebrations, we capture timeless moments with artistic vision. Experience our signature LAHZA collection, candid photography, and cinematic films.',
-  keywords: 'wedding photography, indian wedding, wedding films, luxury wedding, candid photography, cinematography, LAHZA, wedding albums, wedding stories',
-  
+  title: {
+    template: '%s | Wedding Theory',
+    default: 'Wedding Theory - Premier Wedding Photography & Cinematography'
+  },
+  description:
+    'Wedding Theory - Luxury Indian wedding photography and cinematography services across India. Specializing in candid moments, cinematic films, and our signature LAHZA collection.',
+  keywords:
+    'wedding photography, indian wedding, wedding films, luxury wedding, candid photography, cinematography, LAHZA, wedding albums, wedding stories',
+
   // Icons and Favicon configuration
   icons: {
     icon: [
       { url: '/favicon/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
       { url: '/favicon/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
-      { url: '/favicon/favicon.ico', sizes: 'any' }
+      { url: '/favicon/favicon.ico', sizes: 'any' },
     ],
     apple: [
-      { url: '/favicon/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }
+      {
+        url: '/favicon/apple-touch-icon.png',
+        sizes: '180x180',
+        type: 'image/png',
+      },
     ],
     other: [
       {
         rel: 'mask-icon',
         url: '/favicon/safari-pinned-tab.svg',
-        color: '#68401b'
-      }
-    ]
+        color: '#68401b',
+      },
+    ],
   },
-  
-  manifest: '/favicon/site.webmanifest',
-  
+
   // Existing OpenGraph configuration
   openGraph: {
-    title: 'Wedding Theory - Celebrating Indian Love Stories',
-    description: 'Premier Indian wedding photography and cinematography. 500+ weddings captured, 10+ years experience, 50+ cities covered. Specializing in luxury weddings and our signature LAHZA collection.',
+    title: {
+      template: '%s | Wedding Theory',
+      default: 'Wedding Theory - Celebrating Indian Love Stories'
+    },
+    description:
+      'Premier Indian wedding photography and cinematography. Specializing in luxury weddings, candid photography, and cinematic storytelling across India.',
     url: 'https://www.weddingtheory.co.in',
     siteName: 'Wedding Theory',
     locale: 'en_IN',
@@ -55,15 +66,16 @@ export const metadata: Metadata = {
       },
     ],
   },
-  
+
   // Existing Twitter configuration
   twitter: {
     card: 'summary_large_image',
     title: 'Wedding Theory - Premier Wedding Photography & Cinematography',
-    description: 'Luxury Indian wedding photography and cinematography. Creating timeless memories with artistic vision.',
+    description:
+      'Luxury Indian wedding photography and cinematography. Creating timeless memories with artistic vision.',
     images: ['https://ik.imagekit.io/weddingtheory/Photos/01%20copy.jpg'],
   },
-  
+
   // Existing robots configuration
   robots: {
     index: true,
@@ -76,22 +88,22 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  
+
   alternates: {
     canonical: 'https://www.weddingtheory.co.in',
   },
-  
+
   // Apple web app configuration
   appleWebApp: {
     title: 'Wedding Theory',
     statusBarStyle: 'default',
     capable: true,
   },
-  
+
   verification: {
     google: 'your-google-verification-code',
   },
-  
+
   // Additional metadata
   applicationName: 'Wedding Theory',
   generator: 'Next.js',
