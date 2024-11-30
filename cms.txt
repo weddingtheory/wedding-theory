@@ -1,0 +1,115 @@
+# WEDDING THEORY CMS STRUCTURE
+
+## 1. HOMEPAGE CONTENT
+* Hero Section
+  - Carousel Images
+    > Image URL
+    
+
+* Brand Identity
+  - Logo Image URL
+  - Tagline ("Celebrating Indian Love Stories")
+
+* Introduction Section
+  - Welcome Text (Rich text)
+
+* Statistics Display
+  - Wedding Count (500+ Weddings Captured)
+  - Experience (10+ Years)
+  - Cities Coverage (50+ Cities)
+  - Client Count (500+ Happy Couples)
+
+* Content Display Rules
+  - Wedding Stories: Automatically displays latest 6 stories from Weddings section
+  - Blog Posts: Automatically displays latest 6 posts from Blog section
+
+* Video Background Section
+  - YouTube Video URL
+  - Start Time
+
+* LAHZA Premium Section
+  - Cover Image URL
+  - Title
+
+## 2. WEDDINGS
+* Story Collection
+  - Couple Names
+  - Wedding Date
+  - Location
+  - Featured Image URL
+  - Gallery Images
+    > Image URLs
+ 
+
+## 3. BLOG SYSTEM
+* Blog Posts
+  - Title
+  - Slug
+  - Publish Date
+  - Cover Image URL
+  - Content (Rich Text)
+  - toggle to feature in the blogs page
+  -Images in the blog
+    > Image URLs
+
+
+## 4. FILMS/VIDEOS
+* Wedding Films
+  - Title
+  - Couple Names
+  - Event Date
+  - Location
+  - YouTube/Vimeo URL
+  - Description
+  - Duration
+
+## 5. LAHZA PREMIUM PACKAGE
+* Core Services
+  - Photography
+    > Title
+    > Description
+    > Sample Images (URLs)
+  - Videography
+    > Title
+    > Description
+    > Sample Video URL
+  - Music
+    > Title
+    > Description
+  - Albums
+    > Title
+    > Description
+    > Sample Images (URLs)
+
+## 6. TESTIMONIALS
+* Client Reviews
+  - Couple Names
+  - Wedding Date
+  - Location
+  - Review Text
+  - Photo URL
+  - Video URL (optional)
+  - Display Order
+
+
+## 8. GLOBAL SETTINGS
+* Contact Information
+  - Email Address
+  - Phone Number
+  - Social Media Links
+    > Instagram
+    > Facebook
+    > YouTube
+    > Pinterest
+    > Whatsapp
+
+* SEO Settings
+  - Default Meta Title
+  - Default Meta Description
+  - Site Keywords
+
+* Image Settings
+  - CDN Configuration
+  - Image Optimization Rules
+
+

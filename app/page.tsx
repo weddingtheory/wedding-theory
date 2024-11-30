@@ -39,7 +39,7 @@ export default function Home() {
               <div className='flex-shrink-0 mb-2 md:mb-0'>
                 <Image
                   src={WeddingLogo}
-                  alt="Wedding Theory"
+                  alt='Wedding Theory'
                   width={100}
                   height={100}
                   className='w-14 md:w-20 h-auto object-contain'
@@ -53,24 +53,24 @@ export default function Home() {
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ 
-                    duration: 0.8, 
+                  transition={{
+                    duration: 0.8,
                     delay: 0.5,
-                    ease: "easeOut" 
+                    ease: 'easeOut',
                   }}
-                  className="relative mt-0.5 md:mt-1"
+                  className='relative mt-0.5 md:mt-1'
                 >
                   <p className='font-serif text-[11px] sm:text-sm md:text-base text-gray-500 tracking-wider whitespace-nowrap'>
-                    Celebrating Indian Love Stories
+                    Transforming love stories into timeless art
                   </p>
-                  <motion.div 
-                    className="absolute bottom-0 left-0 w-full h-[1px] bg-gray-300"
+                  <motion.div
+                    className='absolute bottom-0 left-0 w-full h-[1px] bg-gray-300'
                     initial={{ scaleX: 0 }}
                     animate={{ scaleX: 1 }}
-                    transition={{ 
-                      duration: 0.8, 
+                    transition={{
+                      duration: 0.8,
                       delay: 1,
-                      ease: "easeInOut" 
+                      ease: 'easeInOut',
                     }}
                     style={{ transformOrigin: 'left' }}
                   />
@@ -79,10 +79,7 @@ export default function Home() {
             </div>
           </AnimatedSection>
 
-          <AnimatedSection
-            className='relative z-0'
-            delay={0.3}
-          >
+          <AnimatedSection className='relative z-0' delay={0.3}>
             <div className='w-full h-[65vh] md:h-[92vh] max-h-[1200px] rounded-xl overflow-hidden'>
               <Carousel />
             </div>
@@ -241,16 +238,18 @@ export default function Home() {
               className='absolute top-1/2 left-1/2 w-[200%] sm:w-[150%] h-[150%] -translate-x-1/2 -translate-y-1/2'
               style={{
                 pointerEvents: 'none',
-                transform: `translate(-50%, -50%) scale(${isMounted ? (window.innerWidth < 640 ? 3.5 : scale) : 2})`,
+                transform: `translate(-50%, -50%) scale(${
+                  isMounted ? (window.innerWidth < 640 ? 3.5 : scale) : 2
+                })`,
               }}
               allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
               allowFullScreen
               frameBorder='0'
             ></iframe>
-            
+
             {/* Gradient overlay */}
             <div className='absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent' />
-            
+
             {/* Button container */}
             <div className='absolute bottom-0 left-0 right-0 flex justify-center items-center pb-12 sm:pb-16 md:pb-20'>
               <motion.div
@@ -272,17 +271,17 @@ export default function Home() {
                   <span className='text-white font-medium tracking-[0.2em] uppercase text-xs sm:text-base'>
                     View Films
                   </span>
-                  <svg 
-                    className="w-3 h-3 sm:w-4 sm:h-4 text-white transition-transform duration-300 group-hover:translate-x-1" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
+                  <svg
+                    className='w-3 h-3 sm:w-4 sm:h-4 text-white transition-transform duration-300 group-hover:translate-x-1'
+                    fill='none'
+                    stroke='currentColor'
+                    viewBox='0 0 24 24'
                   >
-                    <path 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
-                      strokeWidth={2} 
-                      d="M9 5l7 7-7 7"
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth={2}
+                      d='M9 5l7 7-7 7'
                     />
                   </svg>
                 </Link>
@@ -307,7 +306,7 @@ export default function Home() {
                 priority
               />
               <div className='absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60' />
-              
+
               {/* Overlay Content - Moved to bottom */}
               <div className='absolute inset-x-0 bottom-0 flex flex-col items-center justify-end text-center px-4 pb-12 md:pb-16'>
                 <h3 className='font-serif text-3xl md:text-4xl text-white mb-3'>
