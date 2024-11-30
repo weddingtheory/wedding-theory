@@ -2,13 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import AnimatedSection from './components/AnimatedSection';
 import Carousel from './components/Carousel';
-import ImageCarousel from './components/ImageCarousel';
+// import ImageCarousel from './components/ImageCarousel';
 import Link from 'next/link';
 import Image from 'next/image';
 import AnimatedStats from './components/AnimatedStats';
 import WeddingLogo from '../public/weddinglogo.png';
 import { motion } from 'framer-motion';
-import WeddingGalleryCarousel from './components/WeddingGalleryCarousel';
+// import WeddingGalleryCarousel from './components/WeddingGalleryCarousel';
 
 export default function Home() {
   const [scale, setScale] = useState(2);
