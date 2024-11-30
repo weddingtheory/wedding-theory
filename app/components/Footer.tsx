@@ -59,12 +59,12 @@ const Footer = () => {
         <div className='flex flex-col items-center space-y-8'>
           {/* Main logo */}
           <Link href='/'>
-            <div className='w-48 h-auto'>
+            <div className='w-24 sm:w-32 h-auto'>
               <Image
                 src='/weddinglogo.png'
                 alt='Wedding Theory'
-                width={200}
-                height={100}
+                width={128}
+                height={64}
                 className='w-full h-auto'
               />
             </div>
