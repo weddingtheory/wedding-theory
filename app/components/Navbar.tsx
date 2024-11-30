@@ -71,8 +71,10 @@ export default function Navbar() {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <nav className='w-full bg-white border-t border-b border-gray-200'>
-      <header className='w-full py-3 px-4 bg-white shadow-sm'>
+    <nav className='w-full  '>
+      <header
+        className={`w-full py-3 px-4 ${isMobile ? 'bg-[#f8f5f0]' : 'bg-white'}`}
+      >
         <div className='max-w-6xl mx-auto flex justify-between items-center'>
           {pathname !== '/' && (
             <Link href='/' className='flex items-center'>
@@ -143,7 +145,7 @@ export default function Navbar() {
               isMobile ? 'inset-0' : 'inset-y-0 right-0'
             } bg-white z-40 flex items-center justify-center ${
               isMobile ? 'w-full h-full' : 'w-full md:w-1/3'
-            } shadow-lg`}
+            } `}
           >
             {isMobile && pathname !== '/' && (
               <div className='absolute top-6 left-4 flex items-center'>
@@ -170,8 +172,8 @@ export default function Navbar() {
                   <Link
                     href={item.href}
                     className={`text-2xl font-serif transition-colors ${
-                      pathname === item.href 
-                        ? 'text-black' 
+                      pathname === item.href
+                        ? 'text-black'
                         : 'text-gray-800 hover:text-black'
                     }`}
                     onClick={toggleMenu}

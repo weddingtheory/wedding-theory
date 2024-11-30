@@ -42,24 +42,24 @@ export default function WeddingsPage() {
   }
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className='min-h-screen bg-white'>
       {/* Hero Section with split design */}
-      <section className="relative h-screen mb-16 flex flex-col md:flex-row">
-        <div className="w-full md:w-1/2 h-1/2 md:h-full relative">
+      <section className='relative h-screen mb-16 flex flex-col md:flex-row'>
+        <div className='w-full md:w-1/2 h-1/2 md:h-full relative'>
           <Image
-            src="https://ik.imagekit.io/weddingtheory/Photos/ADL00536.jpg?updatedAt=1730140142519"
-            alt="Wedding Hero Left"
+            src='https://ik.imagekit.io/weddingtheory/Photos/ADL00536.jpg?updatedAt=1730140142519'
+            alt='Wedding Hero Left'
             fill
-            className="object-cover"
+            className='object-cover'
             priority
           />
         </div>
-        <div className="w-full md:w-1/2 h-1/2 md:h-full bg-white flex items-center justify-center p-8">
-          <div className="text-center max-w-xl">
-            <h1 className="text-4xl md:text-6xl text-gray-900 mb-6">
+        <div className='w-full md:w-1/2 h-1/2 md:h-full bg-[#f8f5f0] flex items-center justify-center p-8'>
+          <div className='text-center max-w-xl'>
+            <h1 className='text-4xl md:text-6xl text-gray-900 mb-6'>
               Wedding Gallery
             </h1>
-            <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
+            <p className='text-lg md:text-xl text-gray-600 leading-relaxed'>
               A collection of beautiful moments and cherished memories, where
               each photograph tells a unique story of love and celebration.
             </p>
@@ -68,51 +68,51 @@ export default function WeddingsPage() {
       </section>
 
       {/* Wedding Stories Grid */}
-      <section className="max-w-7xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+      <section className='max-w-7xl mx-auto px-4 py-8'>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12'>
           {weddingStories.map((story, index) => (
             <div
               key={story.id}
-              className="group wedding-story-card cursor-pointer"
+              className='group wedding-story-card cursor-pointer'
               onClick={() => openLightbox(index)}
             >
-              <div className="space-y-4">
-                <div className="aspect-[4/5] rounded-3xl overflow-hidden border-2 border-white shadow-lg">
-                  <div className="w-full h-full transform hover:scale-105 transition-transform duration-500">
+              <div className='space-y-4'>
+                <div className='aspect-[4/5] rounded-3xl overflow-hidden border-2 border-white shadow-lg'>
+                  <div className='w-full h-full transform hover:scale-105 transition-transform duration-500'>
                     <Image
                       src={story.imageUrl}
                       alt={story.couple}
                       width={500}
                       height={625}
-                      className="object-cover w-full h-full"
+                      className='object-cover w-full h-full'
                     />
                   </div>
                 </div>
-                <div className="text-center space-y-2 px-2">
-                  <h3 className="text-xl text-gray-900 font-medium tracking-wide">
+                <div className='text-center space-y-2 px-2'>
+                  <h3 className='text-xl text-gray-900 font-medium tracking-wide'>
                     {story.couple}
                   </h3>
-                  <div className="flex items-center justify-center space-x-2">
+                  <div className='flex items-center justify-center space-x-2'>
                     <svg
-                      className="w-4 h-4 text-gray-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
+                      className='w-4 h-4 text-gray-400'
+                      fill='none'
+                      stroke='currentColor'
+                      viewBox='0 0 24 24'
                     >
                       <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
                         strokeWidth={2}
-                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                        d='M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z'
                       />
                       <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
                         strokeWidth={2}
-                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                        d='M15 11a3 3 0 11-6 0 3 3 0 016 0z'
                       />
                     </svg>
-                    <p className="text-sm text-gray-600">{story.destination}</p>
+                    <p className='text-sm text-gray-600'>{story.destination}</p>
                   </div>
                 </div>
               </div>
@@ -129,5 +129,5 @@ export default function WeddingsPage() {
         onClose={() => setLightboxOpen(false)}
       />
     </main>
-  )
+  );
 }
