@@ -3,66 +3,83 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
-const desktopImages = [
+const images = [
   {
-    url: 'https://ik.imagekit.io/weddingtheory/Photos/WT-9.jpg?updatedAt=1730140178246',
+    url: 'https://ik.imagekit.io/weddingtheory/Photos/Fold%201%20Gallery%20-20241130T074354Z-001/Fold%201%20Gallery/S&YFIRSTLOOK-46.jpg?updatedAt=1732952928150',
     alt: 'Wedding couple portrait',
   },
   {
-    url: 'https://ik.imagekit.io/weddingtheory/Photos/V&PWeddingFirstlook-9.jpg?updatedAt=1730140182197',
-    alt: 'Wedding couple in desert',
+    url: 'https://ik.imagekit.io/weddingtheory/Photos/Fold%201%20Gallery%20-20241130T074354Z-001/Fold%201%20Gallery/YDU02740.jpg?updatedAt=1732952927750',
+    alt: 'Wedding celebration',
   },
   {
-    url: 'https://ik.imagekit.io/weddingtheory/Photos/M&PEngagement-26%20(1).jpg?updatedAt=1730140136930',
-    alt: 'Couple first look',
-  },
-  {
-    url: 'https://ik.imagekit.io/weddingtheory/Photos/T&DWEDDINGCANDID-56.jpg?updatedAt=1730140186211',
+    url: 'https://ik.imagekit.io/weddingtheory/Photos/Fold%201%20Gallery%20-20241130T074354Z-001/Fold%201%20Gallery/_YDU2609.jpg?updatedAt=1732952925864',
     alt: 'Wedding ceremony',
   },
-];
-
-const mobileImages = [
   {
-    url: 'https://ik.imagekit.io/weddingtheory/Photos/ADL06378.JPG?updatedAt=1730140126483',
-    alt: 'Wedding portrait mobile',
+    url: 'https://ik.imagekit.io/weddingtheory/Photos/Fold%201%20Gallery%20-20241130T074354Z-001/Fold%201%20Gallery/S&SWEDDINGFIRSTLOOK_-102.JPG?updatedAt=1732952924220',
+    alt: 'First look moment',
   },
   {
-    url: 'https://ik.imagekit.io/weddingtheory/Photos/01%20copy.jpg?updatedAt=1730140124794',
-    alt: 'Couple portrait mobile',
+    url: 'https://ik.imagekit.io/weddingtheory/Photos/Fold%201%20Gallery%20-20241130T074354Z-001/Fold%201%20Gallery/R&DWEDDINGFIRSTLOOK-9.JPG?updatedAt=1732952922429',
+    alt: 'Wedding couple portrait',
   },
- 
   {
-    url: 'https://ik.imagekit.io/weddingtheory/Photos/M&PEngagement-245%20(1).jpg?updatedAt=1730140149027',
-    alt: 'Engagement mobile',
+    url: 'https://ik.imagekit.io/weddingtheory/Photos/Fold%201%20Gallery%20-20241130T074354Z-001/Fold%201%20Gallery/firstset-6.JPG?updatedAt=1732952920305',
+    alt: 'Wedding celebration',
   },
+  {
+    url: 'https://ik.imagekit.io/weddingtheory/Photos/Fold%201%20Gallery%20-20241130T074354Z-001/Fold%201%20Gallery/G&SRECEPTIONCANDID-19.jpg?updatedAt=1732952919780',
+    alt: 'Reception candid',
+  },
+  {
+    url: 'https://ik.imagekit.io/weddingtheory/Photos/Fold%201%20Gallery%20-20241130T074354Z-001/Fold%201%20Gallery/firstset-9.JPG?updatedAt=1732952918164',
+    alt: 'Wedding portrait',
+  },
+  {
+    url: 'https://ik.imagekit.io/weddingtheory/Photos/Fold%201%20Gallery%20-20241130T074354Z-001/Fold%201%20Gallery/NA401349.jpg?updatedAt=1732952914133',
+    alt: 'Candid wedding moment',
+  },
+  {
+    url: 'https://ik.imagekit.io/weddingtheory/Photos/Fold%201%20Gallery%20-20241130T074354Z-001/Fold%201%20Gallery/ADL05650.jpg?updatedAt=1732952912211',
+    alt: 'Wedding celebration',
+  },
+  {
+    url: 'https://ik.imagekit.io/weddingtheory/Photos/Fold%201%20Gallery%20-20241130T074354Z-001/Fold%201%20Gallery/DSC01108.jpg?updatedAt=1732952910857',
+    alt: 'Wedding portrait',
+  },
+  {
+    url: 'https://ik.imagekit.io/weddingtheory/Photos/Fold%201%20Gallery%20-20241130T074354Z-001/Fold%201%20Gallery/0A4A7575.jpg?updatedAt=1732952909148',
+    alt: 'Couple portrait',
+  },
+  {
+    url: 'https://ik.imagekit.io/weddingtheory/Photos/Fold%201%20Gallery%20-20241130T074354Z-001/Fold%201%20Gallery/Chaitra&SagarPreWedding-84.JPG?updatedAt=1732952907966',
+    alt: 'Pre-wedding shoot',
+  },
+  {
+    url: 'https://ik.imagekit.io/weddingtheory/Photos/Fold%201%20Gallery%20-20241130T074354Z-001/Fold%201%20Gallery/A&Rwddingcandid-63.jpg?updatedAt=1732952905089',
+    alt: 'Wedding candid',
+  },
+  {
+    url: 'https://ik.imagekit.io/weddingtheory/Photos/Fold%201%20Gallery%20-20241130T074354Z-001/Fold%201%20Gallery/ADL00547%20(1).jpg?updatedAt=1732952906662',
+    alt: 'Wedding ceremony',
+  },
+  {
+    url: 'https://ik.imagekit.io/weddingtheory/Photos/Fold%201%20Gallery%20-20241130T074354Z-001/Fold%201%20Gallery/0A4A4018.jpg?updatedAt=1732952907259',
+    alt: 'Wedding portrait',
+  }
 ];
 
 export default function Carousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
-
-  // Check if we're on mobile
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768); // 768px is typical md breakpoint
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % (isMobile ? mobileImages.length : desktopImages.length));
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
     }, 5000);
 
     return () => clearInterval(timer);
-  }, [isMobile]);
-
-  const images = isMobile ? mobileImages : desktopImages;
+  }, []);
 
   return (
     <div className="relative w-full h-full">

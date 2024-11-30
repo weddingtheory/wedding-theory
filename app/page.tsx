@@ -110,9 +110,9 @@ export default function Home() {
           </AnimatedSection>
 
           {/* Update the Wedding Gallery section wrapper with less spacing */}
-          <AnimatedSection className='w-full mt-16 md:mt-20'>
+          {/* <AnimatedSection className='w-full mt-16 md:mt-20'>
             <WeddingGalleryCarousel />
-          </AnimatedSection>
+          </AnimatedSection> */}
 
           {/* Decorative Separator */}
           <div className='my-10 md:my-12 flex items-center justify-center max-w-4xl mx-auto px-4'>
@@ -132,15 +132,15 @@ export default function Home() {
         </div>
       </main>
 
-      {/* Image Carousel Section */}
+      {/* Image Carousel Section
       <AnimatedSection className='w-full h-[60vh] md:h-screen bg-[#f8f5f0] px-4 md:px-8'>
         <div className='h-full w-full max-w-[1400px] mx-auto rounded-2xl overflow-hidden'>
           <ImageCarousel />
         </div>
-      </AnimatedSection>
+      </AnimatedSection> */}
 
       {/* Blog CTA Section */}
-      <AnimatedSection className='w-full bg-[#f8f5f0] py-16 md:py-20'>
+      {/* <AnimatedSection className='w-full bg-[#f8f5f0] py-16 md:py-20'>
         <div className='max-w-4xl mx-auto px-4 text-center'>
           <h3 className='font-serif text-3xl md:text-4xl text-gray-800 mb-6'>
             Explore Our Wedding Journal
@@ -173,7 +173,7 @@ export default function Home() {
             Read Our Blog
           </Link>
         </div>
-      </AnimatedSection>
+      </AnimatedSection> */}
 
       {/* Wedding Stories Section */}
       <AnimatedSection className='w-full bg-[#f8f5f0] py-24 md:py-32'>
