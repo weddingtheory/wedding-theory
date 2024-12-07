@@ -5,68 +5,56 @@ import Image from 'next/image';
 
 const images = [
   {
-    url: 'https://ik.imagekit.io/weddingtheory/Photos/Fold%201%20Gallery%20-20241130T074354Z-001/Fold%201%20Gallery/S&YFIRSTLOOK-46.jpg?updatedAt=1732952928150',
+    url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/0A4A2855%20Edit.jpg',
     alt: 'Wedding couple portrait',
   },
   {
-    url: 'https://ik.imagekit.io/weddingtheory/Photos/Fold%201%20Gallery%20-20241130T074354Z-001/Fold%201%20Gallery/YDU02740.jpg?updatedAt=1732952927750',
-    alt: 'Wedding celebration',
-  },
-  {
-    url: 'https://ik.imagekit.io/weddingtheory/Photos/Fold%201%20Gallery%20-20241130T074354Z-001/Fold%201%20Gallery/_YDU2609.jpg?updatedAt=1732952925864',
-    alt: 'Wedding ceremony',
-  },
-  {
-    url: 'https://ik.imagekit.io/weddingtheory/Photos/Fold%201%20Gallery%20-20241130T074354Z-001/Fold%201%20Gallery/S&SWEDDINGFIRSTLOOK_-102.JPG?updatedAt=1732952924220',
-    alt: 'First look moment',
-  },
-  {
-    url: 'https://ik.imagekit.io/weddingtheory/Photos/Fold%201%20Gallery%20-20241130T074354Z-001/Fold%201%20Gallery/R&DWEDDINGFIRSTLOOK-9.JPG?updatedAt=1732952922429',
-    alt: 'Wedding couple portrait',
-  },
-  {
-    url: 'https://ik.imagekit.io/weddingtheory/Photos/Fold%201%20Gallery%20-20241130T074354Z-001/Fold%201%20Gallery/firstset-6.JPG?updatedAt=1732952920305',
-    alt: 'Wedding celebration',
-  },
-  {
-    url: 'https://ik.imagekit.io/weddingtheory/Photos/Fold%201%20Gallery%20-20241130T074354Z-001/Fold%201%20Gallery/G&SRECEPTIONCANDID-19.jpg?updatedAt=1732952919780',
-    alt: 'Reception candid',
-  },
-  {
-    url: 'https://ik.imagekit.io/weddingtheory/Photos/Fold%201%20Gallery%20-20241130T074354Z-001/Fold%201%20Gallery/firstset-9.JPG?updatedAt=1732952918164',
-    alt: 'Wedding portrait',
-  },
-  {
-    url: 'https://ik.imagekit.io/weddingtheory/Photos/Fold%201%20Gallery%20-20241130T074354Z-001/Fold%201%20Gallery/NA401349.jpg?updatedAt=1732952914133',
-    alt: 'Candid wedding moment',
-  },
-  {
-    url: 'https://ik.imagekit.io/weddingtheory/Photos/Fold%201%20Gallery%20-20241130T074354Z-001/Fold%201%20Gallery/ADL05650.jpg?updatedAt=1732952912211',
-    alt: 'Wedding celebration',
-  },
-  {
-    url: 'https://ik.imagekit.io/weddingtheory/Photos/Fold%201%20Gallery%20-20241130T074354Z-001/Fold%201%20Gallery/DSC01108.jpg?updatedAt=1732952910857',
-    alt: 'Wedding portrait',
-  },
-  {
-    url: 'https://ik.imagekit.io/weddingtheory/Photos/Fold%201%20Gallery%20-20241130T074354Z-001/Fold%201%20Gallery/0A4A7575.jpg?updatedAt=1732952909148',
+    url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/0A4A7575.jpg',
     alt: 'Couple portrait',
   },
   {
-    url: 'https://ik.imagekit.io/weddingtheory/Photos/Fold%201%20Gallery%20-20241130T074354Z-001/Fold%201%20Gallery/Chaitra&SagarPreWedding-84.JPG?updatedAt=1732952907966',
-    alt: 'Pre-wedding shoot',
+    url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/ADL02297.jpg',
+    alt: 'Wedding celebration',
   },
   {
-    url: 'https://ik.imagekit.io/weddingtheory/Photos/Fold%201%20Gallery%20-20241130T074354Z-001/Fold%201%20Gallery/A&Rwddingcandid-63.jpg?updatedAt=1732952905089',
-    alt: 'Wedding candid',
-  },
-  {
-    url: 'https://ik.imagekit.io/weddingtheory/Photos/Fold%201%20Gallery%20-20241130T074354Z-001/Fold%201%20Gallery/ADL00547%20(1).jpg?updatedAt=1732952906662',
+    url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/ADL07659.jpg',
     alt: 'Wedding ceremony',
   },
   {
-    url: 'https://ik.imagekit.io/weddingtheory/Photos/Fold%201%20Gallery%20-20241130T074354Z-001/Fold%201%20Gallery/0A4A4018.jpg?updatedAt=1732952907259',
+    url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/DSC01108.jpg',
     alt: 'Wedding portrait',
+  },
+  {
+    url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/G&SRECEPTIONCANDID-19%20-%20Copy.jpg',
+    alt: 'Reception candid',
+  },
+  {
+    url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/NA401349.jpg',
+    alt: 'Candid wedding moment',
+  },
+  {
+    url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/R&JChristianWeddingFirstlook-38.jpg',
+    alt: 'First look moment',
+  },
+  {
+    url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/S&NFIRSTLOOK-3.JPG',
+    alt: 'Wedding first look',
+  },
+  {
+    url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/YDU02740.jpg',
+    alt: 'Wedding celebration',
+  },
+  {
+    url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/firstset-6.JPG',
+    alt: 'Wedding celebration',
+  },
+  {
+    url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/firstset-9.JPG',
+    alt: 'Wedding portrait',
+  },
+  {
+    url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/L&MFirstlook-58.jpg',
+    alt: 'Wedding first look portrait',
   }
 ];
 
@@ -97,8 +85,11 @@ export default function Carousel() {
             alt={image.alt}
             fill
             className="object-cover"
-            unoptimized
             priority={index === 0}
+            unoptimized
+            loading={index === 0 ? "eager" : "lazy"}
+            sizes="100vw"
+            quality={100}
           />
         </div>
       ))}
