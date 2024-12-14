@@ -8,6 +8,7 @@ interface ImageLightboxProps {
   initialImageIndex: number;
   isOpen: boolean;
   onClose: () => void;
+  onImageChange?: (index: number) => void;
 }
 
 export default function ImageLightbox({
@@ -15,20 +16,29 @@ export default function ImageLightbox({
   initialImageIndex,
   isOpen,
   onClose,
+  onImageChange
 }: ImageLightboxProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(initialImageIndex);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isGridView, setIsGridView] = useState(false);
 
+  useEffect(() => {
+    setCurrentImageIndex(initialImageIndex);
+  }, [initialImageIndex]);
+
   const handlePrevious = useCallback(() => {
     setIsPlaying(false);
-    setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
-  }, [images.length]);
+    const newIndex = currentImageIndex === 0 ? images.length - 1 : currentImageIndex - 1;
+    setCurrentImageIndex(newIndex);
+    onImageChange?.(newIndex);
+  }, [currentImageIndex, images.length, onImageChange]);
 
   const handleNext = useCallback(() => {
     setIsPlaying(false);
-    setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-  }, [images.length]);
+    const newIndex = currentImageIndex === images.length - 1 ? 0 : currentImageIndex + 1;
+    setCurrentImageIndex(newIndex);
+    onImageChange?.(newIndex);
+  }, [currentImageIndex, images.length, onImageChange]);
 
   // Add swipe handlers before any conditional returns
   const handlers = useSwipeable({
@@ -53,10 +63,6 @@ export default function ImageLightbox({
   }, [isOpen]);
 
   useEffect(() => {
-    setCurrentImageIndex(initialImageIndex);
-  }, [initialImageIndex]);
-
-  useEffect(() => {
     let intervalId: NodeJS.Timeout;
     
     if (isPlaying) {
@@ -74,7 +80,8 @@ export default function ImageLightbox({
     setCurrentImageIndex(index);
     setIsGridView(false);
     setIsPlaying(false);
-  }, []);
+    onImageChange?.(index);
+  }, [onImageChange]);
 
   // Add keyboard event handler
   useEffect(() => {

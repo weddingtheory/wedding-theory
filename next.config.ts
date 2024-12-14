@@ -2,7 +2,28 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ['ik.imagekit.io', 'cdn0.weddingwire.in', 'weddingtheory.blr1.cdn.digitaloceanspaces.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'ik.imagekit.io',
+        pathname: '/weddingtheory/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn0.weddingwire.in',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'weddingtheory.blr1.cdn.digitaloceanspaces.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'weddingtheory.blr1.digitaloceanspaces.com',
+        pathname: '/**',
+      }
+    ],
   },
   async redirects() {
     return [
