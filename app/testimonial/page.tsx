@@ -1,27 +1,57 @@
+'use client';
+
+import { createClient } from '@supabase/supabase-js';
+import { useEffect, useState } from 'react';
 import TestimonialCard from './components/TestimonialCard';
 
-const testimonials = [
-  {
-    name: 'Shreyas & Deepa',
-    content: [
-      'I heard of Wedding Theory from a friend and hired them to manage the photography of my wedding. It was a seamless experience with them, they handled everything with minimal intervention and provided candid and traditional photographs in good amounts.',
-      'If you are looking for photographers who will do their job without you having to guide them every step of the way, I would recommend going for them without any second thoughts. They were thoroughly professional and managed to cover all of the rituals. :)'
-    ],
-    imageUrl: 'https://ik.imagekit.io/weddingtheory/Photos/S&CPREWEDFIRSTSET-6.JPG?updatedAt=1730140170874',
-    videoUrl: 'https://www.youtube.com/watch?v=xZK7cI7AHZg'
-  },
-  {
-    name: 'Swaroopa & Srinath',
-    content: [
-      'Everything about Wedding Theory is VERY GOOD. I had an absolutely wonderful experience at my wedding. Their pictures are amazing, Very trendy and extremely friendly photographers.',
-      'I Should say the photography part in my wedding was completely hassle free because of Wedding Theory. They also have a wide range of album options to select from.'
-    ],
-    imageUrl: 'https://ik.imagekit.io/weddingtheory/Photos/ADL08862.jpg?updatedAt=1730140125090&tr=w-1080%2Ch-1350%2Cfo-auto',
-    videoUrl: 'https://www.youtube.com/watch?v=7Wrlso-4Z-c'
-  }
-];
+// Initialize Supabase client
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
+
+interface Testimonial {
+  couple_names: string;
+  review: string | null;
+  image_key: string | null;
+  video_url: string | null;
+  wedding_date: string | null;
+  location: string | null;
+}
 
 export default function TestimonialPage() {
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchTestimonials() {
+      try {
+        const { data, error } = await supabase
+          .from('testimonials')
+          .select('*')
+          .eq('status', 'published')
+          .order('created_at', { ascending: false });
+
+        if (error) throw error;
+        setTestimonials(data || []);
+      } catch (error) {
+        console.error('Error fetching testimonials:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchTestimonials();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className='flex flex-col min-h-screen bg-[#f8f5f0] items-center justify-center'>
+        <div className='animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-800'></div>
+      </div>
+    );
+  }
+
   return (
     <div className='flex flex-col min-h-screen bg-[#f8f5f0]'>
       <main className='flex-grow container mx-auto px-4 py-16 md:py-24'>
@@ -29,8 +59,13 @@ export default function TestimonialPage() {
           {testimonials.map((testimonial, index) => (
             <TestimonialCard
               key={index}
-              {...testimonial}
+              name={testimonial.couple_names}
+              content={testimonial.review ? [testimonial.review] : []}
+              imageUrl={testimonial.image_key || ''}
+              videoUrl={testimonial.video_url || '#'}
               reverse={index % 2 !== 0}
+              location={testimonial.location}
+              weddingDate={testimonial.wedding_date}
             />
           ))}
         </div>
