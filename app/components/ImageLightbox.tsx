@@ -36,19 +36,17 @@ export default function ImageLightbox({
 
   const handlePrevious = useCallback(() => {
     setIsPlaying(false);
-    setProgress(0);
-    const newIndex = currentImageIndex === 0 ? images.length - 1 : currentImageIndex - 1;
-    setCurrentImageIndex(newIndex);
-    if (onImageChange) onImageChange(newIndex);
-  }, [currentImageIndex, images.length, onImageChange]);
+    setCurrentImageIndex(prev => 
+      prev === 0 ? images.length - 1 : prev - 1
+    );
+  }, [images.length]);
 
   const handleNext = useCallback(() => {
     setIsPlaying(false);
-    setProgress(0);
-    const newIndex = currentImageIndex === images.length - 1 ? 0 : currentImageIndex + 1;
-    setCurrentImageIndex(newIndex);
-    if (onImageChange) onImageChange(newIndex);
-  }, [currentImageIndex, images.length, onImageChange]);
+    setCurrentImageIndex(prev => 
+      prev === images.length - 1 ? 0 : prev + 1
+    );
+  }, [images.length]);
 
   // Toggle slideshow
   const toggleSlideshow = useCallback(() => {
@@ -62,18 +60,23 @@ export default function ImageLightbox({
     
     if (isPlaying && !isGridView) {
       timer = setInterval(() => {
-        setCurrentImageIndex(prev => {
-          const nextIndex = prev === images.length - 1 ? 0 : prev + 1;
-          if (onImageChange) onImageChange(nextIndex);
-          return nextIndex;
-        });
+        setCurrentImageIndex(prev => 
+          prev === images.length - 1 ? 0 : prev + 1
+        );
       }, 3000);
     }
 
     return () => {
       if (timer) clearInterval(timer);
     };
-  }, [isPlaying, isGridView, images.length, onImageChange]);
+  }, [isPlaying, isGridView, images.length]);
+
+  // Notify parent of manual image changes only
+  useEffect(() => {
+    if (!isPlaying && onImageChange) {
+      onImageChange(currentImageIndex);
+    }
+  }, [currentImageIndex, onImageChange, isPlaying]);
 
   // Progress bar effect
   useEffect(() => {
@@ -131,8 +134,7 @@ export default function ImageLightbox({
     setCurrentImageIndex(index);
     setIsGridView(false);
     setIsPlaying(false);
-    onImageChange?.(index);
-  }, [onImageChange]);
+  }, []);
 
   // Keyboard navigation
   useEffect(() => {

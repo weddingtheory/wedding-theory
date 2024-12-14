@@ -6,50 +6,57 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useSwipeable } from 'react-swipeable';
 import { IoChevronBackOutline, IoChevronForwardOutline } from 'react-icons/io5';
 import Link from 'next/link';
+import { createClient } from '@supabase/supabase-js';
+import ImageLightbox from './ImageLightbox';
+
+// Initialize Supabase client
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
 
 interface WeddingStory {
-  image: string;
-  names: string;
-  location: string;
+  id: string;
+  couple_names: string;
+  location: string | null;
+  featured_image_key: string | null;
+  gallery_images: string[] | null;
+  wedding_date: string | null;
+  is_featured_home: boolean | null;
+  status: string;
 }
-
-const weddingStories: WeddingStory[] = [
-  {
-    image: 'https://ik.imagekit.io/weddingtheory/Photos/M&PEngagement-26%20(1).jpg',
-    names: 'YUNA & KIRAN',
-    location: 'Destination: Chennai'
-  },
-  {
-    image: 'https://ik.imagekit.io/weddingtheory/Photos/ADL08862.jpg',
-    names: 'KALAYANI & MIDHUN',
-    location: 'Destination: Kochi'
-  },
-  {
-    image: 'https://ik.imagekit.io/weddingtheory/Photos/P&PFIRSTLOOK-24.jpg',
-    names: 'PRIYANKA & VIVEK',
-    location: 'Destination: Ramada Resort Kochi'
-  },
-  {
-    image: 'https://ik.imagekit.io/weddingtheory/Photos/ADL00536.jpg',
-    names: 'ARJUN & MEERA',
-    location: 'Destination: Mumbai'
-  },
-  {
-    image: 'https://ik.imagekit.io/weddingtheory/Photos/MMP01287.jpg',
-    names: 'RAHUL & ANITA',
-    location: 'Destination: Delhi'
-  },
-  {
-    image: 'https://ik.imagekit.io/weddingtheory/Photos/T&DFIRSTSET-6.JPG',
-    names: 'TANVI & DHRUV',
-    location: 'Destination: Jaipur'
-  }
-];
 
 export default function WeddingGalleryCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [weddingStories, setWeddingStories] = useState<WeddingStory[]>([]);
+  const [loading, setLoading] = useState(true);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [selectedStoryIndex, setSelectedStoryIndex] = useState(0);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    async function fetchFeaturedWeddings() {
+      try {
+        const { data, error } = await supabase
+          .from('weddings')
+          .select('*')
+          .eq('status', 'published')
+          .eq('is_featured_home', true)
+          .order('wedding_date', { ascending: false });
+
+        if (error) throw error;
+        setWeddingStories(data || []);
+      } catch (error) {
+        console.error('Error fetching featured weddings:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchFeaturedWeddings();
+  }, []);
 
   const resetTimer = useCallback(() => {
     if (timerRef.current) {
@@ -64,7 +71,7 @@ export default function WeddingGalleryCarousel() {
         }
       });
     }, 6000);
-  }, [isMobile]);
+  }, [isMobile, weddingStories.length]);
 
   const goToNext = useCallback(() => {
     if (isMobile) {
@@ -73,7 +80,7 @@ export default function WeddingGalleryCarousel() {
       setCurrentIndex(prev => prev + 3 >= weddingStories.length ? 0 : prev + 3);
     }
     resetTimer();
-  }, [isMobile, resetTimer]);
+  }, [isMobile, resetTimer, weddingStories.length]);
 
   const goToPrevious = useCallback(() => {
     if (isMobile) {
@@ -82,7 +89,7 @@ export default function WeddingGalleryCarousel() {
       setCurrentIndex(prev => prev - 3 < 0 ? Math.max(weddingStories.length - 3, 0) : prev - 3);
     }
     resetTimer();
-  }, [isMobile, resetTimer]);
+  }, [isMobile, resetTimer, weddingStories.length]);
 
   const handlers = useSwipeable({
     onSwipedLeft: goToNext,
@@ -127,6 +134,32 @@ export default function WeddingGalleryCarousel() {
     }
     resetTimer();
   };
+
+  const openLightbox = useCallback((storyIndex: number) => {
+    setSelectedStoryIndex(storyIndex);
+    setCurrentImageIndex(0);
+    setLightboxOpen(true);
+  }, []);
+
+  // Handler for when user changes image in lightbox
+  const handleImageChange = useCallback((newIndex: number) => {
+    // Use setTimeout to avoid state updates during render
+    setTimeout(() => {
+      setCurrentImageIndex(newIndex);
+    }, 0);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-[400px]">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#68401b]"></div>
+      </div>
+    );
+  }
+
+  if (weddingStories.length === 0) {
+    return null;
+  }
 
   return (
     <div className="w-full overflow-hidden py-8 md:py-12">
@@ -187,19 +220,20 @@ export default function WeddingGalleryCarousel() {
                 >
                   {weddingStories.slice(currentIndex, currentIndex + 3).map((story, index) => (
                     <motion.div
-                      key={index}
-                      className="relative flex-1 group"
+                      key={story.id}
+                      className="relative flex-1 group cursor-pointer"
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.2 }}
+                      onClick={() => openLightbox(currentIndex + index)}
                     >
                       <div className="flex flex-col">
                         <div className="relative aspect-[3/4] rounded-xl overflow-hidden 
                           shadow-lg hover:shadow-xl transition-all duration-500
                           transform hover:-translate-y-1">
                           <Image
-                            src={story.image}
-                            alt={story.names}
+                            src={story.featured_image_key || ''}
+                            alt={story.couple_names}
                             fill
                             className="object-cover transition-transform duration-700 
                               group-hover:scale-105"
@@ -213,11 +247,13 @@ export default function WeddingGalleryCarousel() {
                         </div>
                         <div className="text-center mt-4 transform transition-all duration-500 px-2">
                           <h3 className="font-serif text-xl md:text-2xl text-gray-800 mb-1.5 tracking-wide">
-                            {story.names}
+                            {story.couple_names}
                           </h3>
-                          <p className="text-sm md:text-base text-gray-600 tracking-wider">
-                            {story.location}
-                          </p>
+                          {story.location && (
+                            <p className="text-sm md:text-base text-gray-600 tracking-wider">
+                              {story.location}
+                            </p>
+                          )}
                         </div>
                       </div>
                     </motion.div>
@@ -266,7 +302,7 @@ export default function WeddingGalleryCarousel() {
             <AnimatePresence mode="wait" initial={false}>
               <motion.div 
                 key={currentIndex}
-                className="w-full"
+                className="w-full cursor-pointer"
                 initial={{ 
                   opacity: 0,
                   scale: 1.05
@@ -283,13 +319,14 @@ export default function WeddingGalleryCarousel() {
                   duration: 0.7,
                   ease: [0.645, 0.045, 0.355, 1]
                 }}
+                onClick={() => openLightbox(currentIndex)}
               >
                 <div className="flex flex-col">
                   <div className="relative aspect-[3/4] rounded-xl overflow-hidden 
                     shadow-lg">
                     <Image
-                      src={weddingStories[currentIndex].image}
-                      alt={weddingStories[currentIndex].names}
+                      src={weddingStories[currentIndex]?.featured_image_key || ''}
+                      alt={weddingStories[currentIndex]?.couple_names || ''}
                       fill
                       className="object-cover"
                       sizes="(max-width: 768px) 100vw, 300px"
@@ -306,11 +343,13 @@ export default function WeddingGalleryCarousel() {
                     transition={{ delay: 0.2 }}
                   >
                     <h3 className="font-serif text-xl text-gray-800 mb-1.5 tracking-wide">
-                      {weddingStories[currentIndex].names}
+                      {weddingStories[currentIndex]?.couple_names}
                     </h3>
-                    <p className="text-sm text-gray-600 tracking-wider">
-                      {weddingStories[currentIndex].location}
-                    </p>
+                    {weddingStories[currentIndex]?.location && (
+                      <p className="text-sm text-gray-600 tracking-wider">
+                        {weddingStories[currentIndex].location}
+                      </p>
+                    )}
                   </motion.div>
                 </div>
               </motion.div>
@@ -379,6 +418,15 @@ export default function WeddingGalleryCarousel() {
           Explore More Galleries
         </Link>
       </div>
+
+      {/* Image Lightbox */}
+      <ImageLightbox
+        images={weddingStories[selectedStoryIndex]?.gallery_images || []}
+        initialImageIndex={currentImageIndex}
+        isOpen={lightboxOpen}
+        onClose={() => setLightboxOpen(false)}
+        onImageChange={handleImageChange}
+      />
     </div>
   );
 } 

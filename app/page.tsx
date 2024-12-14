@@ -8,7 +8,7 @@ import Image from 'next/image';
 import AnimatedStats from './components/AnimatedStats';
 import WeddingLogo from '../public/weddinglogo.png';
 import { motion } from 'framer-motion';
-// import WeddingGalleryCarousel from './components/WeddingGalleryCarousel';
+import WeddingGalleryCarousel from './components/WeddingGalleryCarousel';
 
 export default function Home() {
   const [scale, setScale] = useState(2);
@@ -110,9 +110,9 @@ export default function Home() {
           </AnimatedSection>
 
           {/* Update the Wedding Gallery section wrapper with less spacing */}
-          {/* <AnimatedSection className='w-full mt-16 md:mt-20'>
+          <AnimatedSection className='w-full mt-16 md:mt-20'>
             <WeddingGalleryCarousel />
-          </AnimatedSection> */}
+          </AnimatedSection>
 
           {/* Decorative Separator */}
           <div className='my-10 md:my-12 flex items-center justify-center max-w-4xl mx-auto px-4'>
