@@ -1,11 +1,18 @@
 'use client';
 
+import { createClient } from '@supabase/supabase-js';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { DateRange, Range, RangeKeyDict } from 'react-date-range';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import './date-picker.css';
+
+// Initialize Supabase client
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
 
 interface FormErrors {
   name?: string;
@@ -170,29 +177,27 @@ export default function ContactPage() {
 
     setIsSubmitting(true);
 
-    const formattedData = {
-      coupleName: formData.name,
-      email: formData.email,
-      phone: formData.phone,
-      weddingDate: `From ${selectedDates.startDate} to ${selectedDates.endDate}`,
-      story: formData.story
-    };
-
     try {
-      const response = await fetch('https://formspree.io/f/xkgnjzjb', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify(formattedData),
-      });
+      // Format the data for Supabase
+      const submissionData = {
+        couple_name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        wedding_start_date: formData.weddingDate.startDate,
+        wedding_end_date: formData.weddingDate.endDate,
+        story: formData.story
+      };
 
-      if (response.ok) {
-        setIsSubmitted(true);
-      } else {
-        throw new Error('Submission failed');
+      // Insert data into Supabase
+      const { error } = await supabase
+        .from('contact_submissions')
+        .insert([submissionData]);
+
+      if (error) {
+        throw error;
       }
+
+      setIsSubmitted(true);
     } catch (error) {
       console.error('Error submitting form:', error);
     } finally {
@@ -232,18 +237,28 @@ export default function ContactPage() {
 
   if (isSubmitted) {
     return (
-      <div className='min-h-screen flex items-center justify-center bg-[#f8f5f0]'>
+      <div className='min-h-screen flex items-center justify-center bg-[#f8f5f0] px-4'>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className='text-center p-8 rounded-lg bg-white shadow-xl'
+          className='text-center p-8 rounded-lg bg-white shadow-xl w-full max-w-md mx-auto'
         >
-          <h2 className='text-2xl font-serif text-[#68401b] mb-2'>
+          <h2 className='text-2xl sm:text-3xl font-serif text-[#68401b] mb-3'>
             Thank You! 🎉
           </h2>
-          <p className='text-gray-700'>
+          <p className='text-gray-700 text-sm sm:text-base mb-6'>
             We&apos;ve received your message and will get back to you soon.
           </p>
+          <motion.a
+            href="/"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className='inline-block px-4 py-2 text-xs sm:text-sm text-[#68401b] border border-[#68401b]/30 
+                     rounded-full hover:bg-[#68401b] hover:text-white transition-all duration-300
+                     shadow-sm hover:shadow-md'
+          >
+            Back to Home
+          </motion.a>
         </motion.div>
       </div>
     );
