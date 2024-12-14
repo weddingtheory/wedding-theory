@@ -9,6 +9,7 @@ import AnimatedStats from './components/AnimatedStats';
 import WeddingLogo from '../public/weddinglogo.png';
 import { motion } from 'framer-motion';
 // import WeddingGalleryCarousel from './components/WeddingGalleryCarousel';
+import SupabaseTest from './components/SupabaseTest';
 
 export default function Home() {
   const [scale, setScale] = useState(2);
@@ -77,6 +78,10 @@ export default function Home() {
                 </motion.div>
               </div>
             </div>
+          </AnimatedSection>
+
+          <AnimatedSection className='mb-6'>
+            <SupabaseTest />
           </AnimatedSection>
 
           <AnimatedSection className='relative z-0' delay={0.3}>
