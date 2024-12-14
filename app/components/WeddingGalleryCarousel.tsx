@@ -4,7 +4,7 @@ import React, { useRef, useEffect, useState, useCallback } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSwipeable } from 'react-swipeable';
-import { IoChevronBackOutline, IoChevronForwardOutline } from 'react-icons/io5';
+import { IoChevronBackOutline, IoChevronForwardOutline, IoLocationOutline, IoCalendarClearOutline } from 'react-icons/io5';
 import Link from 'next/link';
 import { createClient } from '@supabase/supabase-js';
 import ImageLightbox from './ImageLightbox';
@@ -149,6 +149,11 @@ export default function WeddingGalleryCarousel() {
     }, 0);
   }, []);
 
+  const formatLocation = (location: string | null) => {
+    if (!location) return null;
+    return location.replace(/^\/+|\/+$/g, '').trim();
+  };
+
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-[400px]">
@@ -201,22 +206,10 @@ export default function WeddingGalleryCarousel() {
                 <motion.div 
                   key={currentIndex}
                   className="flex gap-6 md:gap-10"
-                  initial={{ 
-                    opacity: 0,
-                    scale: 1.05
-                  }}
-                  animate={{ 
-                    opacity: 1,
-                    scale: 1
-                  }}
-                  exit={{ 
-                    opacity: 0,
-                    scale: 0.95
-                  }}
-                  transition={{ 
-                    duration: 0.7,
-                    ease: [0.645, 0.045, 0.355, 1]
-                  }}
+                  initial={{ opacity: 0, scale: 1.05 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.7, ease: [0.645, 0.045, 0.355, 1] }}
                 >
                   {weddingStories.slice(currentIndex, currentIndex + 3).map((story, index) => (
                     <motion.div
@@ -246,14 +239,30 @@ export default function WeddingGalleryCarousel() {
                           />
                         </div>
                         <div className="text-center mt-4 transform transition-all duration-500 px-2">
-                          <h3 className="font-serif text-xl md:text-2xl text-gray-800 mb-1.5 tracking-wide">
+                          <h3 className="font-serif text-xl md:text-2xl text-gray-800 mb-2 tracking-wide">
                             {story.couple_names}
                           </h3>
-                          {story.location && (
-                            <p className="text-sm md:text-base text-gray-600 tracking-wider">
-                              {story.location}
-                            </p>
-                          )}
+                          <div className="flex flex-wrap items-center justify-center gap-3 text-gray-600">
+                            {story.wedding_date && (
+                              <div className="flex items-center gap-1.5">
+                                <IoCalendarClearOutline className="w-3.5 h-3.5 flex-shrink-0 relative top-[0.5px]" />
+                                <span className="text-sm tracking-wide">
+                                  {new Date(story.wedding_date).toLocaleDateString('en-US', {
+                                    month: 'long',
+                                    year: 'numeric'
+                                  })}
+                                </span>
+                              </div>
+                            )}
+                            {story.location && (
+                              <div className="flex items-center gap-1.5">
+                                <IoLocationOutline className="w-3.5 h-3.5 flex-shrink-0 relative top-[0.5px]" />
+                                <span className="text-sm tracking-wide">
+                                  {formatLocation(story.location)}
+                                </span>
+                              </div>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </motion.div>
@@ -303,27 +312,14 @@ export default function WeddingGalleryCarousel() {
               <motion.div 
                 key={currentIndex}
                 className="w-full cursor-pointer"
-                initial={{ 
-                  opacity: 0,
-                  scale: 1.05
-                }}
-                animate={{ 
-                  opacity: 1,
-                  scale: 1
-                }}
-                exit={{ 
-                  opacity: 0,
-                  scale: 0.95
-                }}
-                transition={{ 
-                  duration: 0.7,
-                  ease: [0.645, 0.045, 0.355, 1]
-                }}
+                initial={{ opacity: 0, scale: 1.05 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.7, ease: [0.645, 0.045, 0.355, 1] }}
                 onClick={() => openLightbox(currentIndex)}
               >
                 <div className="flex flex-col">
-                  <div className="relative aspect-[3/4] rounded-xl overflow-hidden 
-                    shadow-lg">
+                  <div className="relative aspect-[3/4] rounded-xl overflow-hidden shadow-lg">
                     <Image
                       src={weddingStories[currentIndex]?.featured_image_key || ''}
                       alt={weddingStories[currentIndex]?.couple_names || ''}
@@ -332,9 +328,7 @@ export default function WeddingGalleryCarousel() {
                       sizes="(max-width: 768px) 100vw, 300px"
                       priority
                     />
-                    <div className="absolute inset-0 bg-gradient-to-b 
-                      from-transparent via-transparent to-black/30" 
-                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/30" />
                   </div>
                   <motion.div 
                     className="text-center mt-3 px-2"
@@ -342,14 +336,30 @@ export default function WeddingGalleryCarousel() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
                   >
-                    <h3 className="font-serif text-xl text-gray-800 mb-1.5 tracking-wide">
+                    <h3 className="font-serif text-xl text-gray-800 mb-2 tracking-wide">
                       {weddingStories[currentIndex]?.couple_names}
                     </h3>
-                    {weddingStories[currentIndex]?.location && (
-                      <p className="text-sm text-gray-600 tracking-wider">
-                        {weddingStories[currentIndex].location}
-                      </p>
-                    )}
+                    <div className="flex flex-wrap items-center justify-center gap-3 text-gray-600">
+                      {weddingStories[currentIndex]?.wedding_date && (
+                        <div className="flex items-center gap-1.5">
+                          <IoCalendarClearOutline className="w-3.5 h-3.5 flex-shrink-0 relative top-[0.5px]" />
+                          <span className="text-sm tracking-wide">
+                            {new Date(weddingStories[currentIndex].wedding_date).toLocaleDateString('en-US', {
+                              month: 'long',
+                              year: 'numeric'
+                            })}
+                          </span>
+                        </div>
+                      )}
+                      {weddingStories[currentIndex]?.location && (
+                        <div className="flex items-center gap-1.5">
+                          <IoLocationOutline className="w-3.5 h-3.5 flex-shrink-0 relative top-[0.5px]" />
+                          <span className="text-sm tracking-wide">
+                            {formatLocation(weddingStories[currentIndex].location)}
+                          </span>
+                        </div>
+                      )}
+                    </div>
                   </motion.div>
                 </div>
               </motion.div>
