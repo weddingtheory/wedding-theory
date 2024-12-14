@@ -21,7 +21,7 @@ interface BlogPost {
   slug: string;
 }
 
-async function fetchBlogPost(slug: string) {
+async function fetchBlogPost(slug: string): Promise<BlogPost | null> {
   try {
     const { data: post, error } = await supabase
       .from('blog_posts')
@@ -34,7 +34,7 @@ async function fetchBlogPost(slug: string) {
       return null;
     }
 
-    return post;
+    return post as BlogPost;
   } catch (error) {
     console.error('Error fetching blog post:', error);
     return null;
