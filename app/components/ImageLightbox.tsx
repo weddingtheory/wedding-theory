@@ -21,14 +21,12 @@ export default function ImageLightbox({
   const [currentImageIndex, setCurrentImageIndex] = useState(initialImageIndex);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isGridView, setIsGridView] = useState(false);
-  const [progress, setProgress] = useState(0);
 
   // Reset when opening new gallery
   useEffect(() => {
     if (isOpen) {
       setCurrentImageIndex(0);
       setIsPlaying(false);
-      setProgress(0);
       setIsGridView(false);
       onImageChange?.(0);
     }
@@ -51,7 +49,6 @@ export default function ImageLightbox({
   // Toggle slideshow
   const toggleSlideshow = useCallback(() => {
     setIsPlaying(prev => !prev);
-    setProgress(0);
   }, []);
 
   // Slideshow effect
@@ -77,36 +74,6 @@ export default function ImageLightbox({
       onImageChange(currentImageIndex);
     }
   }, [currentImageIndex, onImageChange, isPlaying]);
-
-  // Progress bar effect
-  useEffect(() => {
-    let progressTimer: NodeJS.Timeout;
-    
-    if (isPlaying && !isGridView) {
-      const startTime = Date.now();
-      
-      const updateProgress = () => {
-        const elapsed = Date.now() - startTime;
-        const newProgress = Math.min((elapsed / 3000) * 100, 100);
-        setProgress(newProgress);
-        
-        if (newProgress < 100) {
-          progressTimer = requestAnimationFrame(updateProgress);
-        }
-      };
-      
-      progressTimer = requestAnimationFrame(updateProgress);
-    }
-
-    return () => {
-      if (progressTimer) cancelAnimationFrame(progressTimer);
-    };
-  }, [isPlaying, isGridView, currentImageIndex]);
-
-  // Reset progress when current image changes
-  useEffect(() => {
-    setProgress(0);
-  }, [currentImageIndex]);
 
   // Add swipe handlers
   const handlers = useSwipeable({
