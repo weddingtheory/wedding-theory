@@ -1,6 +1,6 @@
 'use client'
 import Image from 'next/image'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import ImageLightbox from '../components/ImageLightbox'
 import { createClient } from '@supabase/supabase-js'
 import { format } from 'date-fns'
@@ -59,9 +59,9 @@ export default function WeddingsPage() {
   const selectedStoryGallery = weddingStories[selectedStoryIndex]?.gallery_images || [];
 
   // Handler for when user changes image in lightbox
-  const handleImageChange = (newIndex: number) => {
-    setCurrentImageIndex(newIndex)
-  }
+  const handleImageChange = useCallback((newIndex: number) => {
+    setCurrentImageIndex(newIndex);
+  }, []);
 
   return (
     <main className='min-h-screen bg-white'>

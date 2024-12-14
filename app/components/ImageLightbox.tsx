@@ -21,26 +21,91 @@ export default function ImageLightbox({
   const [currentImageIndex, setCurrentImageIndex] = useState(initialImageIndex);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isGridView, setIsGridView] = useState(false);
+  const [progress, setProgress] = useState(0);
 
+  // Reset when opening new gallery
   useEffect(() => {
-    setCurrentImageIndex(initialImageIndex);
-  }, [initialImageIndex]);
+    if (isOpen) {
+      setCurrentImageIndex(0);
+      setIsPlaying(false);
+      setProgress(0);
+      setIsGridView(false);
+      onImageChange?.(0);
+    }
+  }, [isOpen, onImageChange]);
 
   const handlePrevious = useCallback(() => {
     setIsPlaying(false);
+    setProgress(0);
     const newIndex = currentImageIndex === 0 ? images.length - 1 : currentImageIndex - 1;
     setCurrentImageIndex(newIndex);
-    onImageChange?.(newIndex);
+    if (onImageChange) onImageChange(newIndex);
   }, [currentImageIndex, images.length, onImageChange]);
 
   const handleNext = useCallback(() => {
     setIsPlaying(false);
+    setProgress(0);
     const newIndex = currentImageIndex === images.length - 1 ? 0 : currentImageIndex + 1;
     setCurrentImageIndex(newIndex);
-    onImageChange?.(newIndex);
+    if (onImageChange) onImageChange(newIndex);
   }, [currentImageIndex, images.length, onImageChange]);
 
-  // Add swipe handlers before any conditional returns
+  // Toggle slideshow
+  const toggleSlideshow = useCallback(() => {
+    setIsPlaying(prev => !prev);
+    setProgress(0);
+  }, []);
+
+  // Slideshow effect
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    
+    if (isPlaying && !isGridView) {
+      timer = setInterval(() => {
+        setCurrentImageIndex(prev => {
+          const nextIndex = prev === images.length - 1 ? 0 : prev + 1;
+          if (onImageChange) onImageChange(nextIndex);
+          return nextIndex;
+        });
+      }, 3000);
+    }
+
+    return () => {
+      if (timer) clearInterval(timer);
+    };
+  }, [isPlaying, isGridView, images.length, onImageChange]);
+
+  // Progress bar effect
+  useEffect(() => {
+    let progressTimer: NodeJS.Timeout;
+    
+    if (isPlaying && !isGridView) {
+      const startTime = Date.now();
+      
+      const updateProgress = () => {
+        const elapsed = Date.now() - startTime;
+        const newProgress = Math.min((elapsed / 3000) * 100, 100);
+        setProgress(newProgress);
+        
+        if (newProgress < 100) {
+          progressTimer = requestAnimationFrame(updateProgress);
+        }
+      };
+      
+      progressTimer = requestAnimationFrame(updateProgress);
+    }
+
+    return () => {
+      if (progressTimer) cancelAnimationFrame(progressTimer);
+    };
+  }, [isPlaying, isGridView, currentImageIndex]);
+
+  // Reset progress when current image changes
+  useEffect(() => {
+    setProgress(0);
+  }, [currentImageIndex]);
+
+  // Add swipe handlers
   const handlers = useSwipeable({
     onSwipedLeft: handleNext,
     onSwipedRight: handlePrevious,
@@ -62,20 +127,6 @@ export default function ImageLightbox({
     };
   }, [isOpen]);
 
-  useEffect(() => {
-    let intervalId: NodeJS.Timeout;
-    
-    if (isPlaying) {
-      intervalId = setInterval(() => {
-        setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-      }, 3000);
-    }
-
-    return () => {
-      if (intervalId) clearInterval(intervalId);
-    };
-  }, [isPlaying, images.length]);
-
   const handleImageClick = useCallback((index: number) => {
     setCurrentImageIndex(index);
     setIsGridView(false);
@@ -83,7 +134,7 @@ export default function ImageLightbox({
     onImageChange?.(index);
   }, [onImageChange]);
 
-  // Add keyboard event handler
+  // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!isOpen) return;
@@ -116,7 +167,32 @@ export default function ImageLightbox({
       aria-modal="true"
       aria-label="Image gallery"
     >
-      {/* Close button - Updated positioning and styling */}
+      {/* Progress Bar */}
+      {isPlaying && !isGridView && (
+        <>
+          <style jsx>{`
+            @keyframes progressAnimation {
+              from {
+                transform: scaleX(0);
+              }
+              to {
+                transform: scaleX(1);
+              }
+            }
+            .progress-bar {
+              height: 2px;
+              background: rgba(255, 255, 255, 0.2);
+              transform-origin: left;
+              animation: progressAnimation 3s linear infinite;
+            }
+          `}</style>
+          <div className="fixed top-0 left-0 right-0 h-[2px] bg-white/5 z-[70]">
+            <div className="progress-bar w-full h-full" />
+          </div>
+        </>
+      )}
+
+      {/* Close button */}
       <button
         onClick={onClose}
         className={`fixed top-4 right-4 text-white z-[60] p-2 hover:opacity-80 bg-black/40 rounded-full ${
@@ -141,23 +217,19 @@ export default function ImageLightbox({
 
       {!isGridView && (
         <>
-          {/* Updated Previous button */}
+          {/* Previous button */}
           <button
             onClick={handlePrevious}
-            className='fixed left-2 md:left-4 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 
-              text-white/90 p-2 rounded-full transition-all duration-300
-              hover:scale-110 backdrop-blur-sm z-[60]'
+            className="fixed left-2 md:left-4 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 text-white/90 p-2 rounded-full transition-all duration-300 hover:scale-110 backdrop-blur-sm z-[60]"
             aria-label="Previous image"
           >
             <IoChevronBackOutline size={24} />
           </button>
 
-          {/* Updated Next button */}
+          {/* Next button */}
           <button
             onClick={handleNext}
-            className='fixed right-2 md:right-4 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 
-              text-white/90 p-2 rounded-full transition-all duration-300
-              hover:scale-110 backdrop-blur-sm z-[60]'
+            className="fixed right-2 md:right-4 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 text-white/90 p-2 rounded-full transition-all duration-300 hover:scale-110 backdrop-blur-sm z-[60]"
             aria-label="Next image"
           >
             <IoChevronForwardOutline size={24} />
@@ -165,14 +237,14 @@ export default function ImageLightbox({
         </>
       )}
 
-      {/* Main content area - Add swipe handlers */}
+      {/* Main content area */}
       <div 
         {...handlers}
         className='relative w-full h-full flex items-center justify-center p-4'
         style={{ touchAction: 'pan-y pinch-zoom' }}
       >
         {isGridView ? (
-          // Grid View - Updated spacing and layout
+          // Grid View
           <div className='w-full h-full overflow-y-auto px-4 pt-16 pb-20'>
             <div className='max-w-7xl mx-auto'>
               <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6'>
@@ -202,7 +274,7 @@ export default function ImageLightbox({
             </div>
           </div>
         ) : (
-          // Single Image View - Add touch-action
+          // Single Image View
           <div className='relative w-full max-w-5xl h-[80vh] touch-pan-y'>
             <Image
               src={images[currentImageIndex]}
@@ -216,14 +288,14 @@ export default function ImageLightbox({
         )}
       </div>
 
-      {/* Bottom controls - Updated positioning and styling */}
+      {/* Bottom controls */}
       <div className={`fixed bottom-4 left-1/2 -translate-x-1/2 text-white flex items-center gap-3 z-[60] bg-black/40 px-4 py-2 rounded-full ${
         isGridView ? 'mb-2' : ''
       }`}>
         {!isGridView && (
           <button
-            onClick={() => setIsPlaying(!isPlaying)}
-            className='hover:opacity-80'
+            onClick={toggleSlideshow}
+            className='hover:opacity-80 transition-opacity duration-200'
             aria-label={isPlaying ? 'Pause slideshow' : 'Play slideshow'}
           >
             {isPlaying ? (
@@ -264,7 +336,7 @@ export default function ImageLightbox({
           </button>
         )}
         
-        {/* Grid view toggle button */}
+        {/* Grid view toggle */}
         <button
           onClick={() => {
             setIsGridView(!isGridView);
