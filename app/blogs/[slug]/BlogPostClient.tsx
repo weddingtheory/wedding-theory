@@ -158,7 +158,7 @@ export default function BlogPostClient({ post }: BlogPostClientProps) {
                       {/* Image overlay with number */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <div className="absolute bottom-3 left-3 lg:bottom-4 lg:left-4 text-white text-xs lg:text-sm bg-black/30 px-2 py-0.5 lg:px-3 lg:py-1 rounded-full backdrop-blur-sm">
-                          Image {index + 1} of {post.gallery_images.length}
+                          Image {index + 1} of {post.gallery_images?.length || 0}
                         </div>
                       </div>
                     </div>
@@ -187,7 +187,7 @@ export default function BlogPostClient({ post }: BlogPostClientProps) {
                     {/* Thumbnail overlay with number */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <div className="absolute bottom-2 left-2 text-white text-[10px] lg:text-xs bg-black/30 px-1.5 py-0.5 lg:px-2 lg:py-0.5 rounded-full backdrop-blur-sm">
-                        {index + 1} / {post.gallery_images.length}
+                        {index + 1} / {post.gallery_images?.length || 0}
                       </div>
                     </div>
                   </motion.div>
