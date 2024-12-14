@@ -25,12 +25,12 @@ export default function ImageLightbox({
   // Reset when opening new gallery
   useEffect(() => {
     if (isOpen) {
-      setCurrentImageIndex(0);
+      setCurrentImageIndex(initialImageIndex);
       setIsPlaying(false);
       setIsGridView(false);
-      onImageChange?.(0);
+      onImageChange?.(initialImageIndex);
     }
-  }, [isOpen, onImageChange]);
+  }, [isOpen, onImageChange, initialImageIndex]);
 
   const handlePrevious = useCallback(() => {
     setIsPlaying(false);

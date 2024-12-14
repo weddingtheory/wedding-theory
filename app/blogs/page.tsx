@@ -3,69 +3,60 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { IoChevronBackOutline, IoChevronForwardOutline } from 'react-icons/io5';
+import { IoChevronBackOutline, IoChevronForwardOutline, IoLocationOutline, IoCalendarClearOutline } from 'react-icons/io5';
 import { useSwipeable } from 'react-swipeable';
+import { createClient } from '@supabase/supabase-js';
 
-const blogPosts = [
-  {
-    id: 1,
-    title: 'Neelam & Siddharth – In Perfect Sync',
-    date: 'AUGUST 23, 2024',
-    category: 'WEDDING',
-    image:
-      'https://ik.imagekit.io/weddingtheory/Photos/M&PEngagement-26%20(1).jpg?updatedAt=1730140136930',
-    excerpt: 'A beautiful celebration of love and tradition...',
-  },
-  {
-    id: 2,
-    title: 'Elizabeth & Shaun – A Royal Affair',
-    date: 'JULY 5, 2024',
-    category: 'WEDDING',
-    image:
-      'https://ik.imagekit.io/weddingtheory/Photos/0A4A8443-Edit.jpg?updatedAt=1730140135728',
-    excerpt: 'Where tradition meets modern elegance...',
-  },
-  {
-    id: 3,
-    title: 'Emilia & Rishi ~ A Garden Romance',
-    date: 'JUNE 26, 2024',
-    category: 'WEDDING',
-    image:
-      'https://ik.imagekit.io/weddingtheory/Photos/ADL00536.jpg?updatedAt=1730140142519',
-    excerpt: 'An enchanting outdoor celebration...',
-  },
-  {
-    id: 4,
-    title: "Prerna & Vidal – It's Always Wine Time",
-    date: 'JUNE 15, 2024',
-    category: 'WEDDING',
-    image:
-      'https://ik.imagekit.io/weddingtheory/Photos/ADL08862.jpg?updatedAt=1730140125090',
-    excerpt: 'A celebration filled with love and laughter...',
-  },
-  {
-    id: 5,
-    title: 'Sarah & Chris – Sunset Promises',
-    date: 'MAY 30, 2024',
-    category: 'WEDDING',
-    image:
-      'https://ik.imagekit.io/weddingtheory/Photos/MMP01287.jpg?updatedAt=1730140146040',
-    excerpt: 'A magical evening of love...',
-  },
-  {
-    id: 6,
-    title: 'Maya & Raj – Traditional Elegance',
-    date: 'MAY 15, 2024',
-    category: 'WEDDING',
-    image:
-      'https://ik.imagekit.io/weddingtheory/Photos/S&CPREWEDFIRSTSET-6.JPG?updatedAt=1730140170874',
-    excerpt: 'Where traditions tell their own story...',
-  },
-];
+// Initialize Supabase client
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
+
+interface BlogPost {
+  id: string;
+  title: string;
+  published_at: string | null;
+  featured_image_key: string | null;
+  location: string | null;
+  wedding_date: string | null;
+  slug: string;
+  status: string;
+  is_featured_home: boolean | null;
+}
+
+// Format location by removing slashes and trimming whitespace
+const formatLocation = (location: string | null) => {
+  if (!location) return null;
+  return location.replace(/^\/+|\/+$/g, '').trim();
+};
 
 export default function BlogsPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
   const lastTransitionTimeRef = useRef(Date.now());
+
+  useEffect(() => {
+    async function fetchBlogPosts() {
+      try {
+        const { data, error } = await supabase
+          .from('blog_posts')
+          .select('*')
+          .eq('status', 'published')
+          .order('published_at', { ascending: false });
+
+        if (error) throw error;
+        setBlogPosts(data || []);
+      } catch (error) {
+        console.error('Error fetching blog posts:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchBlogPosts();
+  }, []);
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -75,35 +66,36 @@ export default function BlogsPage() {
         const currentTime = Date.now();
         const timeElapsed = currentTime - lastTransitionTimeRef.current;
         
-        if (timeElapsed >= 3000) {  // 4 seconds
+        if (timeElapsed >= 3000) {  // 3 seconds
           setCurrentIndex((prev) => (prev + 1) % blogPosts.length);
           lastTransitionTimeRef.current = currentTime;
         }
       }, 3000);
     };
 
-    startTimer();
+    if (blogPosts.length > 0) {
+      startTimer();
+    }
 
     return () => {
       if (timer) clearInterval(timer);
     };
-  }, []);
+  }, [blogPosts.length]);
 
   const goToNext = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % blogPosts.length);
-    lastTransitionTimeRef.current = Date.now(); // Reset timer on manual navigation
-  }, []);
+    lastTransitionTimeRef.current = Date.now();
+  }, [blogPosts.length]);
 
   const goToPrevious = useCallback(() => {
     setCurrentIndex((prev) => 
       prev === 0 ? blogPosts.length - 1 : prev - 1
     );
-    lastTransitionTimeRef.current = Date.now(); // Reset timer on manual navigation
-  }, []);
+    lastTransitionTimeRef.current = Date.now();
+  }, [blogPosts.length]);
 
   // Carousel Component
   const CarouselSection = () => {
-    // Add these handlers inside the component to ensure proper context
     const handlers = useSwipeable({
       onSwipedLeft: goToNext,
       onSwipedRight: goToPrevious,
@@ -112,6 +104,21 @@ export default function BlogsPage() {
       delta: 10,
       rotationAngle: 0,
     });
+
+    if (loading) {
+      return (
+        <div className="flex justify-center items-center h-full">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#68401b]"></div>
+        </div>
+      );
+    }
+
+    if (blogPosts.length === 0) {
+      return null;
+    }
+
+    const currentPost = blogPosts[currentIndex];
+    const formattedLocation = formatLocation(currentPost.location);
 
     return (
       <div
@@ -129,8 +136,8 @@ export default function BlogsPage() {
             className='absolute inset-0'
           >
             <Image
-              src={blogPosts[currentIndex].image}
-              alt={blogPosts[currentIndex].title}
+              src={currentPost.featured_image_key || ''}
+              alt={currentPost.title}
               fill
               className='object-cover'
               priority
@@ -146,15 +153,29 @@ export default function BlogsPage() {
               transition={{ delay: 0.2, duration: 0.5 }}
             >
               <div className='flex flex-col gap-1 lg:gap-2'>
-                <p className='text-[10px] lg:text-xs font-light relative z-10 text-white/70 tracking-wide'>
-                  {blogPosts[currentIndex].date} /{' '}
-                  {blogPosts[currentIndex].category}
-                </p>
+                <div className="flex flex-wrap gap-4 mb-2">
+                  {currentPost.wedding_date && (
+                    <div className="flex items-center gap-2 text-white/80 text-[10px] lg:text-xs">
+                      <IoCalendarClearOutline className="w-3 h-3 lg:w-4 lg:h-4" />
+                      <span>{new Date(currentPost.wedding_date).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                      })}</span>
+                    </div>
+                  )}
+                  {formattedLocation && (
+                    <div className="flex items-center gap-2 text-white/80 text-[10px] lg:text-xs">
+                      <IoLocationOutline className="w-3 h-3 lg:w-4 lg:h-4" />
+                      <span>{formattedLocation}</span>
+                    </div>
+                  )}
+                </div>
                 <h3 className='font-serif text-base lg:text-3xl leading-tight relative z-10 text-white/90'>
-                  {blogPosts[currentIndex].title}
+                  {currentPost.title}
                 </h3>
                 <Link
-                  href={`/blogs/${blogPosts[currentIndex].id}`}
+                  href={`/blogs/${currentPost.slug}`}
                   className='inline-block mt-1 px-3 py-1 lg:px-4 lg:py-1.5 border border-white/40 rounded-full 
                     text-[10px] lg:text-xs hover:bg-white hover:text-black transition-all duration-300
                     transform hover:scale-105 backdrop-blur-sm bg-black/10
@@ -165,7 +186,7 @@ export default function BlogsPage() {
               </div>
             </motion.div>
 
-            {/* Navigation Dots - Adjusted for mobile */}
+            {/* Navigation Dots */}
             <div className='absolute bottom-4 right-4 lg:bottom-12 lg:right-20 flex gap-1.5 lg:gap-2'>
               {blogPosts.map((_, index) => (
                 <button
@@ -186,7 +207,7 @@ export default function BlogsPage() {
           </motion.div>
         </AnimatePresence>
 
-        {/* Left/Right Navigation Buttons */}
+        {/* Navigation Buttons */}
         <button
           onClick={goToPrevious}
           className='absolute left-4 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full transition-all duration-300'
@@ -223,45 +244,62 @@ export default function BlogsPage() {
           <h1 className='font-serif text-4xl md:text-5xl lg:text-6xl text-gray-800 mb-16'>
             Latest Stories
           </h1>
-          <div className='space-y-24 mb-24'>
-            {blogPosts.map((post) => (
-              <motion.article
-                key={post.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-100px' }}
-                transition={{ duration: 0.6 }}
-                className='group cursor-pointer'
-              >
-                <div className='relative h-64 md:h-[500px] mb-6 overflow-hidden rounded-2xl'>
-                  <Image
-                    src={post.image}
-                    alt={post.title}
-                    fill
-                    className='object-cover transition-transform duration-700 group-hover:scale-105'
-                  />
-                  <div className='absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-500' />
-                </div>
-                <div className='space-y-4'>
-                  <p className='text-sm text-gray-500'>
-                    {post.date} / {post.category}
-                  </p>
-                  <h2 className='font-serif text-2xl md:text-3xl text-gray-800 transition-colors duration-300 group-hover:text-gray-600'>
-                    {post.title}
-                  </h2>
-                  <p className='text-gray-600 leading-relaxed'>
-                    {post.excerpt}
-                  </p>
-                  <Link
-                    href={`/blogs/${post.id}`}
-                    className='inline-block mt-4 text-sm font-medium text-gray-800 hover:text-gray-600 transition-colors duration-300'
+          {loading ? (
+            <div className="flex justify-center items-center py-16">
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#68401b]"></div>
+            </div>
+          ) : (
+            <div className='space-y-24 mb-24'>
+              {blogPosts.map((post) => {
+                const formattedLocation = formatLocation(post.location);
+                return (
+                  <motion.article
+                    key={post.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-100px' }}
+                    transition={{ duration: 0.6 }}
+                    className='group cursor-pointer'
                   >
-                    Read More →
-                  </Link>
-                </div>
-              </motion.article>
-            ))}
-          </div>
+                    <Link href={`/blogs/${post.slug}`}>
+                      <div className='relative h-64 md:h-[500px] mb-6 overflow-hidden rounded-2xl'>
+                        <Image
+                          src={post.featured_image_key || ''}
+                          alt={post.title}
+                          fill
+                          className='object-cover transition-transform duration-700 group-hover:scale-105'
+                        />
+                        <div className='absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-500' />
+                      </div>
+                      <div className='space-y-2'>
+                        <div className="flex flex-wrap gap-4 mb-2">
+                          {post.wedding_date && (
+                            <div className="flex items-center gap-2 text-gray-600 text-sm">
+                              <IoCalendarClearOutline className="w-4 h-4" />
+                              <span>{new Date(post.wedding_date).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric'
+                              })}</span>
+                            </div>
+                          )}
+                          {formattedLocation && (
+                            <div className="flex items-center gap-2 text-gray-600 text-sm">
+                              <IoLocationOutline className="w-4 h-4" />
+                              <span>{formattedLocation}</span>
+                            </div>
+                          )}
+                        </div>
+                        <h2 className='font-serif text-2xl md:text-3xl text-gray-800 group-hover:text-[#68401b] transition-colors duration-300'>
+                          {post.title}
+                        </h2>
+                      </div>
+                    </Link>
+                  </motion.article>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
     </div>
