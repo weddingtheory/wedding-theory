@@ -68,11 +68,11 @@ export default function ImageCarousel() {
         const currentTime = Date.now();
         const timeElapsed = currentTime - lastTransitionTimeRef.current;
         
-        if (timeElapsed >= 3000) {  // 3 seconds
+        if (timeElapsed >= 4500) {  // Changed to 4.5 seconds
           setCurrentIndex((prev) => (prev + 1) % blogPosts.length);
           lastTransitionTimeRef.current = currentTime;
         }
-      }, 3000);
+      }, 4500);  // Changed to 4.5 seconds
     };
 
     if (blogPosts.length > 0) {
