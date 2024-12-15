@@ -8,12 +8,11 @@ import { usePathname } from 'next/navigation';
 
 const navItems = [
   { href: '/', label: 'Home' },
-  { href: '/lahza', label: 'LAHZA' },
+  // { href: '/lahza', label: 'LAHZA' },  // Commented out until future release
   { href: '/films', label: 'Films' },
   { href: '/weddings', label: 'Weddings' },
   { href: '/blogs', label: 'Blogs' },
   { href: '/testimonial', label: 'Testimonial' },
-  { href: '/team', label: 'Team' },
   { href: '/contact', label: 'Contact' },
   { href: '/about', label: 'About' },
 ];
