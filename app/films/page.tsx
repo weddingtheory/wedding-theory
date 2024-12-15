@@ -16,20 +16,9 @@ interface Film {
 }
 
 export default function Films() {
-  const [scale, setScale] = useState(2);
   const [films, setFilms] = useState<Film[]>([]);
   const [loading, setLoading] = useState(true);
   const supabase = createClient();
-
-  useEffect(() => {
-    const handleResize = () => {
-      setScale(window.innerWidth < 640 ? 2.8 : 2);
-    };
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   useEffect(() => {
     async function fetchFilms() {
@@ -57,7 +46,7 @@ export default function Films() {
     }
 
     fetchFilms();
-  }, []);
+  }, [supabase]);
 
   // Helper function to convert YouTube URL to embed URL
   const getEmbedUrl = (url: string | null) => {

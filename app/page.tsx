@@ -11,23 +11,10 @@ import { motion } from 'framer-motion';
 import WeddingGalleryCarousel from './components/WeddingGalleryCarousel';
 
 export default function Home() {
-  const [scale, setScale] = useState(2);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
-    const handleResize = () => {
-      setScale(window.innerWidth < 640 ? 2.8 : 2);
-    };
-
-    // Set initial scale
-    handleResize();
-
-    // Add event listener
-    window.addEventListener('resize', handleResize);
-
-    // Cleanup
-    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return (
