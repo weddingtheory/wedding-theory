@@ -186,19 +186,19 @@ export default function Home() {
           </AnimatedSection>
 
           {/* Wedding Gallery section */}
-          <AnimatedSection className='w-full mt-16 md:mt-20'>
+          <AnimatedSection className='w-full mt-14 md:mt-20'>
             <WeddingGalleryCarousel />
           </AnimatedSection>
 
           {/* Image Carousel Section */}
-          <AnimatedSection className='w-full h-[60vh] md:h-screen bg-[#f8f5f0]'>
+          <AnimatedSection className='w-full h-[60vh] md:h-screen bg-[#f8f5f0] mt-14 md:mt-20'>
             <div className='h-full w-full max-w-[1400px] mx-auto rounded-2xl overflow-hidden'>
               <ImageCarousel />
             </div>
           </AnimatedSection>
 
-          {/* Blog CTA Section */}
-          <AnimatedSection className='w-full bg-[#f8f5f0] py-16 md:py-20'>
+          {/* Blog CTA Section - Adjusted spacing */}
+          <AnimatedSection className='w-full bg-[#f8f5f0] pt-14 pb-16 md:pt-20 md:pb-24'>
             <div className='max-w-4xl mx-auto px-4 text-center'>
               <h3 className='font-serif text-3xl md:text-4xl text-gray-800 mb-6'>
                 Explore Our Wedding Journal
@@ -233,8 +233,8 @@ export default function Home() {
             </div>
           </AnimatedSection>
 
-          {/* LAHZA Promotion Section - Second to last */}
-          <AnimatedSection className='w-full bg-[#f8f5f0] py-20 md:py-32'>
+          {/* LAHZA Promotion Section - Adjusted spacing */}
+          <AnimatedSection className='w-full bg-[#f8f5f0] pt-14 pb-20 md:pt-20 md:pb-32'>
             <div className='max-w-7xl mx-auto px-4'>
               <div className='relative'>
                 {/* Hero Image */}
@@ -277,8 +277,8 @@ export default function Home() {
             </div>
           </AnimatedSection>
 
-          {/* Wedding Stories Section - Last */}
-          <AnimatedSection className='w-full bg-[#f8f5f0] py-24 md:py-32'>
+          {/* Wedding Stories Section - Adjusted spacing */}
+          <AnimatedSection className='w-full bg-[#f8f5f0] pt-14 pb-20 md:pt-20 md:pb-32'>
             <div className='max-w-6xl mx-auto px-4'>
               <div className='text-center'>
                 <h3 className='font-serif text-3xl md:text-5xl lg:text-6xl text-gray-800 mb-8'>
