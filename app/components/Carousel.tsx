@@ -52,10 +52,6 @@ const images = [
     url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/firstset-9.JPG',
     alt: 'Wedding portrait',
   },
-  {
-    url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/L&MFirstlook-58.jpg',
-    alt: 'Wedding first look portrait',
-  }
 ];
 
 export default function Carousel() {
