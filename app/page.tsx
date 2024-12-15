@@ -84,19 +84,20 @@ export default function Home() {
         {/* Video Gallery Section - Moved to top */}
         <AnimatedSection className='w-full relative bg-[#fcfaf7]'>
           <div className='w-full h-[60vh] sm:h-[80vh] md:h-screen overflow-hidden relative'>
-            <iframe
-              src='https://www.youtube.com/embed/0Ky81YMuR7k?start=10&autoplay=1&mute=1&controls=0&loop=1&playlist=0Ky81YMuR7k&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&enablejsapi=1&playsinline=1&fs=0&disablekb=1&origin=yourwebsite.com'
-              className='absolute top-1/2 left-1/2 w-[200%] sm:w-[150%] h-[150%] -translate-x-1/2 -translate-y-1/2'
+            <video
+              src="https://weddingtheory.blr1.cdn.digitaloceanspaces.com/video/Flims%20cover%20page.mp4"
+              className='absolute top-1/2 left-1/2 w-full h-full object-cover -translate-x-1/2 -translate-y-1/2'
               style={{
                 pointerEvents: 'none',
                 transform: `translate(-50%, -50%) scale(${
-                  isMounted ? (window.innerWidth < 640 ? 3.5 : scale) : 2
+                  isMounted ? (window.innerWidth < 640 ? 1.2 : 1) : 1
                 })`,
               }}
-              allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-              allowFullScreen
-              frameBorder='0'
-            ></iframe>
+              autoPlay
+              muted
+              loop
+              playsInline
+            />
             <div className='absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent' />
             <div className='absolute bottom-0 left-0 right-0 flex justify-center items-center pb-12 sm:pb-16 md:pb-20'>
               <motion.div

@@ -83,20 +83,22 @@ export default function Films() {
       {/* Hero Video Section */}
       <section className='relative h-[50vh] sm:h-[80vh] md:h-[90vh] w-full overflow-hidden'>
         <div className='absolute inset-0 w-full h-full'>
-          <iframe
-            src='https://www.youtube.com/embed/0Ky81YMuR7k?start=10&autoplay=1&mute=1&controls=0&loop=1&playlist=0Ky81YMuR7k&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3'
-            className='absolute w-full h-full object-cover scale-[2] sm:scale-125'
+          <video
+            src="https://weddingtheory.blr1.cdn.digitaloceanspaces.com/video/Flims%20cover%20page.mp4"
+            className='absolute w-full h-full object-cover'
             style={{
               pointerEvents: 'none',
-              border: 'none',
-              outline: 'none',
-              transform: `translate(-50%, -50%) scale(${scale})`,
+              transform: `translate(-50%, -50%) scale(${
+                window.innerWidth < 640 ? 1.2 : 1
+              })`,
               top: '50%',
               left: '50%',
             }}
-            allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-            allowFullScreen
-          ></iframe>
+            autoPlay
+            muted
+            loop
+            playsInline
+          />
           <div className='absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60'></div>
         </div>
 
