@@ -73,7 +73,7 @@ export default function Films() {
       <section className='relative h-[50vh] sm:h-[80vh] md:h-[90vh] w-full overflow-hidden'>
         <div className='absolute inset-0 w-full h-full'>
           <video
-            src="https://weddingtheory.blr1.cdn.digitaloceanspaces.com/video/Flims%20cover%20page.mp4"
+            src='https://weddingtheory.blr1.cdn.digitaloceanspaces.com/video/insta%20flim%2001.mp4'
             className='absolute w-full h-full object-cover'
             style={{
               pointerEvents: 'none',
@@ -125,7 +125,11 @@ export default function Films() {
                     className='w-full h-full absolute inset-0 transition-transform duration-700 
                               group-hover:scale-105'
                     style={{ border: 'none' }}
-                    src={`${getEmbedUrl(film.video_url)}?autoplay=1&mute=1&loop=1&playlist=${film.video_url?.split('v=')[1]}`}
+                    src={`${getEmbedUrl(
+                      film.video_url
+                    )}?autoplay=1&mute=1&loop=1&playlist=${
+                      film.video_url?.split('v=')[1]
+                    }`}
                     title={film.title || ''}
                     allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
                     allowFullScreen
@@ -160,19 +164,22 @@ export default function Films() {
                           <div className='flex items-center gap-2 text-gray-500'>
                             <Calendar className='w-4 h-4 text-[#68401b]' />
                             <span>
-                              {new Date(film.wedding_date).toLocaleDateString('en-US', {
-                                year: 'numeric',
-                                month: 'long',
-                                day: 'numeric'
-                              })}
+                              {new Date(film.wedding_date).toLocaleDateString(
+                                'en-US',
+                                {
+                                  year: 'numeric',
+                                  month: 'long',
+                                  day: 'numeric',
+                                }
+                              )}
                             </span>
                           </div>
                         )}
                       </div>
                     </div>
-                    
+
                     <div className='w-16 h-[1px] bg-[#D4B08C] mx-auto md:mx-0'></div>
-                    
+
                     {film.description && (
                       <p className='text-gray-600 font-light text-base sm:text-lg leading-relaxed'>
                         {film.description}
@@ -183,8 +190,8 @@ export default function Films() {
               </div>
             ))
           ) : (
-            <div className="text-center py-8">
-              <p className="text-gray-600">No films available</p>
+            <div className='text-center py-8'>
+              <p className='text-gray-600'>No films available</p>
             </div>
           )}
         </div>
@@ -196,7 +203,9 @@ export default function Films() {
           <h3 className='font-serif text-3xl sm:text-4xl md:text-5xl font-light text-[#68401b]'>
             Ready to tell your story?
           </h3>
-          <p className='text-gray-600 text-lg'>Let us capture your special moments in our signature style</p>
+          <p className='text-gray-600 text-lg'>
+            Let us capture your special moments in our signature style
+          </p>
           <Link
             href='/contact'
             className='inline-block px-10 py-4 text-base 
