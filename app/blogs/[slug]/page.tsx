@@ -19,13 +19,14 @@ interface BlogPost {
   location: string | null;
   wedding_date: string | null;
   slug: string;
+  video_url: string | null;
 }
 
 async function fetchBlogPost(slug: string): Promise<BlogPost | null> {
   try {
     const { data: post, error } = await supabase
       .from('blog_posts')
-      .select('*')
+      .select('id, title, content, published_at, featured_image_key, gallery_images, location, wedding_date, slug, video_url')
       .eq('slug', slug)
       .eq('status', 'published')
       .single();

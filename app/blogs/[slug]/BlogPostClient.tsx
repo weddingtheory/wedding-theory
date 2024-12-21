@@ -17,6 +17,7 @@ interface BlogPost {
   location: string | null;
   wedding_date: string | null;
   slug: string;
+  video_url: string | null;
 }
 
 interface BlogPostClientProps {
@@ -31,6 +32,12 @@ export default function BlogPostClient({ post }: BlogPostClientProps) {
   const formatLocation = (location: string | null) => {
     if (!location) return null;
     return location.replace(/^\/+|\/+$/g, '').trim();
+  };
+
+  const getEmbedUrl = (url: string | null) => {
+    if (!url) return '';
+    const videoId = url.match(/(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/watch\?v=|\/user\/\S+|\/ytscreeningroom\?v=|\/sandalsResorts#\w\/\w\/.*\/))([^\/&\?]{10,12})/);
+    return videoId ? `https://www.youtube.com/embed/${videoId[1]}?autoplay=1&mute=1&loop=1&playlist=${videoId[1]}` : '';
   };
 
   const formattedLocation = formatLocation(post.location);
@@ -100,6 +107,18 @@ export default function BlogPostClient({ post }: BlogPostClientProps) {
 
       {/* Content Section */}
       <div className="max-w-4xl mx-auto px-4 py-12 lg:py-24">
+        {/* Video Section */}
+        {post.video_url && (
+          <div className="mb-12 lg:mb-16 relative aspect-video w-full overflow-hidden rounded-xl">
+            <iframe
+              src={getEmbedUrl(post.video_url)}
+              className="absolute inset-0 w-full h-full"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+        )}
+
         <div className="prose prose-base lg:prose-lg max-w-none">
           <div dangerouslySetInnerHTML={{ __html: post.content }} />
         </div>
