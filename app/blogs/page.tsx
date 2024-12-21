@@ -253,11 +253,11 @@ export default function BlogsPage() {
                 const formattedLocation = formatLocation(post.location);
                 return (
                   <Link 
+                    key={post.id}
                     href={`/blogs/${post.slug}`} 
                     className="group block transition-all duration-300 active:scale-[0.98] cursor-pointer"
                   >
                     <motion.article
-                      key={post.id}
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, margin: '-100px' }}
