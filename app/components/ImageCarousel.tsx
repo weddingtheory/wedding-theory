@@ -145,45 +145,42 @@ export default function ImageCarousel() {
           <div className='absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black opacity-60' />
           <motion.div
             className='absolute bottom-12 left-4 right-4 lg:bottom-24 lg:left-20 lg:right-auto text-white z-10 
-              max-w-[calc(100%-2rem)] lg:max-w-lg
-              backdrop-blur-md bg-black/30 p-3 lg:p-4 rounded-lg
-              border border-white/10 shadow-lg'
+              max-w-[calc(100%-2rem)] lg:max-w-lg'
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
           >
-            <div className='flex flex-col gap-1 lg:gap-2'>
-              <div className="flex flex-wrap gap-4 mb-2">
-                {currentPost.wedding_date && (
-                  <div className="flex items-center gap-2 text-white/80 text-[10px] lg:text-xs">
-                    <IoCalendarClearOutline className="w-3 h-3 lg:w-4 lg:h-4" />
-                    <span>{new Date(currentPost.wedding_date).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric'
-                    })}</span>
-                  </div>
-                )}
-                {formattedLocation && (
-                  <div className="flex items-center gap-2 text-white/80 text-[10px] lg:text-xs">
-                    <IoLocationOutline className="w-3 h-3 lg:w-4 lg:h-4" />
-                    <span>{formattedLocation}</span>
-                  </div>
-                )}
+            <Link
+              href={`/blogs/${currentPost.slug}`}
+              className='group block backdrop-blur-md bg-black/30 p-3 lg:p-4 rounded-lg
+                border border-white/10 shadow-lg transition-all duration-300
+                active:scale-[0.98] lg:hover:scale-[1.02] lg:hover:bg-black/40 lg:hover:shadow-2xl'
+            >
+              <div className='flex flex-col gap-1 lg:gap-2'>
+                <div className="flex flex-wrap gap-4 mb-2">
+                  {currentPost.wedding_date && (
+                    <div className="flex items-center gap-2 text-white/80 text-[10px] lg:text-xs transition-colors duration-300 group-hover:text-[#f8f5f0]">
+                      <IoCalendarClearOutline className="w-3 h-3 lg:w-4 lg:h-4" />
+                      <span>{new Date(currentPost.wedding_date).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                      })}</span>
+                    </div>
+                  )}
+                  {formattedLocation && (
+                    <div className="flex items-center gap-2 text-white/80 text-[10px] lg:text-xs transition-colors duration-300 group-hover:text-[#f8f5f0]">
+                      <IoLocationOutline className="w-3 h-3 lg:w-4 lg:h-4" />
+                      <span>{formattedLocation}</span>
+                    </div>
+                  )}
+                </div>
+                <h3 className='font-serif text-base lg:text-3xl leading-tight relative z-10 text-white/90 
+                  transition-colors duration-300 group-hover:text-[#f8f5f0]'>
+                  {currentPost.title}
+                </h3>
               </div>
-              <h3 className='font-serif text-base lg:text-3xl leading-tight relative z-10 text-white/90'>
-                {currentPost.title}
-              </h3>
-              <Link
-                href={`/blogs/${currentPost.slug}`}
-                className='inline-block mt-1 px-3 py-1 lg:px-4 lg:py-1.5 border border-white/40 rounded-full 
-                  text-[10px] lg:text-xs hover:bg-white hover:text-black transition-all duration-300
-                  transform hover:scale-105 backdrop-blur-sm bg-black/10
-                  text-white/80 hover:text-black w-fit'
-              >
-                Read Story
-              </Link>
-            </div>
+            </Link>
           </motion.div>
 
           {/* Navigation Dots */}
