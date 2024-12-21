@@ -135,56 +135,58 @@ export default function BlogsPage() {
             transition={{ duration: 0.7 }}
             className='absolute inset-0'
           >
-            <Image
-              src={currentPost.featured_image_key || ''}
-              alt={currentPost.title}
-              fill
-              className='object-cover'
-              priority
-            />
-            <div className='absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black opacity-60' />
-            <motion.div
-              className='absolute bottom-12 left-4 right-4 lg:bottom-24 lg:left-20 lg:right-auto text-white z-10 
-                max-w-[calc(100%-2rem)] lg:max-w-lg'
-              initial={{ y: 50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
+            <Link
+              href={`/blogs/${currentPost.slug}`}
+              className='group block relative h-full'
             >
-              <Link
-                href={`/blogs/${currentPost.slug}`}
-                className='group block backdrop-blur-md bg-black/30 p-3 lg:p-4 rounded-lg
-                  border border-white/10 shadow-lg transition-all duration-300
-                  active:scale-[0.98] lg:hover:scale-[1.02] lg:hover:bg-black/40 lg:hover:shadow-2xl'
+              <Image
+                src={currentPost.featured_image_key || ''}
+                alt={currentPost.title}
+                fill
+                className='object-cover'
+                priority
+              />
+              <div className='absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black opacity-60' />
+              <motion.div
+                className='absolute bottom-12 left-4 right-4 lg:bottom-24 lg:left-20 lg:right-auto text-white z-10 
+                  max-w-[calc(100%-2rem)] lg:max-w-lg'
+                initial={{ y: 50, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.2, duration: 0.5 }}
               >
-                <div className='flex flex-col gap-1 lg:gap-2'>
-                  <div className="flex flex-wrap gap-4 mb-2">
-                    {currentPost.wedding_date && (
-                      <div className="flex items-center gap-2 text-white/80 text-[10px] lg:text-xs group-hover:text-white transition-colors duration-300">
-                        <IoCalendarClearOutline className="w-3 h-3 lg:w-4 lg:h-4" />
-                        <span>{new Date(currentPost.wedding_date).toLocaleDateString('en-US', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric'
-                        })}</span>
-                      </div>
-                    )}
-                    {formattedLocation && (
-                      <div className="flex items-center gap-2 text-white/80 text-[10px] lg:text-xs group-hover:text-white transition-colors duration-300">
-                        <IoLocationOutline className="w-3 h-3 lg:w-4 lg:h-4" />
-                        <span>{formattedLocation}</span>
-                      </div>
-                    )}
+                <div className='backdrop-blur-md bg-black/30 p-3 lg:p-4 rounded-lg
+                  border border-white/10 shadow-lg transition-all duration-300
+                  active:scale-[0.98] lg:hover:scale-[1.02] lg:hover:bg-black/40 lg:hover:shadow-2xl'>
+                  <div className='flex flex-col gap-1 lg:gap-2'>
+                    <div className="flex flex-wrap gap-4 mb-2">
+                      {currentPost.wedding_date && (
+                        <div className="flex items-center gap-2 text-white/80 text-[10px] lg:text-xs group-hover:text-white transition-colors duration-300">
+                          <IoCalendarClearOutline className="w-3 h-3 lg:w-4 lg:h-4" />
+                          <span>{new Date(currentPost.wedding_date).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                          })}</span>
+                        </div>
+                      )}
+                      {formattedLocation && (
+                        <div className="flex items-center gap-2 text-white/80 text-[10px] lg:text-xs group-hover:text-white transition-colors duration-300">
+                          <IoLocationOutline className="w-3 h-3 lg:w-4 lg:h-4" />
+                          <span>{formattedLocation}</span>
+                        </div>
+                      )}
+                    </div>
+                    <h3 className='font-serif text-base lg:text-3xl leading-tight relative z-10 text-white/90 
+                      transition-colors duration-300 group-hover:text-white'>
+                      {currentPost.title}
+                    </h3>
                   </div>
-                  <h3 className='font-serif text-base lg:text-3xl leading-tight relative z-10 text-white/90 
-                    transition-colors duration-300 group-hover:text-white'>
-                    {currentPost.title}
-                  </h3>
                 </div>
-              </Link>
-            </motion.div>
+              </motion.div>
+            </Link>
 
             {/* Navigation Dots */}
-            <div className='absolute bottom-4 right-4 lg:bottom-12 lg:right-20 flex gap-1.5 lg:gap-2'>
+            <div className='absolute bottom-4 right-4 lg:bottom-12 lg:right-20 flex gap-1.5 lg:gap-2 z-20'>
               {blogPosts.map((_, index) => (
                 <button
                   key={index}
@@ -250,17 +252,16 @@ export default function BlogsPage() {
               {blogPosts.map((post) => {
                 const formattedLocation = formatLocation(post.location);
                 return (
-                  <motion.article
-                    key={post.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: '-100px' }}
-                    transition={{ duration: 0.6 }}
-                    className='group cursor-pointer'
+                  <Link 
+                    href={`/blogs/${post.slug}`} 
+                    className="group block transition-all duration-300 active:scale-[0.98] cursor-pointer"
                   >
-                    <Link 
-                      href={`/blogs/${post.slug}`} 
-                      className="block transition-all duration-300 active:scale-[0.98]"
+                    <motion.article
+                      key={post.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: '-100px' }}
+                      transition={{ duration: 0.6 }}
                     >
                       <div className='relative h-64 md:h-[500px] mb-6 overflow-hidden rounded-2xl 
                         shadow-lg group-hover:shadow-2xl transition-all duration-300'
@@ -297,8 +298,8 @@ export default function BlogsPage() {
                           {post.title}
                         </h2>
                       </div>
-                    </Link>
-                  </motion.article>
+                    </motion.article>
+                  </Link>
                 );
               })}
             </div>
