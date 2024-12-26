@@ -51,17 +51,43 @@ export default function Films() {
   // Helper function to convert YouTube URL to embed URL
   const getEmbedUrl = (url: string | null) => {
     if (!url) return '';
-    const videoId = url.match(/(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|\/watch\?v=|\/user\/\S+|\/ytscreeningroom\?v=|\/sandalsResorts#\w\/\w\/.*\/))([^\/&\?]{10,12})/);
-    return videoId ? `https://www.youtube.com/embed/${videoId[1]}` : '';
+
+    // Regular expressions for different YouTube URL formats
+    const patterns = [
+      // youtu.be URLs
+      /(?:https?:\/\/)?(?:www\.)?youtu\.be\/([a-zA-Z0-9_-]{11})(?:\?.*)?/,
+      // youtube.com/watch URLs
+      /(?:https?:\/\/)?(?:www\.|m\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})(?:&.*)?/,
+      // youtube.com/embed URLs
+      /(?:https?:\/\/)?(?:www\.)?youtube\.com\/embed\/([a-zA-Z0-9_-]{11})(?:\?.*)?/,
+      // youtube.com/v URLs
+      /(?:https?:\/\/)?(?:www\.)?youtube\.com\/v\/([a-zA-Z0-9_-]{11})(?:\?.*)?/,
+      // youtube.com/shorts URLs
+      /(?:https?:\/\/)?(?:www\.)?youtube\.com\/shorts\/([a-zA-Z0-9_-]{11})(?:\?.*)?/,
+    ];
+
+    // Try each pattern until we find a match
+    for (const pattern of patterns) {
+      const match = url.match(pattern);
+      if (match && match[1]) {
+        // Return both the embed URL and video ID
+        return {
+          embedUrl: `https://www.youtube.com/embed/${match[1]}`,
+          videoId: match[1],
+        };
+      }
+    }
+
+    return { embedUrl: '', videoId: '' };
   };
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#f8f5f0] flex items-center justify-center">
-        <div className="flex items-center space-x-2">
-          <div className="w-2 h-2 bg-[#68401b] rounded-full animate-bounce [animation-delay:-0.3s]"></div>
-          <div className="w-2 h-2 bg-[#68401b] rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-          <div className="w-2 h-2 bg-[#68401b] rounded-full animate-bounce"></div>
+      <div className='min-h-screen bg-[#f8f5f0] flex items-center justify-center'>
+        <div className='flex items-center space-x-2'>
+          <div className='w-2 h-2 bg-[#68401b] rounded-full animate-bounce [animation-delay:-0.3s]'></div>
+          <div className='w-2 h-2 bg-[#68401b] rounded-full animate-bounce [animation-delay:-0.15s]'></div>
+          <div className='w-2 h-2 bg-[#68401b] rounded-full animate-bounce'></div>
         </div>
       </div>
     );
@@ -125,13 +151,13 @@ export default function Films() {
                     className='w-full h-full absolute inset-0 transition-transform duration-700 
                               group-hover:scale-105'
                     style={{ border: 'none' }}
-                    src={`${getEmbedUrl(
-                      film.video_url
-                    )}?autoplay=1&mute=1&loop=1&playlist=${
-                      film.video_url?.split('v=')[1]
-                    }`}
+                    src={(() => {
+                      const { embedUrl, videoId } = getEmbedUrl(film.video_url);
+                      return `${embedUrl}?rel=0&modestbranding=1&autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=1`;
+                    })()}
                     title={film.title || ''}
                     allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+                    loading='lazy'
                     allowFullScreen
                   ></iframe>
                 </div>
