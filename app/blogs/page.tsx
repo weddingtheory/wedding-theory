@@ -44,7 +44,7 @@ export default function BlogsPage() {
           .from('blog_posts')
           .select('*')
           .eq('status', 'published')
-          .order('published_at', { ascending: false });
+          .order('wedding_date', { ascending: false });
 
         if (error) throw error;
         setBlogPosts(data || []);

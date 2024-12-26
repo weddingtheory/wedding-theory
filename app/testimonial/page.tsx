@@ -30,7 +30,7 @@ export default function TestimonialPage() {
           .from('testimonials')
           .select('*')
           .eq('status', 'published')
-          .order('created_at', { ascending: false });
+          .order('wedding_date', { ascending: false });
 
         if (error) throw error;
         setTestimonials(data || []);
