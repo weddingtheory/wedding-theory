@@ -5,52 +5,32 @@ import Image from 'next/image';
 
 const images = [
   {
-    url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/0A4A2855%20Edit.jpg',
+    url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/compressed/0A4A2855%20Edit.jpg',
     alt: 'Wedding couple portrait',
   },
   {
-    url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/0A4A7575.jpg',
+    url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/compressed/0A4A4018.jpg',
+    alt: 'Wedding portrait',
+  },
+  {
+    url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/compressed/0A4A7575.jpg',
     alt: 'Couple portrait',
   },
   {
-    url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/ADL02297.jpg',
+    url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/compressed/ADL02297.jpg',
     alt: 'Wedding celebration',
   },
   {
-    url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/ADL07659.jpg',
-    alt: 'Wedding ceremony',
-  },
-  {
-    url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/DSC01108.jpg',
-    alt: 'Wedding portrait',
-  },
-  {
-    url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/G&SRECEPTIONCANDID-19%20-%20Copy.jpg',
-    alt: 'Reception candid',
-  },
-  {
-    url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/NA401349.jpg',
+    url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/compressed/NA401349.jpg',
     alt: 'Candid wedding moment',
   },
   {
-    url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/R&JChristianWeddingFirstlook-38.jpg',
-    alt: 'First look moment',
-  },
-  {
-    url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/S&NFIRSTLOOK-3.JPG',
+    url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/compressed/R&DWEDDINGFIRSTLOOK-9.jpg',
     alt: 'Wedding first look',
   },
   {
-    url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/YDU02740.jpg',
-    alt: 'Wedding celebration',
-  },
-  {
-    url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/firstset-6.JPG',
-    alt: 'Wedding celebration',
-  },
-  {
-    url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/firstset-9.JPG',
-    alt: 'Wedding portrait',
+    url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/compressed/R&JChristianWeddingFirstlook-38.jpg',
+    alt: 'First look moment',
   },
 ];
 

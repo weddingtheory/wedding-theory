@@ -72,7 +72,7 @@ export default function Home() {
         <AnimatedSection className='w-full relative bg-[#fcfaf7]'>
           <div className='w-full h-[60vh] sm:h-[80vh] md:h-screen overflow-hidden relative'>
             <video
-              src="https://weddingtheory.blr1.cdn.digitaloceanspaces.com/video/Flims%20cover%20page.mp4"
+              src='https://weddingtheory.blr1.cdn.digitaloceanspaces.com/video/WEB1%202%20compressed.mp4'
               className='absolute top-1/2 left-1/2 w-full h-full object-cover -translate-x-1/2 -translate-y-1/2'
               style={{
                 pointerEvents: 'none',
@@ -193,8 +193,8 @@ export default function Home() {
               </h3>
               <p className='font-sans text-gray-700 text-base md:text-lg mb-8 leading-relaxed'>
                 Discover inspiring stories, wedding planning tips, and
-                behind-the-scenes glimpses into the most beautiful Indian weddings.
-                Let our blog guide you through your wedding journey.
+                behind-the-scenes glimpses into the most beautiful Indian
+                weddings. Let our blog guide you through your wedding journey.
               </p>
               <Link
                 href='/blogs'
@@ -274,10 +274,10 @@ export default function Home() {
                 </h3>
                 <div className='w-32 h-[1px] bg-[#D4B08C] mx-auto mb-12'></div>
                 <p className='font-sans text-gray-700 text-base md:text-lg mb-20 px-4 leading-relaxed max-w-3xl mx-auto'>
-                  Every wedding tells a unique story - a story of love, tradition,
-                  and celebration. Through our lens, we capture these precious
-                  moments that become timeless memories, creating visual narratives
-                  that will be cherished for generations.
+                  Every wedding tells a unique story - a story of love,
+                  tradition, and celebration. Through our lens, we capture these
+                  precious moments that become timeless memories, creating
+                  visual narratives that will be cherished for generations.
                 </p>
 
                 {/* Statistics Grid with staggered animation */}
