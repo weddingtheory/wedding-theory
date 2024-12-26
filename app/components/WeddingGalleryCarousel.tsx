@@ -167,7 +167,7 @@ export default function WeddingGalleryCarousel() {
   }
 
   return (
-    <div className="w-full overflow-hidden py-8 md:py-12">
+    <div className='w-full overflow-hidden py-8 md:py-12'>
       <div className='mb-16 md:mb-20 flex items-center justify-center max-w-4xl mx-auto px-4'>
         <div className='flex-grow h-[1px] bg-gradient-to-r from-transparent via-[#D4B08C] to-transparent'></div>
         <div className='mx-4 text-[#D4B08C]'>
@@ -183,179 +183,206 @@ export default function WeddingGalleryCarousel() {
         <div className='flex-grow h-[1px] bg-gradient-to-r from-[#D4B08C] via-[#D4B08C] to-transparent'></div>
       </div>
 
-      <motion.div 
-        className="text-center mb-10 md:mb-14"
+      <motion.div
+        className='text-center mb-10 md:mb-14'
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-gray-800 mb-3">
+        <h2 className='font-serif text-3xl md:text-4xl lg:text-5xl text-gray-800 mb-3'>
           WEDDING GALLERY
         </h2>
-        <div className="w-16 md:w-20 h-[1px] bg-[#D4B08C] mx-auto mb-4"></div>
-        <p className="text-sm md:text-base text-gray-600 max-w-2xl mx-auto px-4">
+        <div className='w-16 md:w-20 h-[1px] bg-[#D4B08C] mx-auto mb-4'></div>
+        <p className='text-sm md:text-base text-gray-600 max-w-2xl mx-auto px-4'>
           Explore our collection of beautiful wedding stories and celebrations
         </p>
       </motion.div>
 
-      <div className="relative w-full max-w-6xl mx-auto px-4 md:px-8 mb-10 md:mb-14">
+      <div className='relative w-full max-w-6xl mx-auto px-4 md:px-8 mb-10 md:mb-14'>
         {!isMobile ? (
           <>
-            <div className="min-h-[500px] overflow-hidden">
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.div 
+            <div className='min-h-[500px] overflow-hidden'>
+              <AnimatePresence mode='wait' initial={false}>
+                <motion.div
                   key={currentIndex}
-                  className="flex gap-6 md:gap-10"
+                  className='grid grid-cols-3 gap-6 md:gap-10'
                   initial={{ opacity: 0, scale: 1.05 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.7, ease: [0.645, 0.045, 0.355, 1] }}
                 >
-                  {weddingStories.slice(currentIndex, currentIndex + 3).map((story, index) => (
-                    <motion.div
-                      key={story.id}
-                      className="relative flex-1 group cursor-pointer"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.2 }}
-                      onClick={() => openLightbox(currentIndex + index)}
-                    >
-                      <div className="flex flex-col">
-                        <div className="relative aspect-[3/4] rounded-xl overflow-hidden 
-                          shadow-lg hover:shadow-xl transition-all duration-500
-                          transform hover:-translate-y-1">
-                          <Image
-                            src={story.featured_image_key || ''}
-                            alt={story.couple_names}
-                            fill
-                            className="object-cover transition-transform duration-700 
-                              group-hover:scale-105"
-                            sizes="(max-width: 1280px) 33vw, 400px"
-                            priority={index === 0}
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-b 
-                            from-transparent via-transparent to-black/30 
-                            group-hover:opacity-0 transition-opacity duration-500" 
-                          />
-                        </div>
-                        <div className="text-center mt-4 transform transition-all duration-500 px-2">
-                          <h3 className="font-serif text-xl md:text-2xl text-gray-800 mb-2 tracking-wide">
-                            {story.couple_names}
-                          </h3>
-                          <div className="flex flex-wrap items-center justify-center gap-3 text-gray-600">
-                            {story.wedding_date && (
-                              <div className="flex items-center gap-1.5">
-                                <IoCalendarClearOutline className="w-3.5 h-3.5 flex-shrink-0 relative top-[0.5px]" />
-                                <span className="text-sm tracking-wide">
-                                  {new Date(story.wedding_date).toLocaleDateString('en-US', {
-                                    month: 'long',
-                                    year: 'numeric'
-                                  })}
-                                </span>
+                  {Array(3)
+                    .fill(null)
+                    .map((_, idx) => {
+                      const story = weddingStories[currentIndex + idx];
+                      return story ? (
+                        <motion.div
+                          key={story.id}
+                          className='relative group cursor-pointer'
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: idx * 0.2 }}
+                          onClick={() => openLightbox(currentIndex + idx)}
+                        >
+                          <div className='flex flex-col h-full'>
+                            <div
+                              className='relative aspect-[3/4] rounded-xl overflow-hidden 
+                            shadow-lg hover:shadow-xl transition-all duration-500
+                            transform hover:-translate-y-1'
+                            >
+                              <Image
+                                src={story.featured_image_key || ''}
+                                alt={story.couple_names}
+                                fill
+                                className='object-cover transition-transform duration-700 
+                                group-hover:scale-105'
+                                sizes='(max-width: 1280px) 33vw, 400px'
+                                priority={idx === 0}
+                              />
+                              <div
+                                className='absolute inset-0 bg-gradient-to-b 
+                              from-transparent via-transparent to-black/30 
+                              group-hover:opacity-0 transition-opacity duration-500'
+                              />
+                            </div>
+                            <div className='text-center mt-4 transform transition-all duration-500 px-2'>
+                              <h3 className='font-serif text-xl md:text-2xl text-gray-800 mb-2 tracking-wide'>
+                                {story.couple_names}
+                              </h3>
+                              <div className='flex flex-wrap items-center justify-center gap-3 text-gray-600'>
+                                {story.wedding_date && (
+                                  <div className='flex items-center gap-1.5'>
+                                    <IoCalendarClearOutline className='w-3.5 h-3.5 flex-shrink-0 relative top-[0.5px]' />
+                                    <span className='text-sm tracking-wide'>
+                                      {new Date(
+                                        story.wedding_date
+                                      ).toLocaleDateString('en-US', {
+                                        month: 'long',
+                                        year: 'numeric',
+                                      })}
+                                    </span>
+                                  </div>
+                                )}
+                                {story.location && (
+                                  <div className='flex items-center gap-1.5'>
+                                    <IoLocationOutline className='w-3.5 h-3.5 flex-shrink-0 relative top-[0.5px]' />
+                                    <span className='text-sm tracking-wide'>
+                                      {formatLocation(story.location)}
+                                    </span>
+                                  </div>
+                                )}
                               </div>
-                            )}
-                            {story.location && (
-                              <div className="flex items-center gap-1.5">
-                                <IoLocationOutline className="w-3.5 h-3.5 flex-shrink-0 relative top-[0.5px]" />
-                                <span className="text-sm tracking-wide">
-                                  {formatLocation(story.location)}
-                                </span>
-                              </div>
-                            )}
+                            </div>
+                          </div>
+                        </motion.div>
+                      ) : (
+                        <div
+                          key={`empty-${idx}`}
+                          className='relative aspect-[3/4] rounded-xl overflow-hidden bg-gray-50/30 border border-gray-100'
+                        >
+                          <div className='absolute inset-0 flex items-center justify-center'>
+                            <div className='w-16 h-16 rounded-full border-2 border-gray-200/50'></div>
                           </div>
                         </div>
-                      </div>
-                    </motion.div>
-                  ))}
+                      );
+                    })}
                 </motion.div>
               </AnimatePresence>
             </div>
 
             <button
               onClick={handlePrevClick}
-              className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 
+              className='absolute left-4 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 
                 text-white/90 p-2 rounded-full transition-all duration-300
-                hover:scale-110 backdrop-blur-sm z-10"
-              aria-label="Previous slide"
+                hover:scale-110 backdrop-blur-sm z-10'
+              aria-label='Previous slide'
             >
               <IoChevronBackOutline size={20} />
             </button>
 
             <button
               onClick={handleNextClick}
-              className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 
+              className='absolute right-4 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 
                 text-white/90 p-2 rounded-full transition-all duration-300
-                hover:scale-110 backdrop-blur-sm z-10"
-              aria-label="Next slide"
+                hover:scale-110 backdrop-blur-sm z-10'
+              aria-label='Next slide'
             >
               <IoChevronForwardOutline size={20} />
             </button>
 
-            <div className="flex justify-center gap-3 mt-8">
-              {Array(Math.ceil(weddingStories.length / 3)).fill(null).map((_, index) => (
-                <button
-                  key={index}
-                  aria-label={`Go to slide group ${index + 1}`}
-                  className={`w-2 h-2 rounded-full transition-all duration-500 ${
-                    Math.floor(currentIndex / 3) === index 
-                      ? 'bg-[#D4B08C] w-8' 
-                      : 'bg-gray-300 hover:bg-[#D4B08C]/50'
-                  }`}
-                  onClick={() => handleDotClick(index)}
-                />
-              ))}
+            <div className='flex justify-center gap-3 mt-8'>
+              {Array(Math.ceil(weddingStories.length / 3))
+                .fill(null)
+                .map((_, index) => (
+                  <button
+                    key={index}
+                    aria-label={`Go to slide group ${index + 1}`}
+                    className={`w-2 h-2 rounded-full transition-all duration-500 ${
+                      Math.floor(currentIndex / 3) === index
+                        ? 'bg-[#D4B08C] w-8'
+                        : 'bg-gray-300 hover:bg-[#D4B08C]/50'
+                    }`}
+                    onClick={() => handleDotClick(index)}
+                  />
+                ))}
             </div>
           </>
         ) : (
-          <div {...handlers} className="relative overflow-hidden">
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div 
+          <div {...handlers} className='relative overflow-hidden'>
+            <AnimatePresence mode='wait' initial={false}>
+              <motion.div
                 key={currentIndex}
-                className="w-full cursor-pointer"
+                className='w-full cursor-pointer'
                 initial={{ opacity: 0, scale: 1.05 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.7, ease: [0.645, 0.045, 0.355, 1] }}
                 onClick={() => openLightbox(currentIndex)}
               >
-                <div className="flex flex-col">
-                  <div className="relative aspect-[3/4] rounded-xl overflow-hidden shadow-lg">
+                <div className='flex flex-col'>
+                  <div className='relative aspect-[3/4] rounded-xl overflow-hidden shadow-lg'>
                     <Image
-                      src={weddingStories[currentIndex]?.featured_image_key || ''}
+                      src={
+                        weddingStories[currentIndex]?.featured_image_key || ''
+                      }
                       alt={weddingStories[currentIndex]?.couple_names || ''}
                       fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 300px"
+                      className='object-cover'
+                      sizes='(max-width: 768px) 100vw, 300px'
                       priority
                     />
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/30" />
+                    <div className='absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/30' />
                   </div>
-                  <motion.div 
-                    className="text-center mt-3 px-2"
+                  <motion.div
+                    className='text-center mt-3 px-2'
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
                   >
-                    <h3 className="font-serif text-xl text-gray-800 mb-2 tracking-wide">
+                    <h3 className='font-serif text-xl text-gray-800 mb-2 tracking-wide'>
                       {weddingStories[currentIndex]?.couple_names}
                     </h3>
-                    <div className="flex flex-wrap items-center justify-center gap-3 text-gray-600">
+                    <div className='flex flex-wrap items-center justify-center gap-3 text-gray-600'>
                       {weddingStories[currentIndex]?.wedding_date && (
-                        <div className="flex items-center gap-1.5">
-                          <IoCalendarClearOutline className="w-3.5 h-3.5 flex-shrink-0 relative top-[0.5px]" />
-                          <span className="text-sm tracking-wide">
-                            {new Date(weddingStories[currentIndex].wedding_date).toLocaleDateString('en-US', {
+                        <div className='flex items-center gap-1.5'>
+                          <IoCalendarClearOutline className='w-3.5 h-3.5 flex-shrink-0 relative top-[0.5px]' />
+                          <span className='text-sm tracking-wide'>
+                            {new Date(
+                              weddingStories[currentIndex].wedding_date
+                            ).toLocaleDateString('en-US', {
                               month: 'long',
-                              year: 'numeric'
+                              year: 'numeric',
                             })}
                           </span>
                         </div>
                       )}
                       {weddingStories[currentIndex]?.location && (
-                        <div className="flex items-center gap-1.5">
-                          <IoLocationOutline className="w-3.5 h-3.5 flex-shrink-0 relative top-[0.5px]" />
-                          <span className="text-sm tracking-wide">
-                            {formatLocation(weddingStories[currentIndex].location)}
+                        <div className='flex items-center gap-1.5'>
+                          <IoLocationOutline className='w-3.5 h-3.5 flex-shrink-0 relative top-[0.5px]' />
+                          <span className='text-sm tracking-wide'>
+                            {formatLocation(
+                              weddingStories[currentIndex].location
+                            )}
                           </span>
                         </div>
                       )}
@@ -367,32 +394,32 @@ export default function WeddingGalleryCarousel() {
 
             <button
               onClick={handlePrevClick}
-              className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 
+              className='absolute left-4 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 
                 text-white/90 p-2 rounded-full transition-all duration-300
-                hover:scale-110 backdrop-blur-sm z-10"
-              aria-label="Previous slide"
+                hover:scale-110 backdrop-blur-sm z-10'
+              aria-label='Previous slide'
             >
               <IoChevronBackOutline size={20} />
             </button>
 
             <button
               onClick={handleNextClick}
-              className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 
+              className='absolute right-4 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 
                 text-white/90 p-2 rounded-full transition-all duration-300
-                hover:scale-110 backdrop-blur-sm z-10"
-              aria-label="Next slide"
+                hover:scale-110 backdrop-blur-sm z-10'
+              aria-label='Next slide'
             >
               <IoChevronForwardOutline size={20} />
             </button>
 
-            <div className="flex justify-center gap-2 mt-3">
+            <div className='flex justify-center gap-2 mt-3'>
               {weddingStories.map((_, index) => (
                 <button
                   key={index}
                   aria-label={`Go to slide ${index + 1}`}
                   className={`w-2 h-2 rounded-full transition-all duration-500 ${
-                    currentIndex === index 
-                      ? 'bg-[#D4B08C] w-6' 
+                    currentIndex === index
+                      ? 'bg-[#D4B08C] w-6'
                       : 'bg-gray-300 hover:bg-[#D4B08C]/50'
                   }`}
                   onClick={() => handleDotClick(index)}
@@ -403,9 +430,9 @@ export default function WeddingGalleryCarousel() {
         )}
       </div>
 
-      <div className="mt-8 md:mt-12 text-center">
+      <div className='mt-8 md:mt-12 text-center'>
         <Link
-          href="/weddings"
+          href='/weddings'
           className="inline-block px-6 py-3 text-base
             text-[#68401b] font-medium 
             transition-all duration-300 ease-in-out
