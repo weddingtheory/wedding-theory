@@ -49,8 +49,10 @@ export default function Films() {
   }, [supabase]);
 
   // Helper function to convert YouTube URL to embed URL
-  const getEmbedUrl = (url: string | null) => {
-    if (!url) return '';
+  const getEmbedUrl = (
+    url: string | null
+  ): { embedUrl: string; videoId: string } => {
+    if (!url) return { embedUrl: '', videoId: '' };
 
     // Regular expressions for different YouTube URL formats
     const patterns = [
@@ -70,7 +72,6 @@ export default function Films() {
     for (const pattern of patterns) {
       const match = url.match(pattern);
       if (match && match[1]) {
-        // Return both the embed URL and video ID
         return {
           embedUrl: `https://www.youtube.com/embed/${match[1]}`,
           videoId: match[1],
@@ -153,7 +154,9 @@ export default function Films() {
                     style={{ border: 'none' }}
                     src={(() => {
                       const { embedUrl, videoId } = getEmbedUrl(film.video_url);
-                      return `${embedUrl}?rel=0&modestbranding=1&autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=1`;
+                      return embedUrl
+                        ? `${embedUrl}?rel=0&modestbranding=1&autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=1`
+                        : '';
                     })()}
                     title={film.title || ''}
                     allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
