@@ -37,7 +37,7 @@ export default function Films() {
           setFilms(data);
         }
       } catch {
-        // Handle error silently in production
+        // Silently handle error
       } finally {
         setLoading(false);
       }
