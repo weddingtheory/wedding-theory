@@ -94,28 +94,40 @@ const Footer = () => {
               href='https://facebook.com'
               target='_blank'
               className='hover:opacity-80'
+              aria-label='Visit Wedding Theory on Facebook'
             >
+              <span className='sr-only'>Visit Wedding Theory on Facebook</span>
               <FaFacebook className='w-8 h-8 text-[#1877F2]' />
             </Link>
             <Link
               href='https://instagram.com'
               target='_blank'
               className='hover:opacity-80'
+              aria-label='Follow Wedding Theory on Instagram'
             >
+              <span className='sr-only'>
+                Follow Wedding Theory on Instagram
+              </span>
               <FaInstagram className='w-8 h-8 text-[#E4405F]' />
             </Link>
             <Link
               href='https://www.youtube.com/@weddingtheory3148'
               target='_blank'
               className='hover:opacity-80'
+              aria-label='Watch Wedding Theory on YouTube'
             >
+              <span className='sr-only'>Watch Wedding Theory on YouTube</span>
               <FaYoutube className='w-8 h-8 text-[#FF0000]' />
             </Link>
             <Link
               href='https://in.pinterest.com/weddingtheoryofficial/_saved/'
               target='_blank'
               className='hover:opacity-80'
+              aria-label='Follow Wedding Theory on Pinterest'
             >
+              <span className='sr-only'>
+                Follow Wedding Theory on Pinterest
+              </span>
               <FaPinterest className='w-8 h-8 text-[#E60023]' />
             </Link>
           </div>

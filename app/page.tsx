@@ -64,7 +64,7 @@ export default function Home() {
                   }}
                   className='relative mt-0.5 md:mt-1'
                 >
-                  <p className='font-serif text-[11px] sm:text-sm md:text-base text-gray-500 tracking-wider whitespace-nowrap'>
+                  <p className='font-serif text-[11px] sm:text-sm md:text-base text-gray-700 tracking-wider whitespace-nowrap'>
                     Transforming love stories into timeless art
                   </p>
                   <motion.div

@@ -115,15 +115,13 @@ export default function Lahza() {
     <div className='flex flex-col min-h-screen bg-[#f8f5f0]'>
       <main className='flex-grow'>
         <AnimatedHero />
-        
+
         {/* Add LAHZA heading below hero */}
         <div className='text-center py-16'>
-          <div className="relative inline-block">
-            <motion.div className="overflow-hidden">
+          <div className='relative inline-block'>
+            <motion.div className='overflow-hidden'>
               {/* Individual letters with stagger animation */}
-              <motion.h1 
-                className='text-5xl md:text-6xl tracking-[0.3em] font-serif text-gray-800'
-              >
+              <motion.h1 className='text-5xl md:text-6xl tracking-[0.3em] font-serif text-gray-800'>
                 {'LAHZA'.split('').map((letter, index) => (
                   <motion.span
                     key={index}
@@ -132,9 +130,9 @@ export default function Lahza() {
                     transition={{
                       duration: 0.7,
                       delay: index * 0.1,
-                      ease: [0.33, 1, 0.68, 1]  // Custom easing
+                      ease: [0.33, 1, 0.68, 1], // Custom easing
                     }}
-                    className="inline-block"
+                    className='inline-block'
                   >
                     {letter}
                   </motion.span>
@@ -149,9 +147,9 @@ export default function Lahza() {
               transition={{
                 duration: 1,
                 delay: 0.7,
-                ease: [0.33, 1, 0.68, 1]
+                ease: [0.33, 1, 0.68, 1],
               }}
-              className="absolute left-0 right-0 mx-auto -bottom-4 h-[2px] bg-gradient-to-r from-transparent via-[#68401b] to-transparent"
+              className='absolute left-0 right-0 mx-auto -bottom-4 h-[2px] bg-gradient-to-r from-transparent via-[#68401b] to-transparent'
             />
           </div>
 
@@ -159,18 +157,16 @@ export default function Lahza() {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ 
-              duration: 0.8, 
+            transition={{
+              duration: 0.8,
               delay: 1.2,
-              ease: [0.33, 1, 0.68, 1]
+              ease: [0.33, 1, 0.68, 1],
             }}
             className='text-xl text-gray-700 mt-8 tracking-wide'
           >
             Signature Weddings by Wedding Theory
           </motion.p>
         </div>
-
-        
 
         {/* Visual Artistry Section */}
         <section className='bg-white py-20 md:py-32'>
@@ -196,8 +192,8 @@ export default function Lahza() {
                       <motion.div
                         initial={{ opacity: 1 }}
                         animate={{ opacity: isTransitioning ? 0 : 1 }}
-                        transition={{ duration: 0.5, ease: "easeInOut" }}
-                        className="absolute inset-0"
+                        transition={{ duration: 0.5, ease: 'easeInOut' }}
+                        className='absolute inset-0'
                       >
                         <Image
                           src={images[currentImageIndex]}
@@ -225,9 +221,10 @@ export default function Lahza() {
                                 }, 300);
                               }}
                               className={`w-2.5 h-2.5 rounded-full transition-all duration-500 
-                                ${currentImageIndex === index 
-                                  ? 'bg-white scale-125 shadow-lg' 
-                                  : 'bg-white/50 hover:bg-white/70'
+                                ${
+                                  currentImageIndex === index
+                                    ? 'bg-white scale-125 shadow-lg'
+                                    : 'bg-white/50 hover:bg-white/70'
                                 }`}
                               aria-label={`Go to slide ${index + 1}`}
                             />
@@ -241,31 +238,55 @@ export default function Lahza() {
                           onClick={() => {
                             setIsTransitioning(true);
                             setTimeout(() => {
-                              setCurrentImageIndex(prev => prev === 0 ? images.length - 1 : prev - 1);
+                              setCurrentImageIndex((prev) =>
+                                prev === 0 ? images.length - 1 : prev - 1
+                              );
                               setIsTransitioning(false);
                             }, 300);
                           }}
                           className='p-2 rounded-full bg-black/30 hover:bg-black/50 transition-colors duration-300'
-                          aria-label="Previous image"
+                          aria-label='Previous image'
                         >
-                          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                          <svg
+                            className='w-6 h-6 text-white'
+                            fill='none'
+                            stroke='currentColor'
+                            viewBox='0 0 24 24'
+                          >
+                            <path
+                              strokeLinecap='round'
+                              strokeLinejoin='round'
+                              strokeWidth={2}
+                              d='M15 19l-7-7 7-7'
+                            />
                           </svg>
                         </button>
-                        
+
                         <button
                           onClick={() => {
                             setIsTransitioning(true);
                             setTimeout(() => {
-                              setCurrentImageIndex(prev => prev === images.length - 1 ? 0 : prev + 1);
+                              setCurrentImageIndex((prev) =>
+                                prev === images.length - 1 ? 0 : prev + 1
+                              );
                               setIsTransitioning(false);
                             }, 300);
                           }}
                           className='p-2 rounded-full bg-black/30 hover:bg-black/50 transition-colors duration-300'
-                          aria-label="Next image"
+                          aria-label='Next image'
                         >
-                          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          <svg
+                            className='w-6 h-6 text-white'
+                            fill='none'
+                            stroke='currentColor'
+                            viewBox='0 0 24 24'
+                          >
+                            <path
+                              strokeLinecap='round'
+                              strokeLinejoin='round'
+                              strokeWidth={2}
+                              d='M9 5l7 7-7 7'
+                            />
                           </svg>
                         </button>
                       </div>
@@ -281,10 +302,11 @@ export default function Lahza() {
                 media={
                   <div className='aspect-[4/3] relative rounded-2xl overflow-hidden shadow-md'>
                     <iframe
-                      src='https://www.youtube.com/embed/flUyMnitCj4?autoplay=1&mute=1&loop=1&playlist=flUyMnitCj4'
+                      src='https://www.youtube.com/embed/flUyMnitCj4?autoplay=1&mute=1&loop=1&playlist=flUyMnitCj4&cc_load_policy=1&cc_lang_pref=en'
                       className='absolute inset-0 w-full h-full'
                       allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
                       allowFullScreen
+                      title='Wedding Theory Cinematic Film'
                     />
                   </div>
                 }
