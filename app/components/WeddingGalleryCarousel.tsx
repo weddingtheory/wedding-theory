@@ -278,12 +278,8 @@ export default function WeddingGalleryCarousel() {
                       ) : (
                         <div
                           key={`empty-${idx}`}
-                          className='relative aspect-[3/4] rounded-xl overflow-hidden bg-gray-50/30 border border-gray-100'
-                        >
-                          <div className='absolute inset-0 flex items-center justify-center'>
-                            <div className='w-16 h-16 rounded-full border-2 border-gray-200/50'></div>
-                          </div>
-                        </div>
+                          className='relative aspect-[3/4] rounded-xl overflow-hidden bg-[#f8f5f0]'
+                        />
                       );
                     })}
                 </motion.div>
