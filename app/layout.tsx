@@ -124,7 +124,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className="antialiased text-gray-900 font-montserrat">
+      <body className='antialiased text-gray-900'>
         <Navbar />
         {children}
         <Footer />
