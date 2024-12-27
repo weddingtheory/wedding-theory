@@ -264,6 +264,7 @@ export default function Home() {
                     </p>
                     <Link
                       href='/lahza'
+                      aria-label='Learn more about our Premium Wedding Package LAHZA'
                       className='inline-block px-6 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm 
                         bg-transparent hover:bg-white/10 
                         text-white font-medium 
