@@ -32,9 +32,6 @@ const nextConfig: NextConfig = {
   },
   // Enable React strict mode
   reactStrictMode: true,
-  // Enable page level optimization
-  optimizeFonts: true,
-  swcMinify: true,
   async redirects() {
     return [
       {
