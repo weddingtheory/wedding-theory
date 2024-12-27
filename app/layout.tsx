@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import Script from 'next/script';
 import './globals.css';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -6,7 +7,7 @@ import Footer from './components/Footer';
 export const viewport: Viewport = {
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: '#f8f5f0' },
-    { media: '(prefers-color-scheme: dark)', color: '#68401b' }
+    { media: '(prefers-color-scheme: dark)', color: '#68401b' },
   ],
 };
 
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://www.weddingtheory.co.in'),
   title: {
     template: '%s | Wedding Theory',
-    default: 'Wedding Theory - Premier Wedding Photography & Cinematography'
+    default: 'Wedding Theory - Premier Wedding Photography & Cinematography',
   },
   description:
     'Wedding Theory - Luxury Indian wedding photography and cinematography services across India. Specializing in candid moments, cinematic films, and our signature LAHZA collection.',
@@ -48,7 +49,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: {
       template: '%s | Wedding Theory',
-      default: 'Wedding Theory - Celebrating Indian Love Stories'
+      default: 'Wedding Theory - Celebrating Indian Love Stories',
     },
     description:
       'Premier Indian wedding photography and cinematography. Specializing in luxury weddings, candid photography, and cinematic storytelling across India.',
@@ -99,8 +100,6 @@ export const metadata: Metadata = {
     capable: true,
   },
 
- 
-
   // Additional metadata
   applicationName: 'Wedding Theory',
   generator: 'Next.js',
@@ -124,6 +123,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
+      <head>
+        <Script
+          defer
+          src='https://static.cloudflareinsights.com/beacon.min.js'
+          data-cf-beacon='{"token": "797b2e63f7184419a749193ea86b28f5"}'
+          strategy='afterInteractive'
+        />
+      </head>
       <body className='antialiased text-gray-900'>
         <Navbar />
         {children}
