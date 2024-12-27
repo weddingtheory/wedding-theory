@@ -30,16 +30,14 @@ export default function Films() {
           .order('wedding_date', { ascending: false });
 
         if (error) {
-          console.error('Error fetching films:', error);
           return;
         }
 
         if (data) {
-          console.log('Total films fetched:', data.length);
           setFilms(data);
         }
       } catch (err) {
-        console.error('Error in fetchFilms:', err);
+        // Handle error silently in production
       } finally {
         setLoading(false);
       }
