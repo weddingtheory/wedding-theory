@@ -1,10 +1,10 @@
 /* Add these styles at the top of the file */
-.form-group input[type="text"] {
+.form-group input[type='text'] {
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
 
-.form-group input[type="text"]::placeholder {
+.form-group input[type='text']::placeholder {
   color: #9ca3af;
   opacity: 1;
 }
@@ -55,8 +55,8 @@
   background-color: #f8f5f0;
 }
 
-.rdrDayStartPreview, 
-.rdrDayEndPreview, 
+.rdrDayStartPreview,
+.rdrDayEndPreview,
 .rdrDayInPreview {
   color: rgba(104, 64, 27, 0.2) !important;
 }
@@ -101,7 +101,7 @@
 }
 
 .rdrWeekDay {
-  color: #666;
+  color: #444;
   font-weight: 500;
 }
 
@@ -145,12 +145,12 @@
     border-right: 0;
   }
 
-  .form-group input[type="text"] {
+  .form-group input[type='text'] {
     font-size: 14px;
     padding: 0.75rem;
   }
 
-  .form-group input[type="text"]::placeholder {
+  .form-group input[type='text']::placeholder {
     font-size: 13px;
   }
 }
@@ -190,7 +190,7 @@
 }
 
 /* Improve input field appearance on mobile */
-input[type="text"] {
+input[type='text'] {
   -webkit-appearance: none;
   appearance: none;
   border-radius: 8px;
@@ -198,7 +198,7 @@ input[type="text"] {
 
 /* Fix iOS zoom on input focus */
 @media screen and (max-width: 640px) {
-  input[type="text"],
+  input[type='text'],
   select,
   textarea {
     font-size: 16px !important;
@@ -271,4 +271,3 @@ input[type="text"] {
   font-size: 0.9rem;
   padding: 0.5rem;
 }
-

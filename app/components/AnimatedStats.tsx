@@ -26,11 +26,9 @@ export default function AnimatedStats({ stats }: AnimatedStatsProps) {
           <div className='font-serif text-4xl md:text-5xl text-[#68401b] mb-3'>
             {stat.number}
           </div>
-          <div className='text-sm md:text-base text-gray-600'>
-            {stat.label}
-          </div>
+          <div className='text-sm md:text-base text-gray-800'>{stat.label}</div>
         </motion.div>
       ))}
     </div>
   );
-} 
+}

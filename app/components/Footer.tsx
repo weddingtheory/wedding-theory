@@ -4,28 +4,29 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { FaFacebook, FaInstagram, FaWhatsapp, FaYoutube, FaPinterest, FaEnvelope, FaPhone, FaArrowUp } from 'react-icons/fa'
 import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion';
 
 const Footer = () => {
-  const [showScrollTop, setShowScrollTop] = useState(false)
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       // Calculate 40% of page height
-      const scrollThreshold = document.documentElement.scrollHeight * 0.3
-      const shouldShow = window.scrollY > scrollThreshold
-      setShowScrollTop(shouldShow)
-    }
+      const scrollThreshold = document.documentElement.scrollHeight * 0.3;
+      const shouldShow = window.scrollY > scrollThreshold;
+      setShowScrollTop(shouldShow);
+    };
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
-    })
-  }
+      behavior: 'smooth',
+    });
+  };
 
   return (
     <footer className='bg-white'>
@@ -140,23 +141,33 @@ const Footer = () => {
             © {new Date().getFullYear()} Wedding Theory. All rights reserved.{' '}
           </div>
 
-          {/* Developer Credit - Updated with subtle styling and animations */}
-          <div className='text-xs text-gray-400 opacity-80 hover:opacity-100 transition-opacity duration-300'>
-            Designed and developed by {' '}
-            <Link
-              href='https://www.abhinavkr.in/'
-              target='_blank'
-              rel='noopener noreferrer'
-              className='relative inline-block after:content-[""] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-gray-400 after:transition-transform after:duration-300 hover:after:scale-x-100 text-gray-600 hover:text-gray-700 underline'
+          {/* Developer Credit - Enhanced with better styling and animations */}
+          <div className='mt-6 py-3 px-6 rounded-full bg-gradient-to-r from-[#f8f5f0] via-white to-[#f8f5f0] shadow-sm hover:shadow-md transition-all duration-300 text-center'>
+            <motion.div
+              initial={{ opacity: 0.8 }}
+              whileHover={{ opacity: 1 }}
+              className='text-sm sm:text-base font-gotu text-gray-600'
             >
-    
-              Abhinav Kumar
-            </Link>
+              Crafted with ❤️ by{' '}
+              <Link
+                href='https://www.abhinavkr.in/'
+                target='_blank'
+                rel='noopener noreferrer'
+                className='relative inline-block font-medium text-[#68401b] hover:text-[#8B5E2B]
+                  after:content-[""] after:absolute after:w-full after:h-0.5 
+                  after:bg-[#68401b] after:bottom-0 after:left-0
+                  after:origin-bottom-right after:scale-x-0 
+                  hover:after:origin-bottom-left hover:after:scale-x-100
+                  after:transition-transform after:duration-300'
+              >
+                Abhinav Kumar
+              </Link>
+            </motion.div>
           </div>
         </div>
       </div>
     </footer>
   );
-}
+};
 
 export default Footer
