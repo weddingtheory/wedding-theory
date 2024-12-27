@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
+    formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -22,22 +23,25 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'weddingtheory.blr1.digitaloceanspaces.com',
         pathname: '/**',
-      }
+      },
     ],
   },
+  // Optimize JavaScript
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+  // Enable React strict mode
+  reactStrictMode: true,
+  // Enable page level optimization
+  optimizeFonts: true,
+  swcMinify: true,
   async redirects() {
     return [
       {
         source: '/weddings-1',
-        destination: '/weddings', // Assuming this is your new correct path
-        permanent: true, // This sends a 308 status code, telling search engines this is a permanent redirect
+        destination: '/weddings',
+        permanent: true,
       },
-      // Add more old URLs that need to be redirected
-      // {
-      //   source: '/old-path',
-      //   destination: '/new-path',
-      //   permanent: true,
-      // }
       {
         source: '/services-1',
         destination: '/lahza',
@@ -57,7 +61,8 @@ const nextConfig: NextConfig = {
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: "frame-src 'self' https://www.youtube.com https://youtube.com https://open.spotify.com https://*.spotify.com",
+            value:
+              "frame-src 'self' https://www.youtube.com https://youtube.com https://open.spotify.com https://*.spotify.com",
           },
         ],
       },

@@ -1,11 +1,21 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import AnimatedHero from './components/AnimatedHero';
-import AnimatedServiceCard from './components/AnimatedServiceCard';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
+
+// Dynamically import heavy components
+const AnimatedHero = dynamic(() => import('./components/AnimatedHero'), {
+  ssr: false,
+});
+const AnimatedServiceCard = dynamic(
+  () => import('./components/AnimatedServiceCard'),
+  {
+    ssr: false,
+  }
+);
 
 export default function Lahza() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);

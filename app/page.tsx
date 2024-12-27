@@ -1,14 +1,30 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import AnimatedSection from './components/AnimatedSection';
-import Carousel from './components/Carousel';
-import ImageCarousel from './components/ImageCarousel';
 import Link from 'next/link';
 import Image from 'next/image';
-import AnimatedStats from './components/AnimatedStats';
-import WeddingLogo from '../public/weddinglogo.png';
 import { motion } from 'framer-motion';
-import WeddingGalleryCarousel from './components/WeddingGalleryCarousel';
+import WeddingLogo from '../public/weddinglogo.png';
+import dynamic from 'next/dynamic';
+
+// Dynamically import heavy components
+const AnimatedSection = dynamic(() => import('./components/AnimatedSection'), {
+  ssr: false,
+});
+const Carousel = dynamic(() => import('./components/Carousel'), {
+  ssr: false,
+});
+const ImageCarousel = dynamic(() => import('./components/ImageCarousel'), {
+  ssr: false,
+});
+const AnimatedStats = dynamic(() => import('./components/AnimatedStats'), {
+  ssr: false,
+});
+const WeddingGalleryCarousel = dynamic(
+  () => import('./components/WeddingGalleryCarousel'),
+  {
+    ssr: false,
+  }
+);
 
 export default function Home() {
   const [isMounted, setIsMounted] = useState(false);
