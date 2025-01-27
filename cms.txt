@@ -6,10 +6,6 @@
     > Image URL
     
 
-* Brand Identity
-  - Logo Image URL
-  - Tagline ("Celebrating Indian Love Stories")
-
 * Introduction Section
   - Welcome Text (Rich text)
 

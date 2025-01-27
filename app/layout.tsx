@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     default: 'Wedding Theory - Premier Wedding Photography & Cinematography',
   },
   description:
-    'Wedding Theory - Luxury Indian wedding photography and cinematography services across India. Specializing in candid moments, cinematic films, and our signature LAHZA collection.',
+    'Wedding Theory - Premier wedding photography and cinematography services. Specializing in luxury weddings, candid moments, and cinematic storytelling.',
   keywords:
     'wedding photography, indian wedding, wedding films, luxury wedding, candid photography, cinematography, LAHZA, wedding albums, wedding stories',
 
@@ -49,10 +49,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: {
       template: '%s | Wedding Theory',
-      default: 'Wedding Theory - Celebrating Indian Love Stories',
+      default: 'Wedding Theory',
     },
     description:
-      'Premier Indian wedding photography and cinematography. Specializing in luxury weddings, candid photography, and cinematic storytelling across India.',
+      'Premier wedding photography and cinematography services. Specializing in luxury weddings and cinematic storytelling.',
     url: 'https://www.weddingtheory.co.in',
     siteName: 'Wedding Theory',
     locale: 'en_IN',
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
         url: 'https://ik.imagekit.io/weddingtheory/Photos/01%20copy.jpg',
         width: 1200,
         height: 630,
-        alt: 'Wedding Theory - Indian Wedding Photography',
+        alt: 'Wedding Theory',
       },
     ],
   },
@@ -72,7 +72,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Wedding Theory - Premier Wedding Photography & Cinematography',
     description:
-      'Luxury Indian wedding photography and cinematography. Creating timeless memories with artistic vision.',
+      'Luxury wedding photography and cinematography. Creating timeless memories with artistic vision.',
     images: ['https://ik.imagekit.io/weddingtheory/Photos/01%20copy.jpg'],
   },
 
