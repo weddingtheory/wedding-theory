@@ -1,273 +1,243 @@
-/* Add these styles at the top of the file */
-.form-group input[type='text'] {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-}
-
-.form-group input[type='text']::placeholder {
-  color: #9ca3af;
-  opacity: 1;
-}
-
-.rdrCalendarWrapper {
+/* Custom styles for the date picker */
+.calendar-wrapper .rdrCalendarWrapper {
+  font-size: 14px !important;
   width: 100% !important;
-  font-size: 16px;
   background: white;
+  padding: 1rem;
 }
 
-.rdrMonth {
+.calendar-wrapper .rdrMonth {
   width: 100% !important;
-  padding: 0 0.5rem;
+  padding: 0 !important;
 }
 
-.rdrDayToday .rdrDayNumber span:after {
-  background: #68401b;
+.calendar-wrapper .rdrMonthName {
+  font-size: 1.1rem !important;
+  font-weight: 500 !important;
+  color: #68401b !important;
+  padding: 0.75rem 0 !important;
 }
 
-.rdrDateDisplayWrapper {
-  display: none;
+.calendar-wrapper .rdrWeekDay {
+  font-size: 0.9rem !important;
+  font-weight: 500 !important;
+  color: #666 !important;
+  padding: 0.5rem 0 !important;
 }
 
-.rdrMonthAndYearPickers {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0;
+.calendar-wrapper .rdrDayNumber {
+  font-size: 0.9rem !important;
+  font-weight: normal !important;
 }
 
-.rdrMonthAndYearPickers select {
-  color: #68401b;
-  font-weight: 500;
-  font-size: 0.9rem;
-  padding: 0.25rem 2rem 0.25rem 0.75rem;
-  border-radius: 4px;
-  border: 1px solid #e5e7eb;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2368401b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 0.5rem center;
-  background-size: 1rem;
-  appearance: none;
-  cursor: pointer;
+.calendar-wrapper .rdrDay {
+  height: 2.75rem !important;
 }
 
-.rdrMonthAndYearPickers select:hover {
-  background-color: #f8f5f0;
-}
-
-.rdrDayStartPreview,
-.rdrDayEndPreview,
-.rdrDayInPreview {
-  color: rgba(104, 64, 27, 0.2) !important;
-}
-
-.rdrStartEdge,
-.rdrEndEdge,
-.rdrInRange {
+.calendar-wrapper .rdrDayToday .rdrDayNumber span:after {
   background: #68401b !important;
 }
 
-.rdrDay {
-  margin: 2px;
-  border-radius: 4px;
+.calendar-wrapper .rdrDateDisplayWrapper {
+  background-color: white !important;
 }
 
-.rdrDay:not(.rdrDayPassive) .rdrInRange ~ .rdrDayNumber span,
-.rdrDay:not(.rdrDayPassive) .rdrStartEdge ~ .rdrDayNumber span,
-.rdrDay:not(.rdrDayPassive) .rdrEndEdge ~ .rdrDayNumber span,
-.rdrDay:not(.rdrDayPassive) .rdrSelected ~ .rdrDayNumber span {
-  color: white;
-  font-weight: 500;
+.calendar-wrapper .rdrDateDisplay {
+  margin: 0.5rem !important;
 }
 
-.rdrDay:hover:not(.rdrDayPassive) {
-  background-color: #f8f5f0;
-  border-radius: 4px;
+.calendar-wrapper .rdrDateDisplayItem {
+  background-color: #f8f5f0 !important;
+  border: 1px solid #e2d5c5 !important;
+  border-radius: 6px !important;
 }
 
-.rdrDayNumber {
-  font-weight: 500;
+.calendar-wrapper .rdrDateDisplayItem input {
+  color: #68401b !important;
+  font-size: 0.9rem !important;
 }
 
-.rdrSelected {
-  border-radius: 4px;
-  border: 2px solid #68401b;
+/* Enhanced month and year dropdown styling */
+.calendar-wrapper .rdrMonthAndYearPickers {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.rdrMonthName {
-  color: #68401b;
-  font-weight: 600;
-  padding: 0.5rem 0;
+.calendar-wrapper .rdrMonthAndYearPickers select {
+  font-size: 0.95rem !important;
+  color: #68401b !important;
+  padding: 0.35rem 1.5rem 0.35rem 0.75rem !important;
+  border: 1px solid #e2d5c5 !important;
+  border-radius: 4px !important;
+  background-color: transparent !important;
+  cursor: pointer !important;
+  appearance: none !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2368401b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 0.5rem center !important;
+  transition: all 0.2s ease !important;
 }
 
-.rdrWeekDay {
-  color: #444;
-  font-weight: 500;
+.calendar-wrapper .rdrMonthAndYearPickers select:hover {
+  border-color: #b08e6a !important;
+  background-color: #f8f5f0 !important;
 }
 
-.rdrDayDisabled {
-  background-color: #f5f5f5;
+.calendar-wrapper .rdrMonthAndYearPickers select:focus {
+  outline: none !important;
+  border-color: #68401b !important;
+  box-shadow: 0 0 0 1px #68401b20 !important;
 }
 
-.rdrDayDisabled .rdrDayNumber span {
-  color: #aaa;
+/* Navigation button styling for both desktop and mobile */
+.calendar-wrapper .rdrNextPrevButton {
+  width: 28px !important;
+  height: 28px !important;
+  padding: 0 !important;
+  margin: 0 0.25rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: transparent !important;
+  position: relative !important;
 }
 
-/* Add these responsive styles */
+.calendar-wrapper .rdrPprevButton {
+  margin-right: 0.5rem !important;
+}
+
+.calendar-wrapper .rdrNextButton {
+  margin-left: 0.5rem !important;
+}
+
+.calendar-wrapper .rdrNextPrevButton i {
+  border-color: #68401b !important;
+  border-style: solid !important;
+  border-width: 2px 2px 0 0 !important;
+  width: 8px !important;
+  height: 8px !important;
+  display: block !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+}
+
+.calendar-wrapper .rdrPprevButton i {
+  transform: translate(-25%, -50%) rotate(-135deg) !important;
+}
+
+.calendar-wrapper .rdrNextButton i {
+  transform: translate(-75%, -50%) rotate(45deg) !important;
+}
+
+.calendar-wrapper .rdrNextPrevButton:hover {
+  background: transparent !important;
+}
+
+.calendar-wrapper .rdrNextPrevButton:hover i {
+  border-color: #b08e6a !important;
+}
+
+.calendar-wrapper .rdrDayStartPreview,
+.calendar-wrapper .rdrDayEndPreview,
+.calendar-wrapper .rdrDayInPreview {
+  border-color: #b08e6a !important;
+}
+
+.calendar-wrapper .rdrDayStartOfMonth .rdrInRange,
+.calendar-wrapper .rdrDayStartOfWeek .rdrInRange {
+  border-top-left-radius: 1.5rem !important;
+  border-bottom-left-radius: 1.5rem !important;
+}
+
+.calendar-wrapper .rdrDayEndOfMonth .rdrInRange,
+.calendar-wrapper .rdrDayEndOfWeek .rdrInRange {
+  border-top-right-radius: 1.5rem !important;
+  border-bottom-right-radius: 1.5rem !important;
+}
+
+/* Mobile optimization */
 @media (max-width: 640px) {
-  .rdrCalendarWrapper,
-  .rdrMonth {
-    font-size: 14px !important;
+  .calendar-wrapper .rdrCalendarWrapper {
+    font-size: 13px !important;
+    padding: 0.5rem !important;
+    width: 100% !important;
   }
 
-  .rdrMonthAndYearPickers select {
-    padding: 0.25rem;
-    font-size: 14px;
+  .calendar-wrapper .rdrMonths {
+    width: 100% !important;
   }
 
-  .rdrMonthName {
-    padding: 0.25rem 0;
-    font-size: 14px;
+  .calendar-wrapper .rdrMonth {
+    width: 100% !important;
+    padding: 0 !important;
   }
 
-  .rdrWeekDay {
-    font-size: 12px;
+  .calendar-wrapper .rdrMonthAndYearWrapper {
+    height: auto !important;
+    padding: 0.75rem 0.25rem !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    margin-bottom: 0.5rem !important;
   }
 
-  .rdrDayNumber span {
-    font-size: 12px;
+  .calendar-wrapper .rdrMonthAndYearPickers {
+    flex: 0 1 auto !important;
+    padding: 0 0.75rem !important;
+    width: auto !important;
+    gap: 0.75rem !important;
   }
 
-  .calendar-wrapper {
-    margin: 0 -1rem;
-    border-radius: 0;
-    border-left: 0;
-    border-right: 0;
+  .calendar-wrapper .rdrMonthAndYearPickers select {
+    font-size: 0.8rem !important;
+    padding: 0.25rem 1.25rem 0.25rem 0.35rem !important;
+    min-width: 65px !important;
+    max-width: 85px !important;
+    background-position: right 0.25rem center !important;
   }
 
-  .form-group input[type='text'] {
-    font-size: 14px;
-    padding: 0.75rem;
+  .calendar-wrapper .rdrNextPrevButton,
+  .calendar-wrapper .rdrNextPrevButton i,
+  .calendar-wrapper .rdrPprevButton i,
+  .calendar-wrapper .rdrNextButton i {
+    /* These properties are now handled by the desktop styles */
   }
 
-  .form-group input[type='text']::placeholder {
-    font-size: 13px;
-  }
-}
-
-/* Add styles for better touch interaction */
-@media (hover: none) and (pointer: coarse) {
-  .rdrDay {
-    padding: 0.5rem;
+  .calendar-wrapper .rdrMonthName {
+    font-size: 0.85rem !important;
+    padding: 0.5rem 0 !important;
+    margin-top: 0.25rem !important;
   }
 
-  .rdrDayNumber {
-    font-size: 14px;
+  .calendar-wrapper .rdrDay {
+    height: 35px !important;
   }
 
-  .rdrSelected,
-  .rdrDay:hover:not(.rdrDayPassive) {
-    background-color: rgba(104, 64, 27, 0.1);
+  .calendar-wrapper .rdrDayNumber {
+    font-size: 0.85rem !important;
   }
 
-  .rdrMonthAndYearPickers select {
-    padding: 0.5rem 1rem;
-  }
-}
-
-/* Optimize calendar size for different screen sizes */
-@media (min-width: 641px) and (max-width: 1024px) {
-  .rdrCalendarWrapper {
-    font-size: 15px !important;
-  }
-}
-
-/* Add smooth transitions */
-.rdrDay,
-.rdrDayNumber,
-.rdrMonthAndYearPickers select {
-  transition: all 0.2s ease;
-}
-
-/* Improve input field appearance on mobile */
-input[type='text'] {
-  -webkit-appearance: none;
-  appearance: none;
-  border-radius: 8px;
-}
-
-/* Fix iOS zoom on input focus */
-@media screen and (max-width: 640px) {
-  input[type='text'],
-  select,
-  textarea {
-    font-size: 16px !important;
-  }
-}
-
-/* Add styles for better touch targets */
-.rdrMonthAndYearPickers select,
-.rdrDay {
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-}
-
-/* Improve calendar navigation on mobile */
-.rdrNextPrevButton {
-  padding: 8px;
-  min-width: 36px;
-  height: 36px;
-}
-
-.rdrNextPrevButton i {
-  margin: 0;
-}
-
-/* Adjust font sizes for better visual hierarchy */
-.rdrMonthName {
-  font-size: 0.9rem;
-  padding: 0.25rem 0;
-}
-
-.rdrWeekDay {
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: #666;
-}
-
-.rdrDayNumber span {
-  font-size: 0.85rem;
-}
-
-/* Update responsive styles */
-@media (max-width: 640px) {
-  .rdrMonthAndYearPickers select {
-    font-size: 0.85rem;
-    padding: 0.25rem 1.75rem 0.25rem 0.5rem;
-    background-size: 0.85rem;
+  .calendar-wrapper .rdrWeekDay {
+    font-size: 0.85rem !important;
+    padding: 0.35rem 0 !important;
   }
 
-  .rdrMonthName {
-    font-size: 0.85rem;
+  .calendar-wrapper .rdrDateDisplayWrapper {
+    margin: 0.25rem 0 !important;
   }
 
-  .rdrWeekDay {
-    font-size: 0.7rem;
+  .calendar-wrapper .rdrDateDisplay {
+    margin: 0.25rem !important;
   }
 
-  .rdrDayNumber span {
-    font-size: 0.8rem;
+  .calendar-wrapper .rdrDateDisplayItem {
+    min-width: unset !important;
+    flex: 1 !important;
   }
-}
 
-/* Add these new styles for better month/year picker appearance */
-.rdrMonthAndYearPickers select:focus {
-  outline: none;
-  border-color: #68401b;
-  box-shadow: 0 0 0 1px #68401b;
-}
-
-.rdrMonthAndYearPickers select option {
-  font-size: 0.9rem;
-  padding: 0.5rem;
+  .calendar-wrapper .rdrDateDisplayItem input {
+    padding: 0.25rem 0.5rem !important;
+    font-size: 0.85rem !important;
+  }
 }
