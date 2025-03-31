@@ -28,10 +28,27 @@ const WeddingGalleryCarousel = dynamic(
 
 export default function Home() {
   const [isMounted, setIsMounted] = useState(false);
+  const [activeVideo, setActiveVideo] = useState(1);
+  const video1Ref = React.useRef<HTMLVideoElement>(null);
+  const video2Ref = React.useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
+
+  const handleFirstVideoEnd = () => {
+    setActiveVideo(2);
+    if (video2Ref.current) {
+      video2Ref.current.play();
+    }
+  };
+
+  const handleSecondVideoEnd = () => {
+    setActiveVideo(1);
+    if (video1Ref.current) {
+      video1Ref.current.play();
+    }
+  };
 
   return (
     <div className='flex flex-col min-h-screen bg-[#f8f5f0]'>
@@ -88,8 +105,11 @@ export default function Home() {
         <AnimatedSection className='w-full relative bg-[#fcfaf7]'>
           <div className='w-full h-[60vh] sm:h-[80vh] md:h-screen overflow-hidden relative'>
             <video
+              ref={video1Ref}
               src='https://weddingtheory.blr1.cdn.digitaloceanspaces.com/video/WEB1%202%20compressed.mp4'
-              className='absolute top-1/2 left-1/2 w-full h-full object-cover -translate-x-1/2 -translate-y-1/2'
+              className={`absolute top-1/2 left-1/2 w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 transition-opacity duration-1000 ${
+                activeVideo === 1 ? 'opacity-100' : 'opacity-0'
+              }`}
               style={{
                 pointerEvents: 'none',
                 transform: `translate(-50%, -50%) scale(${
@@ -98,8 +118,24 @@ export default function Home() {
               }}
               autoPlay
               muted
-              loop
               playsInline
+              onEnded={handleFirstVideoEnd}
+            />
+            <video
+              ref={video2Ref}
+              src='https://weddingtheory.blr1.cdn.digitaloceanspaces.com/video/sonali%20samip%20website%20run%202.mov'
+              className={`absolute top-1/2 left-1/2 w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 transition-opacity duration-1000 ${
+                activeVideo === 2 ? 'opacity-100' : 'opacity-0'
+              }`}
+              style={{
+                pointerEvents: 'none',
+                transform: `translate(-50%, -50%) scale(${
+                  isMounted ? (window.innerWidth < 640 ? 1.2 : 1) : 1
+                })`,
+              }}
+              muted
+              playsInline
+              onEnded={handleSecondVideoEnd}
             />
             <div className='absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent' />
             <div className='absolute bottom-0 left-0 right-0 flex justify-center items-center pb-12 sm:pb-16 md:pb-20'>
