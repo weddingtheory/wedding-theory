@@ -23,6 +23,7 @@ interface BlogPost {
   slug: string;
   status: string;
   is_featured_home: boolean | null;
+  featured_image_alt: string | null;
 }
 
 // Format location by removing slashes and trimming whitespace
@@ -42,7 +43,9 @@ export default function BlogsPage() {
       try {
         const { data, error } = await supabase
           .from('blog_posts')
-          .select('*')
+          .select(
+            'id, title, published_at, featured_image_key, location, wedding_date, slug, status, is_featured_home, featured_image_alt'
+          )
           .eq('status', 'published')
           .order('wedding_date', { ascending: false });
 
@@ -65,8 +68,9 @@ export default function BlogsPage() {
       timer = setInterval(() => {
         const currentTime = Date.now();
         const timeElapsed = currentTime - lastTransitionTimeRef.current;
-        
-        if (timeElapsed >= 3000) {  // 3 seconds
+
+        if (timeElapsed >= 3000) {
+          // 3 seconds
           setCurrentIndex((prev) => (prev + 1) % blogPosts.length);
           lastTransitionTimeRef.current = currentTime;
         }
@@ -88,9 +92,7 @@ export default function BlogsPage() {
   }, [blogPosts.length]);
 
   const goToPrevious = useCallback(() => {
-    setCurrentIndex((prev) => 
-      prev === 0 ? blogPosts.length - 1 : prev - 1
-    );
+    setCurrentIndex((prev) => (prev === 0 ? blogPosts.length - 1 : prev - 1));
     lastTransitionTimeRef.current = Date.now();
   }, [blogPosts.length]);
 
@@ -107,8 +109,8 @@ export default function BlogsPage() {
 
     if (loading) {
       return (
-        <div className="flex justify-center items-center h-full">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#68401b]"></div>
+        <div className='flex justify-center items-center h-full'>
+          <div className='animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#68401b]'></div>
         </div>
       );
     }
@@ -141,7 +143,7 @@ export default function BlogsPage() {
             >
               <Image
                 src={currentPost.featured_image_key || ''}
-                alt={currentPost.title}
+                alt={currentPost.featured_image_alt || currentPost.title}
                 fill
                 className='object-cover'
                 priority
@@ -154,30 +156,38 @@ export default function BlogsPage() {
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.2, duration: 0.5 }}
               >
-                <div className='backdrop-blur-md bg-black/30 p-3 lg:p-4 rounded-lg
+                <div
+                  className='backdrop-blur-md bg-black/30 p-3 lg:p-4 rounded-lg
                   border border-white/10 shadow-lg transition-all duration-300
-                  active:scale-[0.98] lg:hover:scale-[1.02] lg:hover:bg-black/40 lg:hover:shadow-2xl'>
+                  active:scale-[0.98] lg:hover:scale-[1.02] lg:hover:bg-black/40 lg:hover:shadow-2xl'
+                >
                   <div className='flex flex-col gap-1 lg:gap-2'>
-                    <div className="flex flex-wrap gap-4 mb-2">
+                    <div className='flex flex-wrap gap-4 mb-2'>
                       {currentPost.wedding_date && (
-                        <div className="flex items-center gap-2 text-white/80 text-[10px] lg:text-xs group-hover:text-white transition-colors duration-300">
-                          <IoCalendarClearOutline className="w-3 h-3 lg:w-4 lg:h-4" />
-                          <span>{new Date(currentPost.wedding_date).toLocaleDateString('en-US', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
-                          })}</span>
+                        <div className='flex items-center gap-2 text-white/80 text-[10px] lg:text-xs group-hover:text-white transition-colors duration-300'>
+                          <IoCalendarClearOutline className='w-3 h-3 lg:w-4 lg:h-4' />
+                          <span>
+                            {new Date(
+                              currentPost.wedding_date
+                            ).toLocaleDateString('en-US', {
+                              year: 'numeric',
+                              month: 'long',
+                              day: 'numeric',
+                            })}
+                          </span>
                         </div>
                       )}
                       {formattedLocation && (
-                        <div className="flex items-center gap-2 text-white/80 text-[10px] lg:text-xs group-hover:text-white transition-colors duration-300">
-                          <IoLocationOutline className="w-3 h-3 lg:w-4 lg:h-4" />
+                        <div className='flex items-center gap-2 text-white/80 text-[10px] lg:text-xs group-hover:text-white transition-colors duration-300'>
+                          <IoLocationOutline className='w-3 h-3 lg:w-4 lg:h-4' />
                           <span>{formattedLocation}</span>
                         </div>
                       )}
                     </div>
-                    <h3 className='font-serif text-base lg:text-3xl leading-tight relative z-10 text-white/90 
-                      transition-colors duration-300 group-hover:text-white'>
+                    <h3
+                      className='font-serif text-base lg:text-3xl leading-tight relative z-10 text-white/90 
+                      transition-colors duration-300 group-hover:text-white'
+                    >
                       {currentPost.title}
                     </h3>
                   </div>
@@ -244,18 +254,18 @@ export default function BlogsPage() {
             Latest Stories
           </h1>
           {loading ? (
-            <div className="flex justify-center items-center py-16">
-              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#68401b]"></div>
+            <div className='flex justify-center items-center py-16'>
+              <div className='animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#68401b]'></div>
             </div>
           ) : (
             <div className='space-y-24 mb-24'>
               {blogPosts.map((post) => {
                 const formattedLocation = formatLocation(post.location);
                 return (
-                  <Link 
+                  <Link
                     key={post.id}
-                    href={`/blogs/${post.slug}`} 
-                    className="group block transition-all duration-300 active:scale-[0.98] cursor-pointer"
+                    href={`/blogs/${post.slug}`}
+                    className='group block transition-all duration-300 active:scale-[0.98] cursor-pointer'
                   >
                     <motion.article
                       initial={{ opacity: 0, y: 20 }}
@@ -263,33 +273,41 @@ export default function BlogsPage() {
                       viewport={{ once: true, margin: '-100px' }}
                       transition={{ duration: 0.6 }}
                     >
-                      <div className='relative h-64 md:h-[500px] mb-6 overflow-hidden rounded-2xl 
+                      <div
+                        className='relative h-64 md:h-[500px] mb-6 overflow-hidden rounded-2xl 
                         shadow-lg group-hover:shadow-2xl transition-all duration-300'
                       >
                         <Image
                           src={post.featured_image_key || ''}
-                          alt={post.title}
+                          alt={post.featured_image_alt || post.title}
                           fill
                           className='object-cover transition-transform duration-700 group-hover:scale-[1.03]'
                         />
-                        <div className='absolute inset-0 bg-gradient-to-b from-transparent to-black/30 opacity-0 
-                          group-hover:opacity-100 transition-opacity duration-500' />
+                        <div
+                          className='absolute inset-0 bg-gradient-to-b from-transparent to-black/30 opacity-0 
+                          group-hover:opacity-100 transition-opacity duration-500'
+                        />
                       </div>
                       <div className='space-y-2 transition-transform duration-300 group-hover:scale-[1.01]'>
-                        <div className="flex flex-wrap gap-4 mb-2">
+                        <div className='flex flex-wrap gap-4 mb-2'>
                           {post.wedding_date && (
-                            <div className="flex items-center gap-2 text-gray-600 text-sm transition-colors duration-300 group-hover:text-[#68401b]">
-                              <IoCalendarClearOutline className="w-4 h-4" />
-                              <span>{new Date(post.wedding_date).toLocaleDateString('en-US', {
-                                year: 'numeric',
-                                month: 'long',
-                                day: 'numeric'
-                              })}</span>
+                            <div className='flex items-center gap-2 text-gray-600 text-sm transition-colors duration-300 group-hover:text-[#68401b]'>
+                              <IoCalendarClearOutline className='w-4 h-4' />
+                              <span>
+                                {new Date(post.wedding_date).toLocaleDateString(
+                                  'en-US',
+                                  {
+                                    year: 'numeric',
+                                    month: 'long',
+                                    day: 'numeric',
+                                  }
+                                )}
+                              </span>
                             </div>
                           )}
                           {formattedLocation && (
-                            <div className="flex items-center gap-2 text-gray-600 text-sm transition-colors duration-300 group-hover:text-[#68401b]">
-                              <IoLocationOutline className="w-4 h-4" />
+                            <div className='flex items-center gap-2 text-gray-600 text-sm transition-colors duration-300 group-hover:text-[#68401b]'>
+                              <IoLocationOutline className='w-4 h-4' />
                               <span>{formattedLocation}</span>
                             </div>
                           )}

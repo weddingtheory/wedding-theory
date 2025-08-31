@@ -5,6 +5,7 @@ import { IoChevronBackOutline, IoChevronForwardOutline } from 'react-icons/io5';
 
 interface ImageLightboxProps {
   images: string[];
+  imageAlts?: string[];
   initialImageIndex: number;
   isOpen: boolean;
   onClose: () => void;
@@ -13,14 +14,23 @@ interface ImageLightboxProps {
 
 export default function ImageLightbox({
   images,
+  imageAlts,
   initialImageIndex,
   isOpen,
   onClose,
-  onImageChange
+  onImageChange,
 }: ImageLightboxProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(initialImageIndex);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isGridView, setIsGridView] = useState(false);
+
+  // Helper function to get alt text for an image
+  const getAltText = (index: number) => {
+    if (imageAlts && imageAlts[index]) {
+      return imageAlts[index];
+    }
+    return `Gallery image ${index + 1}`;
+  };
 
   // Reset when opening new gallery
   useEffect(() => {
@@ -34,30 +44,26 @@ export default function ImageLightbox({
 
   const handlePrevious = useCallback(() => {
     setIsPlaying(false);
-    setCurrentImageIndex(prev => 
-      prev === 0 ? images.length - 1 : prev - 1
-    );
+    setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
   }, [images.length]);
 
   const handleNext = useCallback(() => {
     setIsPlaying(false);
-    setCurrentImageIndex(prev => 
-      prev === images.length - 1 ? 0 : prev + 1
-    );
+    setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   }, [images.length]);
 
   // Toggle slideshow
   const toggleSlideshow = useCallback(() => {
-    setIsPlaying(prev => !prev);
+    setIsPlaying((prev) => !prev);
   }, []);
 
   // Slideshow effect
   useEffect(() => {
     let timer: NodeJS.Timeout;
-    
+
     if (isPlaying && !isGridView) {
       timer = setInterval(() => {
-        setCurrentImageIndex(prev => 
+        setCurrentImageIndex((prev) =>
           prev === images.length - 1 ? 0 : prev + 1
         );
       }, 3000);
@@ -83,7 +89,7 @@ export default function ImageLightbox({
     trackTouch: true,
     delta: 10,
     swipeDuration: 500,
-    touchEventOptions: { passive: false }
+    touchEventOptions: { passive: false },
   });
 
   useEffect(() => {
@@ -107,7 +113,7 @@ export default function ImageLightbox({
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!isOpen) return;
-      
+
       switch (e.key) {
         case 'ArrowLeft':
           handlePrevious();
@@ -130,11 +136,11 @@ export default function ImageLightbox({
   if (!isOpen) return null;
 
   return (
-    <div 
+    <div
       className='fixed inset-0 z-50 flex items-center justify-center bg-black/80'
-      role="dialog"
-      aria-modal="true"
-      aria-label="Image gallery"
+      role='dialog'
+      aria-modal='true'
+      aria-label='Image gallery'
     >
       {/* Progress Bar */}
       {isPlaying && !isGridView && (
@@ -155,8 +161,8 @@ export default function ImageLightbox({
               animation: progressAnimation 3s linear infinite;
             }
           `}</style>
-          <div className="fixed top-0 left-0 right-0 h-[2px] bg-white/5 z-[70]">
-            <div className="progress-bar w-full h-full" />
+          <div className='fixed top-0 left-0 right-0 h-[2px] bg-white/5 z-[70]'>
+            <div className='progress-bar w-full h-full' />
           </div>
         </>
       )}
@@ -167,7 +173,7 @@ export default function ImageLightbox({
         className={`fixed top-4 right-4 text-white z-[60] p-2 hover:opacity-80 bg-black/40 rounded-full ${
           isGridView ? 'md:right-7' : ''
         }`}
-        aria-label="Close gallery"
+        aria-label='Close gallery'
       >
         <svg
           className='w-8 h-8'
@@ -189,8 +195,8 @@ export default function ImageLightbox({
           {/* Previous button */}
           <button
             onClick={handlePrevious}
-            className="fixed left-2 md:left-4 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 text-white/90 p-2 rounded-full transition-all duration-300 hover:scale-110 backdrop-blur-sm z-[60]"
-            aria-label="Previous image"
+            className='fixed left-2 md:left-4 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 text-white/90 p-2 rounded-full transition-all duration-300 hover:scale-110 backdrop-blur-sm z-[60]'
+            aria-label='Previous image'
           >
             <IoChevronBackOutline size={24} />
           </button>
@@ -198,8 +204,8 @@ export default function ImageLightbox({
           {/* Next button */}
           <button
             onClick={handleNext}
-            className="fixed right-2 md:right-4 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 text-white/90 p-2 rounded-full transition-all duration-300 hover:scale-110 backdrop-blur-sm z-[60]"
-            aria-label="Next image"
+            className='fixed right-2 md:right-4 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 text-white/90 p-2 rounded-full transition-all duration-300 hover:scale-110 backdrop-blur-sm z-[60]'
+            aria-label='Next image'
           >
             <IoChevronForwardOutline size={24} />
           </button>
@@ -207,7 +213,7 @@ export default function ImageLightbox({
       )}
 
       {/* Main content area */}
-      <div 
+      <div
         {...handlers}
         className='relative w-full h-full flex items-center justify-center p-4'
         style={{ touchAction: 'pan-y pinch-zoom' }}
@@ -221,15 +227,15 @@ export default function ImageLightbox({
                   <div
                     key={image}
                     className={`relative aspect-square cursor-pointer group ${
-                      index === currentImageIndex 
-                        ? 'ring-4 ring-white ring-offset-4 ring-offset-black/80' 
+                      index === currentImageIndex
+                        ? 'ring-4 ring-white ring-offset-4 ring-offset-black/80'
                         : 'hover:ring-2 hover:ring-white/50'
                     }`}
                     onClick={() => handleImageClick(index)}
                   >
                     <Image
                       src={image}
-                      alt={`Gallery image ${index + 1}`}
+                      alt={getAltText(index)}
                       fill
                       className='object-cover transition-transform duration-200 group-hover:scale-[1.02]'
                       sizes='(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw'
@@ -247,7 +253,7 @@ export default function ImageLightbox({
           <div className='relative w-full max-w-5xl h-[80vh] touch-pan-y'>
             <Image
               src={images[currentImageIndex]}
-              alt={`Gallery image ${currentImageIndex + 1}`}
+              alt={getAltText(currentImageIndex)}
               fill
               className='object-contain'
               sizes='(max-width: 768px) 100vw, 80vw'
@@ -258,9 +264,11 @@ export default function ImageLightbox({
       </div>
 
       {/* Bottom controls */}
-      <div className={`fixed bottom-4 left-1/2 -translate-x-1/2 text-white flex items-center gap-3 z-[60] bg-black/40 px-4 py-2 rounded-full ${
-        isGridView ? 'mb-2' : ''
-      }`}>
+      <div
+        className={`fixed bottom-4 left-1/2 -translate-x-1/2 text-white flex items-center gap-3 z-[60] bg-black/40 px-4 py-2 rounded-full ${
+          isGridView ? 'mb-2' : ''
+        }`}
+      >
         {!isGridView && (
           <button
             onClick={toggleSlideshow}
@@ -304,7 +312,7 @@ export default function ImageLightbox({
             )}
           </button>
         )}
-        
+
         {/* Grid view toggle */}
         <button
           onClick={() => {
@@ -345,7 +353,7 @@ export default function ImageLightbox({
           )}
         </button>
 
-        <span className="min-w-[3rem] text-center">
+        <span className='min-w-[3rem] text-center'>
           {currentImageIndex + 1} / {images.length}
         </span>
       </div>
