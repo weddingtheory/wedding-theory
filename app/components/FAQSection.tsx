@@ -37,6 +37,12 @@ const faqData = [
     answer:
       'You can reach out to us directly via phone call or WhatsApp on +91 9902584820. For detailed enquiries and quotations, you can also email us at weddingtheoryofficial@gmail.com',
   },
+  {
+    id: 6,
+    question: 'What happens if we need to reschedule or cancel the shoot?',
+    answer:
+      'In case of rescheduling, the shoot will be moved to the next available date as requested, subject to our availability. In case of cancellation, no refund will be provided.',
+  },
 ];
 
 export default function FAQSection() {
