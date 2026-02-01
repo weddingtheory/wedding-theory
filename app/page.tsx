@@ -25,6 +25,9 @@ const WeddingGalleryCarousel = dynamic(
     ssr: false,
   }
 );
+const FAQSection = dynamic(() => import('./components/FAQSection'), {
+  ssr: false,
+});
 
 export default function Home() {
   const [isMounted, setIsMounted] = useState(false);
@@ -369,6 +372,9 @@ export default function Home() {
               </div>
             </div>
           </AnimatedSection>
+
+          {/* FAQ Section - above footer */}
+          <FAQSection />
         </div>
       </main>
     </div>
