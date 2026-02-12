@@ -67,7 +67,7 @@ export default function ImageCarousel() {
       timer = setInterval(() => {
         const currentTime = Date.now();
         const timeElapsed = currentTime - lastTransitionTimeRef.current;
-        
+
         if (timeElapsed >= 4500) {  // Changed to 4.5 seconds
           setCurrentIndex((prev) => (prev + 1) % blogPosts.length);
           lastTransitionTimeRef.current = currentTime;
@@ -90,7 +90,7 @@ export default function ImageCarousel() {
   }, [blogPosts.length]);
 
   const goToPrevious = useCallback(() => {
-    setCurrentIndex((prev) => 
+    setCurrentIndex((prev) =>
       prev === 0 ? blogPosts.length - 1 : prev - 1
     );
     lastTransitionTimeRef.current = Date.now();
@@ -136,7 +136,7 @@ export default function ImageCarousel() {
           className='absolute inset-0'
         >
           <Link
-            href={`/blogs/${currentPost.slug}`}
+            href={`/wedding_journal/${currentPost.slug}`}
             className='group block relative h-full'
           >
             <Image
@@ -195,11 +195,10 @@ export default function ImageCarousel() {
                   setCurrentIndex(index);
                   lastTransitionTimeRef.current = Date.now();
                 }}
-                className={`w-1.5 h-1.5 lg:w-2 lg:h-2 rounded-full transition-all duration-300 ${
-                  currentIndex === index
+                className={`w-1.5 h-1.5 lg:w-2 lg:h-2 rounded-full transition-all duration-300 ${currentIndex === index
                     ? 'bg-white w-4 lg:w-6'
                     : 'bg-white/50 hover:bg-white/75'
-                }`}
+                  }`}
               />
             ))}
           </div>

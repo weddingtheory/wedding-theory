@@ -58,8 +58,8 @@ export async function generateMetadata({
 
   if (!post) {
     return {
-      title: 'Blog Post Not Found',
-      description: 'The requested blog post could not be found.',
+      title: 'Wedding Journal Entry Not Found',
+      description: 'The requested wedding journal entry could not be found.',
     };
   }
 
@@ -75,11 +75,11 @@ export async function generateMetadata({
         `Read about ${post.title} - A beautiful wedding story`,
       images: post.featured_image_key
         ? [
-            {
-              url: post.featured_image_key,
-              alt: post.featured_image_alt || post.title,
-            },
-          ]
+          {
+            url: post.featured_image_key,
+            alt: post.featured_image_alt || post.title,
+          },
+        ]
         : [],
       type: 'article',
     },
@@ -94,7 +94,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function WeddingJournalPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
   const post = await fetchBlogPost(resolvedParams.slug);
 

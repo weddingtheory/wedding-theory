@@ -11,7 +11,8 @@ const navItems = [
   // { href: '/lahza', label: 'LAHZA' },  // Commented out until future release
   { href: '/films', label: 'Films' },
   { href: '/weddings', label: 'Weddings' },
-  { href: '/blogs', label: 'Blogs' },
+  { href: '/wedding_journal', label: 'Wedding journal' },
+  { href: '/blog', label: 'Blog' },
   { href: '/testimonial', label: 'Testimonial' },
   { href: '/contact', label: 'Contact' },
   { href: '/about', label: 'About' },
@@ -140,11 +141,9 @@ export default function Navbar() {
             initial={isMobile ? 'closedMobile' : 'closedDesktop'}
             animate={isMobile ? 'openMobile' : 'openDesktop'}
             exit={isMobile ? 'closedMobile' : 'closedDesktop'}
-            className={`fixed ${
-              isMobile ? 'inset-0' : 'inset-y-0 right-0'
-            } bg-white z-40 flex items-center justify-center ${
-              isMobile ? 'w-full h-full' : 'w-full md:w-1/3'
-            } `}
+            className={`fixed ${isMobile ? 'inset-0' : 'inset-y-0 right-0'
+              } bg-white z-40 flex items-center justify-center ${isMobile ? 'w-full h-full' : 'w-full md:w-1/3'
+              } `}
           >
             {isMobile && pathname !== '/' && (
               <div className='absolute top-6 left-4 flex items-center'>
@@ -170,11 +169,10 @@ export default function Navbar() {
                 >
                   <Link
                     href={item.href}
-                    className={`text-2xl font-serif transition-colors ${
-                      pathname === item.href
+                    className={`text-2xl font-serif transition-colors ${pathname === item.href
                         ? 'text-black'
                         : 'text-gray-800 hover:text-black'
-                    }`}
+                      }`}
                     onClick={toggleMenu}
                   >
                     {item.label}

@@ -35,11 +35,10 @@ const Footer = () => {
         {/* Scroll to top button */}
         <button
           onClick={scrollToTop}
-          className={`bg-[#544b47a3] w-12 h-12 sm:w-12 sm:h-12 flex items-center justify-center rounded-full shadow-lg hover:bg-gray-700 active:bg-[#544b47a3] transition-all duration-300 transform ${
-            showScrollTop
-              ? 'translate-y-0 opacity-100'
-              : 'translate-y-10 opacity-0 pointer-events-none'
-          }`}
+          className={`bg-[#544b47a3] w-12 h-12 sm:w-12 sm:h-12 flex items-center justify-center rounded-full shadow-lg hover:bg-gray-700 active:bg-[#544b47a3] transition-all duration-300 transform ${showScrollTop
+            ? 'translate-y-0 opacity-100'
+            : 'translate-y-10 opacity-0 pointer-events-none'
+            }`}
           aria-label='Scroll to top'
         >
           <FaArrowUp className='text-white w-5 h-5 sm:w-5 sm:h-5' />
@@ -140,8 +139,11 @@ const Footer = () => {
             <Link href='/contact' className='hover:text-gray-900'>
               Contact
             </Link>
-            <Link href='/blogs' className='hover:text-gray-900'>
-              Blogs
+            <Link href='/wedding_journal' className='hover:text-gray-900'>
+              Wedding journal
+            </Link>
+            <Link href='/blog' className='hover:text-gray-900'>
+              Blog
             </Link>
             <Link href='/testimonial' className='hover:text-gray-900'>
               Testimonial

@@ -46,7 +46,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/photographs-1',
-        destination: '/blogs',
+        destination: '/wedding_journal',
         permanent: true,
       },
     ];

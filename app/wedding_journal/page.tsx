@@ -32,7 +32,7 @@ const formatLocation = (location: string | null) => {
   return location.replace(/^\/+|\/+$/g, '').trim();
 };
 
-export default function BlogsPage() {
+export default function WeddingJournalPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
@@ -138,7 +138,7 @@ export default function BlogsPage() {
             className='absolute inset-0'
           >
             <Link
-              href={`/blogs/${currentPost.slug}`}
+              href={`/wedding_journal/${currentPost.slug}`}
               className='group block relative h-full'
             >
               <Image
@@ -205,11 +205,10 @@ export default function BlogsPage() {
                     setCurrentIndex(index);
                     lastTransitionTimeRef.current = Date.now();
                   }}
-                  className={`w-1.5 h-1.5 lg:w-2 lg:h-2 rounded-full transition-all duration-300 ${
-                    currentIndex === index
-                      ? 'bg-white w-4 lg:w-6'
-                      : 'bg-white/50 hover:bg-white/75'
-                  }`}
+                  className={`w-1.5 h-1.5 lg:w-2 lg:h-2 rounded-full transition-all duration-300 ${currentIndex === index
+                    ? 'bg-white w-4 lg:w-6'
+                    : 'bg-white/50 hover:bg-white/75'
+                    }`}
                 />
               ))}
             </div>
@@ -264,7 +263,7 @@ export default function BlogsPage() {
                 return (
                   <Link
                     key={post.id}
-                    href={`/blogs/${post.slug}`}
+                    href={`/wedding_journal/${post.slug}`}
                     className='group block transition-all duration-300 active:scale-[0.98] cursor-pointer'
                   >
                     <motion.article

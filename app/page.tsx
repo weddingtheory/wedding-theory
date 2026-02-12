@@ -110,14 +110,12 @@ export default function Home() {
             <video
               ref={video1Ref}
               src='https://weddingtheory.blr1.cdn.digitaloceanspaces.com/video/WEB1%202%20compressed.mp4'
-              className={`absolute top-1/2 left-1/2 w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 transition-opacity duration-1000 ${
-                activeVideo === 1 ? 'opacity-100' : 'opacity-0'
-              }`}
+              className={`absolute top-1/2 left-1/2 w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 transition-opacity duration-1000 ${activeVideo === 1 ? 'opacity-100' : 'opacity-0'
+                }`}
               style={{
                 pointerEvents: 'none',
-                transform: `translate(-50%, -50%) scale(${
-                  isMounted ? (window.innerWidth < 640 ? 1.2 : 1) : 1
-                })`,
+                transform: `translate(-50%, -50%) scale(${isMounted ? (window.innerWidth < 640 ? 1.2 : 1) : 1
+                  })`,
               }}
               autoPlay
               muted
@@ -127,14 +125,12 @@ export default function Home() {
             <video
               ref={video2Ref}
               src='https://weddingtheory.blr1.cdn.digitaloceanspaces.com/video/sonali%20samip%20website%20run%202.mov'
-              className={`absolute top-1/2 left-1/2 w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 transition-opacity duration-1000 ${
-                activeVideo === 2 ? 'opacity-100' : 'opacity-0'
-              }`}
+              className={`absolute top-1/2 left-1/2 w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 transition-opacity duration-1000 ${activeVideo === 2 ? 'opacity-100' : 'opacity-0'
+                }`}
               style={{
                 pointerEvents: 'none',
-                transform: `translate(-50%, -50%) scale(${
-                  isMounted ? (window.innerWidth < 640 ? 1.2 : 1) : 1
-                })`,
+                transform: `translate(-50%, -50%) scale(${isMounted ? (window.innerWidth < 640 ? 1.2 : 1) : 1
+                  })`,
               }}
               muted
               playsInline
@@ -252,7 +248,7 @@ export default function Home() {
                 weddings. Let our blog guide you through your wedding journey.
               </p>
               <Link
-                href='/blogs'
+                href='/wedding_journal'
                 className='inline-block px-4 py-2 text-base
                   text-[#68401b] font-medium 
                   transition-all duration-300 ease-in-out
@@ -271,7 +267,7 @@ export default function Home() {
                   hover:before:scale-x-100
                   hover:before:origin-right'
               >
-                Read Our Blog
+                Explore Wedding Journal
               </Link>
             </div>
           </AnimatedSection>
