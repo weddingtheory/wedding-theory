@@ -8,7 +8,7 @@ import { usePathname } from 'next/navigation';
 
 const navItems = [
   { href: '/', label: 'Home' },
-  // { href: '/lahza', label: 'LAHZA' },  // Commented out until future release
+  { href: '/lahza', label: 'LAHZA' },
   { href: '/films', label: 'Films' },
   { href: '/weddings', label: 'Weddings' },
   { href: '/wedding_journal', label: 'Wedding journal' },
@@ -170,8 +170,8 @@ export default function Navbar() {
                   <Link
                     href={item.href}
                     className={`text-2xl font-serif transition-colors ${pathname === item.href
-                        ? 'text-black'
-                        : 'text-gray-800 hover:text-black'
+                      ? 'text-black'
+                      : 'text-gray-800 hover:text-black'
                       }`}
                     onClick={toggleMenu}
                   >
