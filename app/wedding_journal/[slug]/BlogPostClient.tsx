@@ -1,9 +1,11 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { IoArrowBack, IoLocationOutline, IoCalendarClearOutline } from 'react-icons/io5';
+import { IoArrowBack, IoLocationOutline, IoCalendarClearOutline, IoGridOutline, IoImagesOutline } from 'react-icons/io5';
+import ImageLightbox from '../../components/ImageLightbox';
 
 interface BlogPost {
   id: string;
@@ -26,6 +28,10 @@ interface BlogPostClientProps {
 }
 
 export default function BlogPostClient({ post }: BlogPostClientProps) {
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [viewMode, setViewMode] = useState<'grid' | 'carousel'>('grid');
+
   const formatLocation = (location: string | null) => {
     if (!location) return null;
     return location.replace(/^\/+|\/+$/g, '').trim();
@@ -41,7 +47,19 @@ export default function BlogPostClient({ post }: BlogPostClientProps) {
       : '';
   };
 
+  const getImageAlt = (imageUrl: string, index: number) => {
+    if (post.gallery_image_alts && post.gallery_image_alts[imageUrl]) {
+      return post.gallery_image_alts[imageUrl];
+    }
+    return `Gallery image ${index + 1}`;
+  };
+
   const formattedLocation = formatLocation(post.location);
+
+  const handleImageClick = (index: number) => {
+    setSelectedImageIndex(index);
+    setLightboxOpen(true);
+  };
 
   return (
     <div className='min-h-screen bg-[#f8f5f0]'>
@@ -122,7 +140,119 @@ export default function BlogPostClient({ post }: BlogPostClientProps) {
           prose-a:text-[#68401b] prose-a:font-medium hover:prose-a:text-[#8b5e2b] prose-a:transition-colors'>
           <div dangerouslySetInnerHTML={{ __html: post.content }} />
         </div>
+
+        {/* Gallery Section */}
+        {post.gallery_images && post.gallery_images.length > 0 && (
+          <div className='mt-12 lg:mt-16'>
+            <div className='flex justify-between items-center mb-6 lg:mb-8'>
+              <h2 className='font-serif text-2xl lg:text-3xl text-gray-800'>
+                Gallery
+              </h2>
+              <div className='flex gap-2'>
+                <button
+                  onClick={() => setViewMode('grid')}
+                  className={`p-1.5 lg:p-2 rounded-lg transition-all duration-300 ${viewMode === 'grid'
+                    ? 'bg-[#68401b] text-white'
+                    : 'bg-white text-gray-600 hover:bg-gray-100'
+                    }`}
+                  aria-label='Grid view'
+                >
+                  <IoGridOutline className='w-4 h-4 lg:w-5 lg:h-5' />
+                </button>
+                <button
+                  onClick={() => setViewMode('carousel')}
+                  className={`p-1.5 lg:p-2 rounded-lg transition-all duration-300 ${viewMode === 'carousel'
+                    ? 'bg-[#68401b] text-white'
+                    : 'bg-white text-gray-600 hover:bg-gray-100'
+                    }`}
+                  aria-label='Carousel view'
+                >
+                  <IoImagesOutline className='w-4 h-4 lg:w-5 lg:h-5' />
+                </button>
+              </div>
+            </div>
+
+            {viewMode === 'grid' ? (
+              // Grid View with improved image captions
+              <div className='space-y-4 lg:space-y-8'>
+                {post.gallery_images.map((image, index) => (
+                  <motion.div
+                    key={image}
+                    className='relative w-full cursor-pointer group'
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    onClick={() => handleImageClick(index)}
+                  >
+                    <div className='relative aspect-[3/2] w-full overflow-hidden rounded-lg'>
+                      <Image
+                        src={image}
+                        alt={getImageAlt(image, index)}
+                        fill
+                        className='object-cover transition-transform duration-500 group-hover:scale-105'
+                        loading='lazy'
+                        quality={75}
+                      />
+                      {/* Image overlay with number */}
+                      <div className='absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
+                        <div className='absolute bottom-3 left-3 lg:bottom-4 lg:left-4 text-white text-xs lg:text-sm bg-black/30 px-2 py-0.5 lg:px-3 lg:py-1 rounded-full backdrop-blur-sm'>
+                          Image {index + 1} of{' '}
+                          {post.gallery_images?.length || 0}
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            ) : (
+              // Carousel View with improved thumbnails
+              <div className='grid grid-cols-2 md:grid-cols-3 gap-2 lg:gap-4'>
+                {post.gallery_images.map((image, index) => (
+                  <motion.div
+                    key={image}
+                    className='relative aspect-square cursor-pointer group'
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    onClick={() => handleImageClick(index)}
+                  >
+                    <Image
+                      src={image}
+                      alt={getImageAlt(image, index)}
+                      fill
+                      className='object-cover transition-transform duration-500 group-hover:scale-105'
+                      loading='lazy'
+                      quality={75}
+                    />
+                    {/* Thumbnail overlay with number */}
+                    <div className='absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
+                      <div className='absolute bottom-2 left-2 text-white text-[10px] lg:text-xs bg-black/30 px-1.5 py-0.5 lg:px-2 lg:py-0.5 rounded-full backdrop-blur-sm'>
+                        {index + 1} / {post.gallery_images?.length || 0}
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </div>
+
+      {/* Image Lightbox */}
+      {post.gallery_images && (
+        <ImageLightbox
+          images={post.gallery_images}
+          imageAlts={post.gallery_images.map((image, index) =>
+            getImageAlt(image, index)
+          )}
+          initialImageIndex={selectedImageIndex}
+          isOpen={lightboxOpen}
+          onClose={() => setLightboxOpen(false)}
+          onImageChange={setSelectedImageIndex}
+        />
+      )}
     </div>
   );
 }
