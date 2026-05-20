@@ -35,7 +35,7 @@ const faqData = [
     id: 5,
     question: 'How can we contact you or get a quotation?',
     answer:
-      'You can reach out to us directly via phone call or WhatsApp on +91 9902584820. For detailed enquiries and quotations, you can also email us at weddingtheoryofficial@gmail.com',
+      'You can reach out to us directly via phone call or WhatsApp on +91 9902584820. For detailed enquiries and quotations, you can also email us at Hello@weddingtheory.com',
   },
   {
     id: 6,
@@ -61,10 +61,10 @@ export default function FAQSection() {
           </a>
           . For detailed enquiries and quotations, you can also email us at{' '}
           <a
-            href='mailto:weddingtheoryofficial@gmail.com'
+            href='mailto:Hello@weddingtheory.com'
             className='text-[#68401b] font-medium underline decoration-[#D4B08C]/60 underline-offset-2 hover:decoration-[#68401b] hover:text-[#5e4429] transition-colors'
           >
-            weddingtheoryofficial@gmail.com
+            Hello@weddingtheory.com
           </a>
         </p>
       );

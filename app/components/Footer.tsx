@@ -79,11 +79,11 @@ const Footer = () => {
               <span>+91 99025 84820</span>
             </Link>
             <Link
-              href='mailto:Weddingtheoryofficial@gmail.com'
+              href='mailto:Hello@weddingtheory.com'
               className='flex items-center gap-2 hover:text-gray-900'
             >
               <FaEnvelope className='w-5 h-5' />
-              <span>Weddingtheoryofficial@gmail.com</span>
+              <span>Hello@weddingtheory.com</span>
             </Link>
           </div>
 
