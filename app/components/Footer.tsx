@@ -90,7 +90,7 @@ const Footer = () => {
           {/* Social links with colored icons */}
           <div className='flex space-x-6'>
             <Link
-              href='https://facebook.com'
+              href='https://www.facebook.com/p/Wedding-Theory-61552788696157/'
               target='_blank'
               className='hover:opacity-80'
               aria-label='Visit Wedding Theory on Facebook'
@@ -99,7 +99,7 @@ const Footer = () => {
               <FaFacebook className='w-8 h-8 text-[#1877F2]' />
             </Link>
             <Link
-              href='https://instagram.com'
+              href='https://www.instagram.com/wedding_theory'
               target='_blank'
               className='hover:opacity-80'
               aria-label='Follow Wedding Theory on Instagram'
