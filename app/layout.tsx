@@ -130,6 +130,19 @@ export default function RootLayout({
           data-cf-beacon='{"token": "797b2e63f7184419a749193ea86b28f5"}'
           strategy='afterInteractive'
         />
+        <Script
+          id='microsoft-clarity'
+          strategy='afterInteractive'
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i+"?ref=bwt";
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+              })(window, document, "clarity", "script", "xa4aqawfnj");
+            `,
+          }}
+        />
       </head>
       <body className='antialiased text-gray-900'>
         <Navbar />
