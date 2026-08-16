@@ -3,8 +3,20 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { Cormorant, Parisienne } from 'next/font/google';
 import WeddingLogo from '../public/weddinglogo.png';
 import dynamic from 'next/dynamic';
+
+// Scoped to the LAHZA teaser card below, matching the /lahza page's own type system.
+const lahzaDisplay = Cormorant({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  style: ['normal', 'italic'],
+});
+const lahzaScript = Parisienne({
+  subsets: ['latin'],
+  weight: '400',
+});
 
 // Dynamically import heavy components
 const AnimatedSection = dynamic(() => import('./components/AnimatedSection'), {
@@ -272,43 +284,53 @@ export default function Home() {
             </div>
           </AnimatedSection>
 
-          {/* LAHZA Promotion Section - Adjusted spacing */}
+          {/* LAHZA Promotion Section — mirrors the /lahza page's own type system and accent color */}
           <AnimatedSection className='w-full bg-[#f8f5f0] pt-14 pb-20 md:pt-20 md:pb-32'>
             <div className='max-w-7xl mx-auto px-4'>
               <div className='relative'>
                 {/* Hero Image */}
                 <div className='relative h-[60vh] md:h-[80vh] rounded-2xl overflow-hidden mb-16'>
                   <Image
-                    src='https://ik.imagekit.io/weddingtheory/Photos/WT-2.jpg'
-                    alt='LAHZA Premium Wedding Package'
+                    src='https://ik.imagekit.io/weddingtheory/Photos/0A4A8443-Edit.jpg?updatedAt=1730140135728'
+                    alt='LAHZA — Signature Wedding Films & Photography'
                     fill
                     className='object-cover'
                     style={{ scale: 1.2 }}
                     priority
                   />
-                  <div className='absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60' />
+                  <div className='absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/70' />
 
                   {/* Overlay Content - Moved to bottom */}
                   <div className='absolute inset-x-0 bottom-0 flex flex-col items-center justify-end text-center px-4 pb-12 md:pb-16'>
-                    <h3 className='font-serif text-3xl md:text-4xl text-white mb-3'>
-                      LAHZA
-                    </h3>
-                    <div className='w-16 h-[1px] bg-white/70 mx-auto mb-4'></div>
-                    <p className='text-sm md:text-base text-white/90 max-w-xl mx-auto mb-6 tracking-wide'>
+                    <p className='inline-block px-4 py-2 rounded-full bg-white/10 backdrop-blur-md shadow-[0_8px_24px_rgba(0,0,0,0.25)] ring-1 ring-white/20 text-[10px] md:text-xs tracking-[0.35em] text-white/90 uppercase mb-3'>
                       Our Premium Wedding Package
+                    </p>
+                    <h3
+                      className={`${lahzaScript.className} text-white leading-none mb-4`}
+                      style={{ fontSize: 'clamp(3.5rem, 9vw, 6.5rem)' }}
+                    >
+                      Lahza
+                    </h3>
+                    <p
+                      className={`${lahzaDisplay.className} italic text-base md:text-xl text-white/90 max-w-xl mx-auto mb-8 leading-relaxed`}
+                    >
+                      Every love story, told in a single unforgettable moment
                     </p>
                     <Link
                       href='/lahza'
-                      className='inline-block px-6 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm 
-                        bg-transparent hover:bg-white/10 
-                        text-white font-medium 
-                        rounded-full border border-white/80
-                        transition-all duration-300 ease-in-out
-                        hover:shadow-[0_4px_14px_0_rgba(255,255,255,0.3)]
-                        hover:transform hover:scale-105
-                        tracking-wider'
+                      className='group relative inline-block px-8 sm:px-10 py-3 sm:py-3.5 text-xs sm:text-sm
+                        bg-[#68401b] hover:bg-[#7a4d22]
+                        text-white font-medium
+                        rounded-full
+                        transition-all duration-500 ease-out
+                        shadow-[0_15px_40px_-12px_rgba(104,64,27,0.6)]
+                        hover:shadow-[0_20px_50px_-10px_rgba(104,64,27,0.7)]
+                        hover:-translate-y-0.5
+                        tracking-[0.2em] uppercase
+                        overflow-hidden'
                     >
-                      Learn More About LAHZA
+                      <span className='relative z-10'>Discover Lahza</span>
+                      <span className='absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/25 to-transparent skew-x-12' />
                     </Link>
                   </div>
                 </div>
