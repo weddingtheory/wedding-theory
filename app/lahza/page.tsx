@@ -1,10 +1,28 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { Cormorant, Parisienne } from 'next/font/google';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
+
+// Scoped display serif for LAHZA only — the rest of the site keeps Gotu.
+// Cormorant: delicate, high-contrast, elegant — refined rather than loud.
+const lahzaDisplay = Cormorant({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  style: ['normal', 'italic'],
+  variable: '--font-lahza-display',
+});
+
+// A delicate flowing script reserved for single emphasized words/phrases
+// inside pull-quotes — used sparingly, never split into letters.
+const lahzaScript = Parisienne({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-lahza-script',
+});
 
 // Dynamically import heavy components
 const AnimatedHero = dynamic(() => import('./components/AnimatedHero'), {
@@ -16,6 +34,19 @@ const AnimatedServiceCard = dynamic(
     ssr: false,
   }
 );
+const GalleryMarquee = dynamic(() => import('./components/GalleryMarquee'), {
+  ssr: false,
+});
+const CinematicMoment = dynamic(
+  () => import('./components/CinematicMoment'),
+  { ssr: false }
+);
+const EditorialCollage = dynamic(
+  () => import('./components/EditorialCollage'),
+  { ssr: false }
+);
+
+const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export default function Lahza() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -36,157 +67,96 @@ export default function Lahza() {
     return () => clearInterval(interval);
   }, [images.length]);
 
-  // Icons
-  const cameraIcon = (
-    <svg
-      xmlns='http://www.w3.org/2000/svg'
-      className='h-6 w-6 text-white'
-      fill='none'
-      viewBox='0 0 24 24'
-      stroke='currentColor'
-    >
-      <path
-        strokeLinecap='round'
-        strokeLinejoin='round'
-        strokeWidth={2}
-        d='M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z'
-      />
-      <path
-        strokeLinecap='round'
-        strokeLinejoin='round'
-        strokeWidth={2}
-        d='M15 13a3 3 0 11-6 0 3 3 0 016 0z'
-      />
-    </svg>
-  );
-
-  const filmIcon = (
-    <svg
-      xmlns='http://www.w3.org/2000/svg'
-      className='h-6 w-6 text-white'
-      fill='none'
-      viewBox='0 0 24 24'
-      stroke='currentColor'
-    >
-      <path
-        strokeLinecap='round'
-        strokeLinejoin='round'
-        strokeWidth={2}
-        d='M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z'
-      />
-    </svg>
-  );
-
-  const musicIcon = (
-    <svg
-      xmlns='http://www.w3.org/2000/svg'
-      className='h-6 w-6 text-white'
-      fill='none'
-      viewBox='0 0 24 24'
-      stroke='currentColor'
-    >
-      <path
-        strokeLinecap='round'
-        strokeLinejoin='round'
-        strokeWidth={2}
-        d='M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3'
-      />
-    </svg>
-  );
-
-  const printIcon = (
-    <svg
-      xmlns='http://www.w3.org/2000/svg'
-      className='h-6 w-6 text-white'
-      fill='none'
-      viewBox='0 0 24 24'
-      stroke='currentColor'
-    >
-      <path
-        strokeLinecap='round'
-        strokeLinejoin='round'
-        strokeWidth={2}
-        d='M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z'
-      />
-    </svg>
-  );
-
   return (
-    <div className='flex flex-col min-h-screen bg-[#f8f5f0]'>
+    <div
+      className={`${lahzaDisplay.variable} ${lahzaScript.variable} flex flex-col min-h-screen bg-white`}
+    >
       <main className='flex-grow'>
         <AnimatedHero />
 
-        {/* Add LAHZA heading below hero */}
-        <div className='text-center py-16'>
-          <div className='relative inline-block'>
-            <motion.div className='overflow-hidden'>
-              {/* Individual letters with stagger animation */}
-              <motion.h1 className='text-5xl md:text-6xl tracking-[0.3em] font-serif text-gray-800'>
-                {'LAHZA'.split('').map((letter, index) => (
-                  <motion.span
-                    key={index}
-                    initial={{ y: 100, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{
-                      duration: 0.7,
-                      delay: index * 0.1,
-                      ease: [0.33, 1, 0.68, 1], // Custom easing
-                    }}
-                    className='inline-block'
-                  >
-                    {letter}
-                  </motion.span>
-                ))}
-              </motion.h1>
-            </motion.div>
-
-            {/* Single elegant underline */}
-            <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: '100%' }}
-              transition={{
-                duration: 1,
-                delay: 0.7,
-                ease: [0.33, 1, 0.68, 1],
-              }}
-              className='absolute left-0 right-0 mx-auto -bottom-4 h-[2px] bg-gradient-to-r from-transparent via-[#68401b] to-transparent'
-            />
+        {/* Manifesto */}
+        <section className='relative bg-white py-24 md:py-40 overflow-hidden'>
+          <div className='max-w-[1400px] mx-auto px-4'>
+            <div className='grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-center'>
+              <div className='md:col-span-7 relative'>
+                <span
+                  aria-hidden
+                  className='absolute -top-8 md:-top-16 -left-2 md:-left-6 text-[7rem] md:text-[11rem] leading-none text-[#68401b]/15 [font-family:var(--font-lahza-display)] select-none pointer-events-none'
+                >
+                  &ldquo;
+                </span>
+                <motion.p
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.9, delay: 0.1, ease: EASE }}
+                  className='relative text-3xl sm:text-4xl md:text-6xl leading-[1.25] text-neutral-900 [font-family:var(--font-lahza-display)] font-medium'
+                >
+                  A lahza is the moment your hands touched for the first time
+                  as one — brief, unrepeated, and{' '}
+                  <span className='[font-family:var(--font-lahza-script)] text-[1.5em] text-[#68401b] leading-none'>
+                    yours forever
+                  </span>
+                  . We exist to hold onto it, beautifully.
+                </motion.p>
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.5 }}
+                  className='mt-10 md:mt-14 text-xs tracking-[0.35em] uppercase text-neutral-400'
+                >
+                  — Wedding Theory
+                </motion.p>
+              </div>
+              <motion.div
+                initial={{ opacity: 0, scale: 1.05 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, ease: EASE }}
+                className='md:col-span-5'
+              >
+                <div className='aspect-[3/4] relative shadow-[0_30px_60px_-15px_rgba(0,0,0,0.25)]'>
+                  <Image
+                    src='https://ik.imagekit.io/weddingtheory/Photos/T&DFIRSTSET-6.JPG?updatedAt=1730206583483'
+                    alt='A quiet moment, captured'
+                    fill
+                    sizes='(max-width: 768px) 100vw, 38vw'
+                    className='object-cover contrast-[1.02]'
+                  />
+                </div>
+                <p className='mt-5 text-center text-[11px] tracking-[0.3em] uppercase text-neutral-400'>
+                  A Wedding, Once Lived
+                </p>
+              </motion.div>
+            </div>
           </div>
+        </section>
 
-          {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.8,
-              delay: 1.2,
-              ease: [0.33, 1, 0.68, 1],
-            }}
-            className='text-xl text-gray-700 mt-8 tracking-wide'
-          >
-            Signature Weddings by Wedding Theory
-          </motion.p>
-        </div>
+        <GalleryMarquee />
+
+        <CinematicMoment />
 
         {/* Visual Artistry Section */}
-        <section className='bg-white py-20 md:py-32'>
+        <section id='artistry' className='py-20 md:py-32'>
           <div className='max-w-[1400px] mx-auto px-4'>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className='font-serif text-4xl md:text-5xl text-center text-gray-800 mb-16'
+              className='text-4xl md:text-5xl text-center text-neutral-900 mb-16 md:mb-20 [font-family:var(--font-lahza-display)] font-medium'
             >
               Visual Artistry
             </motion.h2>
-            <div className='flex flex-col gap-16'>
+            <div className='flex flex-col gap-16 md:gap-20'>
               <AnimatedServiceCard
-                title='Candid Photography'
-                description='Relive an authentic moment with our candid photography! Our team of 2-3 technical experts brings hands-on expertise, a sharp eye for detail, and swift presence of mind to capture every precious moment using the photojournalistic method.'
-                icon={cameraIcon}
+                index='01'
+                eyebrow='Photography'
+                title='The Unscripted Moment'
+                description='Relive every stolen glance and unguarded laugh. Our photographers move quietly through your day, two or three artists deep, trained to find the moment before you know it is happening — and keep it forever.'
                 media={
-                  <div className='aspect-[4/3] relative rounded-2xl overflow-hidden shadow-md group'>
+                  <div className='aspect-[4/3] relative overflow-hidden shadow-[0_20px_50px_-15px_rgba(0,0,0,0.25)] group'>
                     <div className='relative w-full h-full'>
                       {/* Current Image */}
                       <motion.div
@@ -199,13 +169,13 @@ export default function Lahza() {
                           src={images[currentImageIndex]}
                           alt='Candid Photography'
                           fill
-                          className='object-cover transform scale-100 group-hover:scale-105 transition-transform duration-700'
+                          className='object-cover contrast-[1.02] transform scale-100 group-hover:scale-105 transition-transform duration-700'
                           priority
                         />
                       </motion.div>
 
                       {/* Overlay with gradient */}
-                      <div className='absolute inset-0 bg-gradient-to-b from-transparent to-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500' />
+                      <div className='absolute inset-0 bg-gradient-to-b from-transparent to-black/25 opacity-0 group-hover:opacity-100 transition-opacity duration-500' />
 
                       {/* Navigation Dots */}
                       <div className='absolute bottom-4 left-0 right-0 z-10'>
@@ -220,7 +190,7 @@ export default function Lahza() {
                                   setIsTransitioning(false);
                                 }, 300);
                               }}
-                              className={`w-2.5 h-2.5 rounded-full transition-all duration-500 
+                              className={`w-2.5 h-2.5 rounded-full transition-all duration-500
                                 ${
                                   currentImageIndex === index
                                     ? 'bg-white scale-125 shadow-lg'
@@ -296,11 +266,12 @@ export default function Lahza() {
               />
 
               <AnimatedServiceCard
-                title='Film'
-                description="Imagine your love story as the most romantic movie you've ever seen! With 10+ years of industry experience, our film experts create cinematic masterpieces that capture the essence of your special day."
-                icon={filmIcon}
+                index='02'
+                eyebrow='Film'
+                title='A Love Story, Directed by Life'
+                description='Imagine the most beautiful film you have ever seen — and it is yours. With over a decade behind the lens, our filmmakers weave your wedding into a cinematic heirloom, scored and paced like the romance it is.'
                 media={
-                  <div className='aspect-[4/3] relative rounded-2xl overflow-hidden shadow-md'>
+                  <div className='aspect-[4/3] relative overflow-hidden shadow-[0_20px_50px_-15px_rgba(0,0,0,0.25)] contrast-[1.02]'>
                     <iframe
                       src='https://www.youtube.com/embed/flUyMnitCj4?autoplay=1&mute=1&loop=1&playlist=flUyMnitCj4&cc_load_policy=1&cc_lang_pref=en'
                       className='absolute inset-0 w-full h-full'
@@ -316,48 +287,51 @@ export default function Lahza() {
           </div>
         </section>
 
-        {/* Enhanced Services Section */}
-        <section className='py-20 md:py-32'>
+        {/* The Finer Details */}
+        <section className='bg-white py-20 md:py-32'>
           <div className='max-w-[1400px] mx-auto px-4'>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className='font-serif text-4xl md:text-5xl text-center text-gray-800 mb-16'
+              className='text-4xl md:text-5xl text-center text-neutral-900 mb-16 md:mb-20 [font-family:var(--font-lahza-display)] font-medium'
             >
-              Signature Elements
+              The Finer Details
             </motion.h2>
-            <div className='flex flex-col gap-16'>
+            <div className='flex flex-col gap-16 md:gap-20'>
               <AnimatedServiceCard
-                title='Music'
-                description='Your wedding film deserves a unique soundtrack. We collaborate with independent artists to compose an original track for your fairy tale story.'
-                icon={musicIcon}
+                index='03'
+                eyebrow='Music'
+                title='The Sound of Your Story'
+                description='Every great love story deserves its own score. We collaborate with independent composers to create an original piece written only for you — a melody as singular as your fairytale.'
                 media={
-                  <iframe
-                    style={{ borderRadius: '12px' }}
-                    src='https://open.spotify.com/embed/track/4AM44o1sPhmoWHjt7GmpSl?utm_source=generator&theme=0'
-                    width='100%'
-                    height='352'
-                    frameBorder='0'
-                    allowFullScreen
-                    allow='autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture'
-                    loading='lazy'
-                  ></iframe>
+                  <div className='contrast-[1.02]'>
+                    <iframe
+                      src='https://open.spotify.com/embed/track/4AM44o1sPhmoWHjt7GmpSl?utm_source=generator&theme=0'
+                      width='100%'
+                      height='352'
+                      frameBorder='0'
+                      allowFullScreen
+                      allow='autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture'
+                      loading='lazy'
+                    ></iframe>
+                  </div>
                 }
               />
 
               <AnimatedServiceCard
-                title='Print'
-                description='Let us help you create a timeless wedding album. Our in-house experts craft custom-made albums with professionally designed templates ensuring your memories are preserved in elegant style.'
-                icon={printIcon}
+                index='04'
+                eyebrow='Print'
+                title='Bound in Forever'
+                description='Some moments are meant to be held, not scrolled past. Our in-house artisans design and craft heirloom albums by hand, so your story lives on a shelf, not just a server.'
                 media={
-                  <div className='aspect-[4/3] relative rounded-2xl overflow-hidden shadow-md'>
+                  <div className='aspect-[4/3] relative overflow-hidden shadow-[0_20px_50px_-15px_rgba(0,0,0,0.25)]'>
                     <Image
                       src='https://cdn0.weddingwire.in/article/7121/3_2/1280/jpg/91217-indian-wedding-album-design-mili-ghosh-lead.jpeg'
                       alt='Wedding Album'
                       fill
-                      className='object-cover'
+                      className='object-cover contrast-[1.02]'
                       unoptimized
                     />
                   </div>
@@ -368,38 +342,45 @@ export default function Lahza() {
           </div>
         </section>
 
-        {/* Updated CTA Section */}
-        <section className='relative py-24 md:py-32 px-4 bg-[#f8f5f0] overflow-hidden'>
+        <EditorialCollage />
+
+        {/* CTA Section */}
+        <section className='relative py-24 md:py-32 px-4 bg-white overflow-hidden'>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className='max-w-4xl mx-auto text-center'
+            className='max-w-3xl mx-auto text-center'
           >
-            <h2 className='font-serif text-4xl md:text-5xl mb-6 text-gray-800'>
-              Let&apos;s Create Your Story Together
+            <h2 className='text-4xl md:text-5xl mb-6 text-neutral-900 [font-family:var(--font-lahza-display)] font-medium italic'>
+              Let&apos;s Write Your Chapter
             </h2>
-            <p className='font-sans text-lg md:text-xl mb-12 leading-relaxed text-gray-700'>
-              Every love story is unique. Let us help you preserve yours in the
-              most beautiful way possible.
+            <p className='font-sans text-lg md:text-xl mb-12 leading-relaxed text-neutral-600'>
+              Every love story deserves to be told beautifully, and kept
+              forever. Let us begin yours.
             </p>
             <motion.div
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.03 }}
               transition={{ duration: 0.3 }}
+              className='inline-block'
             >
               <Link
                 href='/contact'
-                className='inline-block px-10 py-3.5 text-sm md:text-base 
-                    bg-[#68401b] hover:bg-[#5e4429] 
-                    text-white font-medium 
-                    rounded-full border border-[#D4B08C]
-                    transition-all duration-300 ease-in-out
-                    shadow-[0_4px_14px_0_rgba(198,160,124,0.39)]
-                    hover:shadow-[0_6px_20px_rgba(198,160,124,0.45)]
-                    tracking-wide'
+                className='group relative inline-block px-12 py-4 text-xs md:text-sm
+                    bg-[#68401b] hover:bg-[#7a4d22]
+                    text-white font-medium
+                    rounded-full
+                    transition-all duration-500 ease-out
+                    shadow-[0_15px_40px_-12px_rgba(104,64,27,0.6)]
+                    hover:shadow-[0_20px_50px_-10px_rgba(104,64,27,0.7)]
+                    hover:-translate-y-0.5
+                    tracking-[0.2em] uppercase
+                    overflow-hidden'
               >
-                Get in Touch
+                <span className='relative z-10'>Begin Your Story</span>
+                {/* premium shine sweep */}
+                <span className='absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/25 to-transparent skew-x-12' />
               </Link>
             </motion.div>
           </motion.div>
