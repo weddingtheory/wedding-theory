@@ -8,7 +8,17 @@ const HERO_IMAGE =
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
-export default function AnimatedHero() {
+interface AnimatedHeroProps {
+  eyebrow?: string;
+  tagline?: string;
+  backdropImage?: { url: string; alt: string };
+}
+
+export default function AnimatedHero({
+  eyebrow = 'Signature Wedding Films & Photography',
+  tagline = 'Every love story, told in a single unforgettable moment',
+  backdropImage = { url: HERO_IMAGE, alt: 'LAHZA by Wedding Theory' },
+}: AnimatedHeroProps) {
   return (
     <section className='relative bg-white pt-16 md:pt-24 pb-16 md:pb-20 overflow-hidden'>
       {/* Eyebrow */}
@@ -18,7 +28,7 @@ export default function AnimatedHero() {
         transition={{ duration: 0.8, delay: 0.2 }}
         className='relative z-30 text-center text-[11px] md:text-sm tracking-[0.35em] text-neutral-500 uppercase mb-4 md:mb-6 px-4'
       >
-        Signature Wedding Films &amp; Photography
+        {eyebrow}
       </motion.p>
 
       {/* Wordmark with a soft photographic backdrop behind it */}
@@ -37,8 +47,8 @@ export default function AnimatedHero() {
           }}
         >
           <Image
-            src={HERO_IMAGE}
-            alt='LAHZA by Wedding Theory'
+            src={backdropImage.url}
+            alt={backdropImage.alt}
             fill
             priority
             sizes='(max-width: 768px) 92vw, 52vw'
@@ -65,7 +75,7 @@ export default function AnimatedHero() {
         className='relative z-30 flex flex-col items-center pt-10 md:pt-14 px-4'
       >
         <p className='italic text-lg md:text-2xl text-neutral-600 text-center [font-family:var(--font-lahza-display)]'>
-          Every love story, told in a single unforgettable moment
+          {tagline}
         </p>
         <motion.div
           initial={{ width: 0 }}
