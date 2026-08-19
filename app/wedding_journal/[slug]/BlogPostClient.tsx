@@ -1,11 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { IoArrowBack, IoLocationOutline, IoCalendarClearOutline, IoGridOutline, IoImagesOutline } from 'react-icons/io5';
 import ImageLightbox from '../../components/ImageLightbox';
+import { extractContentImageUrls } from '../../utils/extractContentImages';
 
 interface BlogPost {
   id: string;
@@ -31,6 +32,15 @@ export default function BlogPostClient({ post }: BlogPostClientProps) {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [viewMode, setViewMode] = useState<'grid' | 'carousel'>('grid');
+
+  // Any image already placed inline in the post body shouldn't be repeated
+  // in the gallery below it.
+  const galleryImages = useMemo(() => {
+    const contentImageUrls = extractContentImageUrls(post.content);
+    return (post.gallery_images ?? []).filter(
+      (url) => !contentImageUrls.has(url)
+    );
+  }, [post.content, post.gallery_images]);
 
   const formatLocation = (location: string | null) => {
     if (!location) return null;
@@ -142,7 +152,7 @@ export default function BlogPostClient({ post }: BlogPostClientProps) {
         </div>
 
         {/* Gallery Section */}
-        {post.gallery_images && post.gallery_images.length > 0 && (
+        {galleryImages.length > 0 && (
           <div className='mt-12 lg:mt-16'>
             <div className='flex justify-between items-center mb-6 lg:mb-8'>
               <h2 className='font-serif text-2xl lg:text-3xl text-gray-800'>
@@ -175,7 +185,7 @@ export default function BlogPostClient({ post }: BlogPostClientProps) {
             {viewMode === 'grid' ? (
               // Grid View with improved image captions
               <div className='space-y-4 lg:space-y-8'>
-                {post.gallery_images.map((image, index) => (
+                {galleryImages.map((image, index) => (
                   <motion.div
                     key={image}
                     className='relative w-full cursor-pointer group'
@@ -198,7 +208,7 @@ export default function BlogPostClient({ post }: BlogPostClientProps) {
                       <div className='absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
                         <div className='absolute bottom-3 left-3 lg:bottom-4 lg:left-4 text-white text-xs lg:text-sm bg-black/30 px-2 py-0.5 lg:px-3 lg:py-1 rounded-full backdrop-blur-sm'>
                           Image {index + 1} of{' '}
-                          {post.gallery_images?.length || 0}
+                          {galleryImages.length}
                         </div>
                       </div>
                     </div>
@@ -208,7 +218,7 @@ export default function BlogPostClient({ post }: BlogPostClientProps) {
             ) : (
               // Carousel View with improved thumbnails
               <div className='grid grid-cols-2 md:grid-cols-3 gap-2 lg:gap-4'>
-                {post.gallery_images.map((image, index) => (
+                {galleryImages.map((image, index) => (
                   <motion.div
                     key={image}
                     className='relative aspect-square cursor-pointer group'
@@ -229,7 +239,7 @@ export default function BlogPostClient({ post }: BlogPostClientProps) {
                     {/* Thumbnail overlay with number */}
                     <div className='absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
                       <div className='absolute bottom-2 left-2 text-white text-[10px] lg:text-xs bg-black/30 px-1.5 py-0.5 lg:px-2 lg:py-0.5 rounded-full backdrop-blur-sm'>
-                        {index + 1} / {post.gallery_images?.length || 0}
+                        {index + 1} / {galleryImages.length}
                       </div>
                     </div>
                   </motion.div>
@@ -241,10 +251,10 @@ export default function BlogPostClient({ post }: BlogPostClientProps) {
       </div>
 
       {/* Image Lightbox */}
-      {post.gallery_images && (
+      {galleryImages.length > 0 && (
         <ImageLightbox
-          images={post.gallery_images}
-          imageAlts={post.gallery_images.map((image, index) =>
+          images={galleryImages}
+          imageAlts={galleryImages.map((image, index) =>
             getImageAlt(image, index)
           )}
           initialImageIndex={selectedImageIndex}

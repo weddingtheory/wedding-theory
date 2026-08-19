@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
-const images = [
+const DEFAULT_IMAGES = [
   {
     url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/compressed/0A4A2855%20Edit.jpg',
     alt: 'Wedding couple portrait',
@@ -34,7 +34,11 @@ const images = [
   },
 ];
 
-export default function Carousel() {
+interface CarouselProps {
+  images?: { url: string; alt: string }[];
+}
+
+export default function Carousel({ images = DEFAULT_IMAGES }: CarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -43,7 +47,7 @@ export default function Carousel() {
     }, 5000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [images.length]);
 
   return (
     <div className="relative w-full h-full">

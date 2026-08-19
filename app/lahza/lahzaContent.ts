@@ -21,6 +21,7 @@ export interface CmsImage {
 export interface CmsVideo {
   key?: string;
   url?: string | null;
+  alt?: string | null;
 }
 
 export interface RawLahzaContent {
@@ -124,6 +125,7 @@ const DEFAULTS = {
     videos: [
       {
         url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/video/WEB1%202%20compressed.mp4',
+        alt: 'A cinematic moment from a Wedding Theory story',
       },
     ],
   },
@@ -147,7 +149,7 @@ const DEFAULTS = {
       description:
         'Imagine the most beautiful film you have ever seen — and it is yours. With over a decade behind the lens, our filmmakers weave your wedding into a cinematic heirloom, scored and paced like the romance it is.',
       // No default hosted video — falls back to the YouTube embed in the component.
-      video: null as { url: string } | null,
+      video: null as { url: string; alt: string } | null,
     },
   },
   finerDetails: {
@@ -187,6 +189,7 @@ const DEFAULTS = {
     ],
     video: {
       url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/video/sonali%20samip%20website%20run%202.mov',
+      alt: 'A Lahza Worth Keeping',
     },
   },
   cta: {
@@ -236,18 +239,26 @@ function imageList(
   }));
 }
 
-function firstVideoUrl(
+function videoList(
   value: CmsVideo[] | null | undefined,
-  fallback: string
-): string {
-  const valid = (value ?? []).find((v) => Boolean(v?.url?.trim()));
-  return valid?.url?.trim() || fallback;
+  fallback: { url: string; alt: string }[]
+): { url: string; alt: string }[] {
+  const valid = (value ?? []).filter((v): v is CmsVideo & { url: string } =>
+    Boolean(v?.url?.trim())
+  );
+  if (valid.length === 0) return fallback;
+  return valid.map((v) => ({
+    url: v.url!.trim(),
+    alt: v.alt?.trim() || 'A cinematic moment from a Wedding Theory story',
+  }));
 }
 
-function singleVideoUrl(
+function singleVideo(
   value: CmsVideo | null | undefined
-): string | null {
-  return value?.url?.trim() || null;
+): { url: string; alt: string } | null {
+  const url = value?.url?.trim();
+  if (!url) return null;
+  return { url, alt: value?.alt?.trim() || 'A moment from a Wedding Theory story' };
 }
 
 // Accepts a full Spotify track URL (open.spotify.com/track/<id>, with or
@@ -282,7 +293,7 @@ export interface LahzaResolvedContent {
   };
   cinematicMoment: {
     heading: string | null; // null = keep the default two-line/script heading
-    videoUrl: string;
+    videos: { url: string; alt: string }[];
   };
   visualArtistry: {
     heading: string;
@@ -296,7 +307,7 @@ export interface LahzaResolvedContent {
       eyebrow: string;
       title: string;
       description: string;
-      videoUrl: string | null; // null = keep the default YouTube embed
+      video: { url: string; alt: string } | null; // null = keep the default YouTube embed
     };
   };
   finerDetails: {
@@ -318,7 +329,7 @@ export interface LahzaResolvedContent {
     eyebrow: string;
     quote: string | null; // null = keep the default styled JSX quote
     images: { url: string; alt: string }[];
-    videoUrl: string;
+    video: { url: string; alt: string };
   };
   cta: {
     heading: string;
@@ -351,13 +362,11 @@ export function resolveLahzaContent(
     },
     cinematicMoment: {
       heading: optionalText(raw?.cinematicMoment?.heading, null),
-      // Multiple videos are accepted by the schema; the current design only
-      // has a slot for one, so we render the first and leave a multi-video
-      // display treatment for later.
-      videoUrl: firstVideoUrl(
-        raw?.cinematicMoment?.videos,
-        DEFAULTS.cinematicMoment.videos[0].url
-      ),
+      // Every uploaded video is used — the section cross-fades through all
+      // of them in order, looping back to the first once the last ends.
+      videos: videoList(raw?.cinematicMoment?.videos, [
+        ...DEFAULTS.cinematicMoment.videos,
+      ]),
     },
     visualArtistry: {
       heading: text(
@@ -394,7 +403,7 @@ export function resolveLahzaContent(
           raw?.visualArtistry?.film?.description,
           DEFAULTS.visualArtistry.film.description
         ),
-        videoUrl: singleVideoUrl(raw?.visualArtistry?.film?.video),
+        video: singleVideo(raw?.visualArtistry?.film?.video),
       },
     },
     finerDetails: {
@@ -445,9 +454,9 @@ export function resolveLahzaContent(
       images: imageList(raw?.editorialCollage?.images, [
         ...DEFAULTS.editorialCollage.images,
       ]),
-      videoUrl:
-        singleVideoUrl(raw?.editorialCollage?.video) ||
-        DEFAULTS.editorialCollage.video.url,
+      video:
+        singleVideo(raw?.editorialCollage?.video) ||
+        DEFAULTS.editorialCollage.video,
     },
     cta: {
       heading: text(raw?.cta?.heading, DEFAULTS.cta.heading),

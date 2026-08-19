@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react'
 import ImageLightbox from '../components/ImageLightbox'
 import { createClient } from '@supabase/supabase-js'
 import { format } from 'date-fns'
+import { useWeddingsContent } from './weddingsContent'
 
 // Initialize Supabase client
 const supabase = createClient(
@@ -21,6 +22,7 @@ interface WeddingStory {
 }
 
 export default function WeddingsPage() {
+  const content = useWeddingsContent()
   const [weddingStories, setWeddingStories] = useState<WeddingStory[]>([])
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [selectedStoryIndex, setSelectedStoryIndex] = useState(0)
@@ -69,8 +71,8 @@ export default function WeddingsPage() {
       <section className='relative h-screen mb-16 flex flex-col md:flex-row'>
         <div className='w-full md:w-1/2 h-1/2 md:h-full relative'>
           <Image
-            src='https://ik.imagekit.io/weddingtheory/Photos/ADL00536.jpg?updatedAt=1730140142519'
-            alt='Wedding Hero Left'
+            src={content.hero.heroImage.url}
+            alt={content.hero.heroImage.alt}
             fill
             className='object-cover'
             priority
@@ -79,11 +81,10 @@ export default function WeddingsPage() {
         <div className='w-full md:w-1/2 h-1/2 md:h-full bg-[#f8f5f0] flex items-center justify-center p-8'>
           <div className='text-center max-w-xl'>
             <h1 className='text-4xl md:text-6xl text-gray-900 mb-6'>
-              Wedding Gallery
+              {content.hero.heading}
             </h1>
             <p className='text-lg md:text-xl text-gray-600 leading-relaxed'>
-              A collection of beautiful moments and cherished memories, where
-              each photograph tells a unique story of love and celebration.
+              {content.hero.paragraph}
             </p>
           </div>
         </div>

@@ -16,8 +16,10 @@ const DEFAULT_IMAGES = [
   },
 ];
 
-const DEFAULT_VIDEO_URL =
-  'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/video/sonali%20samip%20website%20run%202.mov';
+const DEFAULT_VIDEO = {
+  url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/video/sonali%20samip%20website%20run%202.mov',
+  alt: 'A Lahza Worth Keeping',
+};
 
 interface EditorialCollageProps {
   eyebrow?: string;
@@ -25,14 +27,14 @@ interface EditorialCollageProps {
   // emphasis; a CMS-provided quote renders as plain text instead.
   quote?: string | null;
   images?: { url: string; alt: string }[];
-  videoUrl?: string;
+  video?: { url: string; alt: string };
 }
 
 export default function EditorialCollage({
   eyebrow = 'A Lahza Worth Keeping',
   quote = null,
   images = DEFAULT_IMAGES,
-  videoUrl = DEFAULT_VIDEO_URL,
+  video = DEFAULT_VIDEO,
 }: EditorialCollageProps) {
   const [firstImage, secondImage] = images.length >= 2 ? images : DEFAULT_IMAGES;
 
@@ -94,7 +96,8 @@ export default function EditorialCollage({
               className='relative aspect-[16/10] shadow-[0_40px_80px_-25px_rgba(0,0,0,0.35)]'
             >
               <video
-                src={videoUrl}
+                src={video.url}
+                aria-label={video.alt}
                 className='absolute inset-0 w-full h-full object-cover'
                 autoPlay
                 muted

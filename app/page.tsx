@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { Cormorant, Parisienne } from 'next/font/google';
 import WeddingLogo from '../public/weddinglogo.png';
 import dynamic from 'next/dynamic';
+import { useHomeContent } from './homeContent';
 
 // Scoped to the LAHZA teaser card below, matching the /lahza page's own type system.
 const lahzaDisplay = Cormorant({
@@ -42,27 +43,32 @@ const FAQSection = dynamic(() => import('./components/FAQSection'), {
 });
 
 export default function Home() {
+  const content = useHomeContent();
   const [isMounted, setIsMounted] = useState(false);
-  const [activeVideo, setActiveVideo] = useState(1);
-  const video1Ref = React.useRef<HTMLVideoElement>(null);
-  const video2Ref = React.useRef<HTMLVideoElement>(null);
+  const [activeVideoIndex, setActiveVideoIndex] = useState(0);
+  const videoRefs = React.useRef<(HTMLVideoElement | null)[]>([]);
+  const heroVideos = content.heroVideos.videos;
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  const handleFirstVideoEnd = () => {
-    setActiveVideo(2);
-    if (video2Ref.current) {
-      video2Ref.current.play();
+  // (Re)start whichever hero video just became active — mirrors the same
+  // crossfade approach used on /lahza's "In Motion, Forever Held" section,
+  // just capped at 2 slots here.
+  useEffect(() => {
+    const active = videoRefs.current[activeVideoIndex];
+    if (active) {
+      active.currentTime = 0;
+      active.play().catch(() => {});
     }
-  };
+    videoRefs.current.forEach((el, i) => {
+      if (el && i !== activeVideoIndex) el.pause();
+    });
+  }, [activeVideoIndex]);
 
-  const handleSecondVideoEnd = () => {
-    setActiveVideo(1);
-    if (video1Ref.current) {
-      video1Ref.current.play();
-    }
+  const handleHeroVideoEnded = () => {
+    setActiveVideoIndex((prev) => (prev + 1) % heroVideos.length);
   };
 
   return (
@@ -97,7 +103,7 @@ export default function Home() {
                   className='relative mt-0.5 md:mt-1'
                 >
                   <p className='font-serif text-[11px] sm:text-sm md:text-base text-gray-700 tracking-wider whitespace-nowrap'>
-                    Transforming love stories into timeless art
+                    {content.hero.tagline}
                   </p>
                   <motion.div
                     className='absolute bottom-0 left-0 w-full h-[1px] bg-gray-300'
@@ -119,35 +125,27 @@ export default function Home() {
         {/* Video Gallery Section - Moved to top */}
         <AnimatedSection className='w-full relative bg-[#fcfaf7]'>
           <div className='w-full h-[60vh] sm:h-[80vh] md:h-screen overflow-hidden relative'>
-            <video
-              ref={video1Ref}
-              src='https://weddingtheory.blr1.cdn.digitaloceanspaces.com/video/WEB1%202%20compressed.mp4'
-              className={`absolute top-1/2 left-1/2 w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 transition-opacity duration-1000 ${activeVideo === 1 ? 'opacity-100' : 'opacity-0'
-                }`}
-              style={{
-                pointerEvents: 'none',
-                transform: `translate(-50%, -50%) scale(${isMounted ? (window.innerWidth < 640 ? 1.2 : 1) : 1
-                  })`,
-              }}
-              autoPlay
-              muted
-              playsInline
-              onEnded={handleFirstVideoEnd}
-            />
-            <video
-              ref={video2Ref}
-              src='https://weddingtheory.blr1.cdn.digitaloceanspaces.com/video/sonali%20samip%20website%20run%202.mov'
-              className={`absolute top-1/2 left-1/2 w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 transition-opacity duration-1000 ${activeVideo === 2 ? 'opacity-100' : 'opacity-0'
-                }`}
-              style={{
-                pointerEvents: 'none',
-                transform: `translate(-50%, -50%) scale(${isMounted ? (window.innerWidth < 640 ? 1.2 : 1) : 1
-                  })`,
-              }}
-              muted
-              playsInline
-              onEnded={handleSecondVideoEnd}
-            />
+            {heroVideos.map((video, i) => (
+              <video
+                key={`${video.url}-${i}`}
+                ref={(el) => {
+                  videoRefs.current[i] = el;
+                }}
+                src={video.url}
+                aria-label={video.alt}
+                className={`absolute top-1/2 left-1/2 w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 transition-opacity duration-1000 ${i === activeVideoIndex ? 'opacity-100' : 'opacity-0'
+                  }`}
+                style={{
+                  pointerEvents: 'none',
+                  transform: `translate(-50%, -50%) scale(${isMounted ? (window.innerWidth < 640 ? 1.2 : 1) : 1
+                    })`,
+                }}
+                muted
+                playsInline
+                loop={heroVideos.length === 1}
+                onEnded={handleHeroVideoEnded}
+              />
+            ))}
             <div className='absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent' />
             <div className='absolute bottom-0 left-0 right-0 flex justify-center items-center pb-12 sm:pb-16 md:pb-20'>
               <motion.div
@@ -208,17 +206,14 @@ export default function Home() {
           {/* Carousel Section */}
           <AnimatedSection className='relative z-0' delay={0.3}>
             <div className='w-full h-[65vh] md:h-[92vh] max-h-[1200px] rounded-xl overflow-hidden'>
-              <Carousel />
+              <Carousel images={content.introGallery.images} />
             </div>
           </AnimatedSection>
 
           {/* Get in Touch Section */}
           <AnimatedSection className='mt-12 md:mt-16 text-center'>
             <p className='font-sans text-sm md:text-base text-gray-700 leading-relaxed text-center max-w-2xl mx-auto mb-8'>
-              At Wedding Theory, we capture the vibrant colors and rich
-              traditions of Indian weddings. From the mehndi ceremony to the
-              grand reception, we preserve every precious moment. Let us weave
-              your love story into a tapestry of beautiful memories.
+              {content.getInTouch.paragraph}
             </p>
             <Link
               href='/contact'
@@ -252,12 +247,10 @@ export default function Home() {
           <AnimatedSection className='w-full bg-[#f8f5f0] pt-14 pb-16 md:pt-20 md:pb-24'>
             <div className='max-w-4xl mx-auto px-4 text-center'>
               <h3 className='font-serif text-3xl md:text-4xl text-gray-800 mb-6'>
-                Explore Our Wedding Journal
+                {content.blogTeaser.heading}
               </h3>
               <p className='font-sans text-gray-700 text-base md:text-lg mb-8 leading-relaxed'>
-                Discover inspiring stories, wedding planning tips, and
-                behind-the-scenes glimpses into the most beautiful Indian
-                weddings. Let our blog guide you through your wedding journey.
+                {content.blogTeaser.paragraph}
               </p>
               <Link
                 href='/wedding_journal'
@@ -291,8 +284,8 @@ export default function Home() {
                 {/* Hero Image */}
                 <div className='relative h-[60vh] md:h-[80vh] rounded-2xl overflow-hidden mb-16'>
                   <Image
-                    src='https://ik.imagekit.io/weddingtheory/Photos/0A4A8443-Edit.jpg?updatedAt=1730140135728'
-                    alt='LAHZA — Signature Wedding Films & Photography'
+                    src={content.lahzaTeaser.backdropImage.url}
+                    alt={content.lahzaTeaser.backdropImage.alt}
                     fill
                     className='object-cover'
                     style={{ scale: 1.2 }}
@@ -301,20 +294,20 @@ export default function Home() {
                   <div className='absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/70' />
 
                   {/* Overlay Content - Moved to bottom */}
-                  <div className='absolute inset-x-0 bottom-0 flex flex-col items-center justify-end text-center px-4 pb-12 md:pb-16'>
-                    <p className='inline-block px-4 py-2 rounded-full bg-white/10 backdrop-blur-md shadow-[0_8px_24px_rgba(0,0,0,0.25)] ring-1 ring-white/20 text-[10px] md:text-xs tracking-[0.35em] text-white/90 uppercase mb-3'>
-                      Our Premium Wedding Package
+                  <div className='absolute inset-x-0 bottom-0 flex flex-col items-center justify-end text-center px-4 pb-14 md:pb-20'>
+                    <p className='inline-block px-5 py-2 rounded-full bg-white/10 backdrop-blur-md shadow-[0_8px_24px_rgba(0,0,0,0.25)] ring-1 ring-white/20 text-[10px] md:text-xs tracking-[0.35em] text-white/90 uppercase mb-5 md:mb-6'>
+                      {content.lahzaTeaser.eyebrow}
                     </p>
                     <h3
-                      className={`${lahzaScript.className} text-white leading-none mb-4`}
+                      className={`${lahzaScript.className} text-white leading-[1.15] mb-6 md:mb-8`}
                       style={{ fontSize: 'clamp(3.5rem, 9vw, 6.5rem)' }}
                     >
                       Lahza
                     </h3>
                     <p
-                      className={`${lahzaDisplay.className} italic text-base md:text-xl text-white/90 max-w-xl mx-auto mb-8 leading-relaxed`}
+                      className={`${lahzaDisplay.className} italic text-lg md:text-2xl text-white/90 max-w-2xl mx-auto mb-10 md:mb-12 leading-relaxed`}
                     >
-                      Every love story, told in a single unforgettable moment
+                      {content.lahzaTeaser.tagline}
                     </p>
                     <Link
                       href='/lahza'
@@ -343,25 +336,15 @@ export default function Home() {
             <div className='max-w-6xl mx-auto px-4'>
               <div className='text-center'>
                 <h3 className='font-serif text-3xl md:text-5xl lg:text-6xl text-gray-800 mb-8'>
-                  Wedding Stories That Inspire
+                  {content.statsSection.heading}
                 </h3>
                 <div className='w-32 h-[1px] bg-[#D4B08C] mx-auto mb-12'></div>
                 <p className='font-sans text-gray-700 text-base md:text-lg mb-20 px-4 leading-relaxed max-w-3xl mx-auto'>
-                  Every wedding tells a unique story - a story of love,
-                  tradition, and celebration. Through our lens, we capture these
-                  precious moments that become timeless memories, creating
-                  visual narratives that will be cherished for generations.
+                  {content.statsSection.paragraph}
                 </p>
 
                 {/* Statistics Grid with staggered animation */}
-                <AnimatedStats
-                  stats={[
-                    { number: '500+', label: 'Weddings Captured' },
-                    { number: '10+', label: 'Years Experience' },
-                    { number: '50+', label: 'Cities Covered' },
-                    { number: '500+', label: 'Happy Couples' },
-                  ]}
-                />
+                <AnimatedStats stats={content.statsSection.stats} />
 
                 <div className='text-center mt-16'>
                   <Link
@@ -392,7 +375,11 @@ export default function Home() {
           </AnimatedSection>
 
           {/* FAQ Section - above footer */}
-          <FAQSection />
+          <FAQSection
+            heading={content.faq.heading}
+            subtext={content.faq.subtext}
+            items={content.faq.items}
+          />
         </div>
       </main>
     </div>

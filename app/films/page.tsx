@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { createClient } from '@/utils/supabase/client';
 import { MapPin, Calendar } from 'lucide-react';
+import { useFilmsContent } from './filmsContent';
 
 interface Film {
   id: string;
@@ -16,6 +17,7 @@ interface Film {
 }
 
 export default function Films() {
+  const content = useFilmsContent();
   const [films, setFilms] = useState<Film[]>([]);
   const [loading, setLoading] = useState(true);
   const supabase = createClient();
@@ -98,7 +100,8 @@ export default function Films() {
       <section className='relative h-[50vh] sm:h-[80vh] md:h-[90vh] w-full overflow-hidden'>
         <div className='absolute inset-0 w-full h-full'>
           <video
-            src='https://weddingtheory.blr1.cdn.digitaloceanspaces.com/video/insta%20flim%2001.mp4'
+            src={content.hero.heroVideo.url}
+            aria-label={content.hero.heroVideo.alt}
             className='absolute w-full h-full object-cover'
             style={{
               pointerEvents: 'none',
@@ -119,11 +122,11 @@ export default function Films() {
         <div className='relative z-10 h-full flex items-center justify-center text-center text-white px-4'>
           <div className='space-y-6'>
             <h1 className='font-serif text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-wide font-light'>
-              Wedding Films
+              {content.hero.heading}
             </h1>
             <div className='w-20 h-[1px] bg-white/60 mx-auto'></div>
             <p className='text-sm sm:text-lg md:text-xl max-w-2xl mx-auto font-light tracking-wider opacity-90'>
-              Turning weddings into the rom-coms they are
+              {content.hero.subtext}
             </p>
           </div>
         </div>

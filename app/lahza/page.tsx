@@ -151,7 +151,7 @@ export default function Lahza() {
 
         <CinematicMoment
           heading={content.cinematicMoment.heading}
-          videoUrl={content.cinematicMoment.videoUrl}
+          videos={content.cinematicMoment.videos}
         />
 
         {/* Visual Artistry Section */}
@@ -301,9 +301,10 @@ export default function Lahza() {
                 description={content.visualArtistry.film.description}
                 media={
                   <div className='aspect-[4/3] relative overflow-hidden shadow-[0_20px_50px_-15px_rgba(0,0,0,0.25)] contrast-[1.02]'>
-                    {content.visualArtistry.film.videoUrl ? (
+                    {content.visualArtistry.film.video ? (
                       <video
-                        src={content.visualArtistry.film.videoUrl}
+                        src={content.visualArtistry.film.video.url}
+                        aria-label={content.visualArtistry.film.video.alt}
                         className='absolute inset-0 w-full h-full object-cover'
                         autoPlay
                         muted
@@ -386,7 +387,7 @@ export default function Lahza() {
           eyebrow={content.editorialCollage.eyebrow}
           quote={content.editorialCollage.quote}
           images={content.editorialCollage.images}
-          videoUrl={content.editorialCollage.videoUrl}
+          video={content.editorialCollage.video}
         />
 
         {/* CTA Section */}
