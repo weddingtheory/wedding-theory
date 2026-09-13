@@ -26,16 +26,11 @@ export interface CmsVideo {
 
 export interface RawLahzaContent {
   hero?: {
-    eyebrow?: string | null;
-    tagline?: string | null;
-    backdropImage?: CmsImage | null;
     images?: CmsImage[] | null;
   } | null;
   manifesto?: {
     quote?: string | null;
     byline?: string | null;
-    image?: CmsImage | null;
-    imageCaption?: string | null;
   } | null;
   gallery?: {
     heading?: string | null;
@@ -68,18 +63,6 @@ export interface RawLahzaContent {
       description?: string | null;
       spotifyUrl?: string | null;
     } | null;
-    print?: {
-      eyebrow?: string | null;
-      title?: string | null;
-      description?: string | null;
-      image?: CmsImage | null;
-    } | null;
-  } | null;
-  editorialCollage?: {
-    eyebrow?: string | null;
-    quote?: string | null;
-    images?: CmsImage[] | null;
-    video?: CmsVideo | null;
   } | null;
   cta?: {
     heading?: string | null;
@@ -94,12 +77,6 @@ export interface RawLahzaContent {
 
 const DEFAULTS = {
   hero: {
-    eyebrow: 'Signature Wedding Films & Photography',
-    tagline: 'Every love story, told in a single unforgettable moment',
-    backdropImage: {
-      url: 'https://ik.imagekit.io/weddingtheory/Photos/0A4A8443-Edit.jpg?updatedAt=1730140135728',
-      alt: 'LAHZA by Wedding Theory',
-    },
     // Full-bleed hero slideshow — cross-fades every 2s.
     images: [
       'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/compressed/0A4A2855%20Edit.jpg',
@@ -112,11 +89,6 @@ const DEFAULTS = {
   },
   manifesto: {
     byline: '— Wedding Theory',
-    image: {
-      url: 'https://ik.imagekit.io/weddingtheory/Photos/T&DFIRSTSET-6.JPG?updatedAt=1730206583483',
-      alt: 'A quiet moment, captured',
-    },
-    imageCaption: 'A Wedding, Once Lived',
   },
   gallery: {
     heading: 'Explore Our Portfolio',
@@ -172,35 +144,6 @@ const DEFAULTS = {
       // Default Spotify track id — used when no CMS spotifyUrl is set.
       defaultTrackId: '4AM44o1sPhmoWHjt7GmpSl',
     },
-    print: {
-      eyebrow: 'Print',
-      title: 'Bound in Forever',
-      description:
-        'Some moments are meant to be held, not scrolled past. Our in-house artisans design and craft heirloom albums by hand, so your story lives on a shelf, not just a server.',
-      image: {
-        url: 'https://cdn0.weddingwire.in/article/7121/3_2/1280/jpg/91217-indian-wedding-album-design-mili-ghosh-lead.jpeg',
-        alt: 'Wedding Album',
-      },
-    },
-  },
-  editorialCollage: {
-    eyebrow: 'A Lahza Worth Keeping',
-    quote:
-      'Somewhere between the vows and the very last dance, forever begins.',
-    images: [
-      {
-        url: 'https://ik.imagekit.io/weddingtheory/Photos/S&CPREWEDFIRSTSET-6.JPG?updatedAt=1730140170874',
-        alt: 'A quiet moment before the vows',
-      },
-      {
-        url: 'https://ik.imagekit.io/weddingtheory/Photos/M&PEngagement-245%20(1).jpg?updatedAt=1730140149027',
-        alt: 'A candid laugh, kept forever',
-      },
-    ],
-    video: {
-      url: 'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/video/sonali%20samip%20website%20run%202.mov',
-      alt: 'A Lahza Worth Keeping',
-    },
   },
   cta: {
     heading: "Let's Write Your Chapter",
@@ -224,15 +167,6 @@ function optionalText(
 ): string | null {
   const trimmed = value?.trim();
   return trimmed ? trimmed : fallback;
-}
-
-function image(
-  value: CmsImage | null | undefined,
-  fallback: { url: string; alt: string }
-): { url: string; alt: string } {
-  const url = value?.url?.trim();
-  if (!url) return fallback;
-  return { url, alt: value?.alt?.trim() || fallback.alt };
 }
 
 function imageList(
@@ -287,16 +221,11 @@ function toSpotifyEmbedUrl(
 
 export interface LahzaResolvedContent {
   hero: {
-    eyebrow: string;
-    tagline: string;
-    backdropImage: { url: string; alt: string };
     images: { url: string; alt: string }[];
   };
   manifesto: {
     quote: string | null; // null = keep the default styled JSX quote
     byline: string;
-    image: { url: string; alt: string };
-    imageCaption: string;
   };
   gallery: {
     heading: string;
@@ -329,18 +258,6 @@ export interface LahzaResolvedContent {
       description: string;
       spotifyEmbedUrl: string;
     };
-    print: {
-      eyebrow: string;
-      title: string;
-      description: string;
-      image: { url: string; alt: string };
-    };
-  };
-  editorialCollage: {
-    eyebrow: string;
-    quote: string | null; // null = keep the default styled JSX quote
-    images: { url: string; alt: string }[];
-    video: { url: string; alt: string };
   };
   cta: {
     heading: string;
@@ -354,19 +271,11 @@ export function resolveLahzaContent(
 ): LahzaResolvedContent {
   return {
     hero: {
-      eyebrow: text(raw?.hero?.eyebrow, DEFAULTS.hero.eyebrow),
-      tagline: text(raw?.hero?.tagline, DEFAULTS.hero.tagline),
-      backdropImage: image(raw?.hero?.backdropImage, DEFAULTS.hero.backdropImage),
       images: imageList(raw?.hero?.images, [...DEFAULTS.hero.images]),
     },
     manifesto: {
       quote: optionalText(raw?.manifesto?.quote, null),
       byline: text(raw?.manifesto?.byline, DEFAULTS.manifesto.byline),
-      image: image(raw?.manifesto?.image, DEFAULTS.manifesto.image),
-      imageCaption: text(
-        raw?.manifesto?.imageCaption,
-        DEFAULTS.manifesto.imageCaption
-      ),
     },
     gallery: {
       heading: text(raw?.gallery?.heading, DEFAULTS.gallery.heading),
@@ -438,37 +347,6 @@ export function resolveLahzaContent(
           DEFAULTS.finerDetails.music.defaultTrackId
         ),
       },
-      print: {
-        eyebrow: text(
-          raw?.finerDetails?.print?.eyebrow,
-          DEFAULTS.finerDetails.print.eyebrow
-        ),
-        title: text(
-          raw?.finerDetails?.print?.title,
-          DEFAULTS.finerDetails.print.title
-        ),
-        description: text(
-          raw?.finerDetails?.print?.description,
-          DEFAULTS.finerDetails.print.description
-        ),
-        image: image(
-          raw?.finerDetails?.print?.image,
-          DEFAULTS.finerDetails.print.image
-        ),
-      },
-    },
-    editorialCollage: {
-      eyebrow: text(
-        raw?.editorialCollage?.eyebrow,
-        DEFAULTS.editorialCollage.eyebrow
-      ),
-      quote: optionalText(raw?.editorialCollage?.quote, null),
-      images: imageList(raw?.editorialCollage?.images, [
-        ...DEFAULTS.editorialCollage.images,
-      ]),
-      video:
-        singleVideo(raw?.editorialCollage?.video) ||
-        DEFAULTS.editorialCollage.video,
     },
     cta: {
       heading: text(raw?.cta?.heading, DEFAULTS.cta.heading),
