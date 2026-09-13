@@ -48,15 +48,15 @@ export default function CinematicMoment({
   }, [activeIndex]);
 
   return (
-    <section className='relative bg-white py-24 md:py-36 overflow-hidden'>
+    <section className='relative bg-white overflow-hidden'>
       <div className='relative'>
-        {/* Video bleeds off the right edge of the screen, offset from center */}
+        {/* Full-bleed, edge-to-edge video */}
         <motion.div
-          initial={{ opacity: 0, x: 40 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 1.1, ease: EASE }}
-          className='relative ml-0 md:ml-[16%] lg:ml-[22%] w-full md:w-[84%] lg:w-[78%] aspect-[16/10] md:aspect-[16/9] shadow-[0_40px_80px_-30px_rgba(0,0,0,0.4)]'
+          className='relative w-full h-[100svh]'
         >
           {videos.map((video, i) => {
             // Only fully preload the video that's showing and the one
@@ -83,26 +83,27 @@ export default function CinematicMoment({
               />
             );
           })}
-        </motion.div>
 
-        {/* Oversized serif line overlapping the video's left edge */}
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.9, delay: 0.3, ease: EASE }}
-          className='relative md:absolute z-10 md:left-0 md:bottom-10 mt-8 md:mt-0 mx-auto md:mx-0 max-w-[80%] sm:max-w-[60%] md:max-w-[40%] text-center md:text-left text-4xl sm:text-5xl md:text-6xl leading-[0.95] text-neutral-900 [font-family:var(--font-lahza-display)] font-medium'
-        >
-          {heading ?? (
-            <>
-              In Motion,
-              <br />
-              <span className='[font-family:var(--font-lahza-script)] text-[1.3em] leading-none'>
+          {/* Scrim so the overlaid heading stays legible against any frame */}
+          <div className='absolute inset-0 bg-gradient-to-t from-black/70 via-black/5 to-transparent pointer-events-none' />
+
+          {/* Heading sits directly on the video, bottom-left */}
+          <motion.h2
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.9, delay: 0.3, ease: EASE }}
+            className='absolute left-5 right-5 sm:right-auto bottom-6 md:left-10 md:bottom-10 z-10 max-w-[90%] sm:max-w-[70%] md:max-w-[55%] text-3xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.05] text-white [font-family:var(--font-lahza-display)] font-normal [text-shadow:0_4px_28px_rgba(0,0,0,0.45)]'
+          >
+            {heading ?? (
+              <>
+                In Motion,
+                <br />
                 Forever Held
-              </span>
-            </>
-          )}
-        </motion.h2>
+              </>
+            )}
+          </motion.h2>
+        </motion.div>
       </div>
     </section>
   );

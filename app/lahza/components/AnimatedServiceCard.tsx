@@ -38,21 +38,21 @@ export default function AnimatedServiceCard({
             <span className='text-sm tracking-[0.2em] text-neutral-400 [font-family:var(--font-lahza-display)]'>
               {index}
             </span>
-            <span className='text-xs tracking-[0.3em] text-neutral-500 uppercase'>
+            <span className='text-[13px] tracking-[0.25em] text-neutral-600 uppercase'>
               {eyebrow}
             </span>
           </div>
-          <h3 className='text-3xl md:text-4xl text-neutral-900 [font-family:var(--font-lahza-display)] font-medium relative inline-block'>
+          <h3 className='text-3xl md:text-4xl text-neutral-900 [font-family:var(--font-lahza-display)] font-normal relative inline-block'>
             {title}
             <motion.span
               initial={{ width: 0 }}
               whileInView={{ width: '100%' }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className='absolute left-0 -bottom-2 h-[1.5px] bg-[#68401b]'
+              className='absolute left-0 -bottom-2 h-[1.5px] bg-black'
             />
           </h3>
-          <p className='text-neutral-600 leading-relaxed text-base md:text-lg max-w-md'>
+          <p className='text-neutral-700 leading-relaxed text-[15px] md:text-lg max-w-md'>
             {description}
           </p>
         </div>

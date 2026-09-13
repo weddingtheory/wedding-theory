@@ -20,7 +20,7 @@ interface GalleryMarqueeProps {
 }
 
 export default function GalleryMarquee({
-  heading = "Every Story We've Held",
+  heading = 'Explore Our Portfolio',
   images = DEFAULT_GALLERY_IMAGES,
 }: GalleryMarqueeProps) {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
@@ -29,34 +29,36 @@ export default function GalleryMarquee({
   const track = [...images, ...images];
 
   return (
-    <section className='relative min-h-screen flex flex-col justify-center bg-white py-20 md:py-24 overflow-hidden'>
-      <div className='max-w-[1400px] mx-auto px-4 mb-12 md:mb-16 text-center'>
-        <h2 className='text-3xl md:text-5xl text-neutral-900 [font-family:var(--font-lahza-display)] font-medium'>
+    <section className='relative bg-white overflow-hidden'>
+      {/* Full-width black label bar */}
+      <div className='w-full bg-black py-3 md:py-3.5'>
+        <p className='text-center text-[10px] md:text-xs tracking-[0.4em] uppercase text-white'>
           {heading}
-        </h2>
+        </p>
       </div>
 
-      <div className='relative w-full'>
-        <div className='pointer-events-none absolute inset-y-0 left-0 w-16 md:w-40 z-10 bg-gradient-to-r from-white to-transparent' />
-        <div className='pointer-events-none absolute inset-y-0 right-0 w-16 md:w-40 z-10 bg-gradient-to-l from-white to-transparent' />
+      <div className='relative w-full py-12 md:py-20'>
+        <div className='pointer-events-none absolute inset-y-0 left-0 w-10 md:w-28 z-10 bg-gradient-to-r from-white to-transparent' />
+        <div className='pointer-events-none absolute inset-y-0 right-0 w-10 md:w-28 z-10 bg-gradient-to-l from-white to-transparent' />
 
-        <div className='marquee-track flex gap-5 md:gap-8 w-max'>
+        <div className='marquee-track flex gap-3 md:gap-5 w-max px-3 md:px-5'>
           {track.map((img, index) => (
             <button
               key={index}
               type='button'
               onClick={() => setLightboxIndex(index % images.length)}
-              className='relative h-[62vw] max-h-[70vh] w-[78vw] sm:w-[48vw] md:w-[34vw] shrink-0 overflow-hidden shadow-[0_25px_60px_-20px_rgba(0,0,0,0.35)] cursor-zoom-in group'
+              className={`relative h-[52vh] md:h-[64vh] w-[64vw] sm:w-[38vw] md:w-[23vw] shrink-0 overflow-hidden cursor-zoom-in group ${
+                index % 2 === 0 ? 'md:-translate-y-3' : 'md:translate-y-5'
+              }`}
               aria-label='Open image'
             >
               <Image
                 src={img.url}
                 alt={img.alt}
                 fill
-                sizes='(max-width: 768px) 78vw, 34vw'
-                className='object-cover transition-transform duration-700 group-hover:scale-[1.03]'
+                sizes='(max-width: 768px) 64vw, 23vw'
+                className='object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-[1.03]'
               />
-              <div className='absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500' />
             </button>
           ))}
         </div>
@@ -71,7 +73,7 @@ export default function GalleryMarquee({
 
       <style jsx>{`
         .marquee-track {
-          animation: lahza-marquee 130s linear infinite;
+          animation: lahza-marquee 70s linear infinite;
         }
         .marquee-track:hover {
           animation-play-state: paused;

@@ -29,6 +29,7 @@ export interface RawLahzaContent {
     eyebrow?: string | null;
     tagline?: string | null;
     backdropImage?: CmsImage | null;
+    images?: CmsImage[] | null;
   } | null;
   manifesto?: {
     quote?: string | null;
@@ -99,6 +100,15 @@ const DEFAULTS = {
       url: 'https://ik.imagekit.io/weddingtheory/Photos/0A4A8443-Edit.jpg?updatedAt=1730140135728',
       alt: 'LAHZA by Wedding Theory',
     },
+    // Full-bleed hero slideshow — cross-fades every 2s.
+    images: [
+      'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/compressed/0A4A2855%20Edit.jpg',
+      'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/compressed/0A4A7575.jpg',
+      'https://ik.imagekit.io/weddingtheory/Photos/0A4A8443-Edit.jpg?updatedAt=1730140135728',
+      'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/compressed/R&DWEDDINGFIRSTLOOK-9.jpg',
+      'https://ik.imagekit.io/weddingtheory/Photos/T&DFIRSTSET-6.JPG?updatedAt=1730206583483',
+      'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/compressed/ADL02297.jpg',
+    ].map((url) => ({ url, alt: 'LAHZA by Wedding Theory' })),
   },
   manifesto: {
     byline: '— Wedding Theory',
@@ -109,7 +119,7 @@ const DEFAULTS = {
     imageCaption: 'A Wedding, Once Lived',
   },
   gallery: {
-    heading: "Every Story We've Held",
+    heading: 'Explore Our Portfolio',
     images: [
       'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/compressed/0A4A2855%20Edit.jpg',
       'https://weddingtheory.blr1.cdn.digitaloceanspaces.com/herocoursel/compressed/0A4A4018.jpg',
@@ -280,6 +290,7 @@ export interface LahzaResolvedContent {
     eyebrow: string;
     tagline: string;
     backdropImage: { url: string; alt: string };
+    images: { url: string; alt: string }[];
   };
   manifesto: {
     quote: string | null; // null = keep the default styled JSX quote
@@ -346,6 +357,7 @@ export function resolveLahzaContent(
       eyebrow: text(raw?.hero?.eyebrow, DEFAULTS.hero.eyebrow),
       tagline: text(raw?.hero?.tagline, DEFAULTS.hero.tagline),
       backdropImage: image(raw?.hero?.backdropImage, DEFAULTS.hero.backdropImage),
+      images: imageList(raw?.hero?.images, [...DEFAULTS.hero.images]),
     },
     manifesto: {
       quote: optionalText(raw?.manifesto?.quote, null),

@@ -1,28 +1,20 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Cormorant, Parisienne } from 'next/font/google';
+import localFont from 'next/font/local';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, type CSSProperties } from 'react';
 import dynamic from 'next/dynamic';
 import { useLahzaContent } from './lahzaContent';
 
-// Scoped display serif for LAHZA only — the rest of the site keeps Gotu.
-// Cormorant: delicate, high-contrast, elegant — refined rather than loud.
-const lahzaDisplay = Cormorant({
-  subsets: ['latin'],
-  weight: ['400', '500', '600'],
-  style: ['normal', 'italic'],
-  variable: '--font-lahza-display',
-});
-
-// A delicate flowing script reserved for single emphasized words/phrases
-// inside pull-quotes — used sparingly, never split into letters.
-const lahzaScript = Parisienne({
-  subsets: ['latin'],
-  weight: '400',
-  variable: '--font-lahza-script',
+// Achilo — the one typeface for the whole LAHZA page (headings, body, the
+// hero wordmark, everything). Single weight, no italics. Glyph set is
+// ASCII-only, so Georgia is the fallback for em-dashes and curly quotes.
+const lahzaAchilo = localFont({
+  src: './ACHILO.otf',
+  variable: '--font-lahza-achilo',
+  display: 'swap',
 });
 
 // Dynamically import heavy components
@@ -40,10 +32,6 @@ const GalleryMarquee = dynamic(() => import('./components/GalleryMarquee'), {
 });
 const CinematicMoment = dynamic(
   () => import('./components/CinematicMoment'),
-  { ssr: false }
-);
-const EditorialCollage = dynamic(
-  () => import('./components/EditorialCollage'),
   { ssr: false }
 );
 
@@ -72,75 +60,41 @@ export default function Lahza() {
 
   return (
     <div
-      className={`${lahzaDisplay.variable} ${lahzaScript.variable} flex flex-col min-h-screen bg-white`}
+      className={`${lahzaAchilo.variable} flex flex-col min-h-screen bg-white`}
+      style={
+        {
+          // Achilo is the display face — it drives every heading/title/wordmark
+          // via these vars. Body copy stays in the site's readable Gotu.
+          '--font-lahza-display': `${lahzaAchilo.style.fontFamily}, Georgia, serif`,
+          '--font-lahza-script': `${lahzaAchilo.style.fontFamily}, Georgia, serif`,
+        } as CSSProperties
+      }
     >
       <main className='flex-grow'>
-        <AnimatedHero
-          eyebrow={content.hero.eyebrow}
-          tagline={content.hero.tagline}
-          backdropImage={content.hero.backdropImage}
-        />
+        <AnimatedHero images={content.hero.images} />
 
-        {/* Manifesto */}
+        {/* Manifesto — editorial, type-only */}
         <section className='relative bg-white py-24 md:py-40 overflow-hidden'>
-          <div className='max-w-[1400px] mx-auto px-4'>
-            <div className='grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-center'>
-              <div className='md:col-span-7 relative'>
-                <span
-                  aria-hidden
-                  className='absolute -top-8 md:-top-16 -left-2 md:-left-6 text-[7rem] md:text-[11rem] leading-none text-[#68401b]/15 [font-family:var(--font-lahza-display)] select-none pointer-events-none'
-                >
-                  &ldquo;
-                </span>
-                <motion.p
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.9, delay: 0.1, ease: EASE }}
-                  className='relative text-3xl sm:text-4xl md:text-6xl leading-[1.25] text-neutral-900 [font-family:var(--font-lahza-display)] font-medium'
-                >
-                  {content.manifesto.quote ?? (
-                    <>
-                      A lahza is the moment your hands touched for the first
-                      time as one — brief, unrepeated, and{' '}
-                      <span className='[font-family:var(--font-lahza-script)] text-[1.5em] text-[#68401b] leading-none'>
-                        yours forever
-                      </span>
-                      . We exist to hold onto it, beautifully.
-                    </>
-                  )}
-                </motion.p>
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: 0.5 }}
-                  className='mt-10 md:mt-14 text-xs tracking-[0.35em] uppercase text-neutral-400'
-                >
-                  {content.manifesto.byline}
-                </motion.p>
-              </div>
-              <motion.div
-                initial={{ opacity: 0, scale: 1.05 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1, ease: EASE }}
-                className='md:col-span-5'
-              >
-                <div className='aspect-[3/4] relative shadow-[0_30px_60px_-15px_rgba(0,0,0,0.25)]'>
-                  <Image
-                    src={content.manifesto.image.url}
-                    alt={content.manifesto.image.alt}
-                    fill
-                    sizes='(max-width: 768px) 100vw, 38vw'
-                    className='object-cover contrast-[1.02]'
-                  />
-                </div>
-                <p className='mt-5 text-center text-[11px] tracking-[0.3em] uppercase text-neutral-400'>
-                  {content.manifesto.imageCaption}
-                </p>
-              </motion.div>
-            </div>
+          <div className='max-w-4xl mx-auto px-4 text-center'>
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className='text-xs md:text-sm tracking-[0.35em] uppercase text-neutral-500 mb-10 md:mb-14'
+            >
+              {content.manifesto.byline}
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9, delay: 0.1, ease: EASE }}
+              className='[font-family:var(--font-lahza-display)] text-neutral-900 font-normal leading-[1.25] text-3xl sm:text-4xl md:text-[3.4rem]'
+            >
+              {content.manifesto.quote ??
+                'A lahza is the moment your hands touched for the first time as one — brief, unrepeated, and yours.'}
+            </motion.h2>
           </div>
         </section>
 
@@ -162,7 +116,7 @@ export default function Lahza() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className='text-4xl md:text-5xl text-center text-neutral-900 mb-16 md:mb-20 [font-family:var(--font-lahza-display)] font-medium'
+              className='text-4xl md:text-5xl text-center text-neutral-900 mb-16 md:mb-20 [font-family:var(--font-lahza-display)] font-normal'
             >
               {content.visualArtistry.heading}
             </motion.h2>
@@ -336,7 +290,7 @@ export default function Lahza() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className='text-4xl md:text-5xl text-center text-neutral-900 mb-16 md:mb-20 [font-family:var(--font-lahza-display)] font-medium'
+              className='text-4xl md:text-5xl text-center text-neutral-900 mb-16 md:mb-20 [font-family:var(--font-lahza-display)] font-normal'
             >
               {content.finerDetails.heading}
             </motion.h2>
@@ -360,35 +314,52 @@ export default function Lahza() {
                   </div>
                 }
               />
-
-              <AnimatedServiceCard
-                index='04'
-                eyebrow={content.finerDetails.print.eyebrow}
-                title={content.finerDetails.print.title}
-                description={content.finerDetails.print.description}
-                media={
-                  <div className='aspect-[4/3] relative overflow-hidden shadow-[0_20px_50px_-15px_rgba(0,0,0,0.25)]'>
-                    <Image
-                      src={content.finerDetails.print.image.url}
-                      alt={content.finerDetails.print.image.alt}
-                      fill
-                      className='object-cover contrast-[1.02]'
-                      unoptimized
-                    />
-                  </div>
-                }
-                reverse
-              />
             </div>
           </div>
         </section>
 
-        <EditorialCollage
-          eyebrow={content.editorialCollage.eyebrow}
-          quote={content.editorialCollage.quote}
-          images={content.editorialCollage.images}
-          video={content.editorialCollage.video}
-        />
+        {/* Featured In */}
+        <section className='bg-white py-20 md:py-28 px-4 border-t border-neutral-100'>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className='max-w-5xl mx-auto text-center'
+          >
+            <p className='text-xs md:text-sm tracking-[0.35em] uppercase text-neutral-500 mb-12 md:mb-14'>
+              As Featured In
+            </p>
+
+            {/* Real feature — Canadian Bride Guide covered the Shefali & Eugene wedding */}
+            <div className='mx-auto max-w-2xl border-t border-b border-neutral-200 py-9 md:py-10'>
+              <p className='[font-family:var(--font-lahza-display)] text-2xl md:text-3xl text-neutral-900'>
+                Canadian Bride Guide
+              </p>
+              <p className='mt-4 text-neutral-600 text-[15px] md:text-base leading-relaxed'>
+                &ldquo;A Love Without Borders: Shefali &amp; Eugene&rsquo;s
+                Global Celebration of Culture, Connection, and
+                Commitment&rdquo;
+              </p>
+              <div className='mt-6 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs tracking-[0.2em] uppercase'>
+                <a
+                  href='https://www.canadianbrideguide.com/wedspo/a-love-without-borders-shefali-amp-eugenes-global-celebration-of-culture-connection-and-commitment'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='text-neutral-900 underline underline-offset-4 hover:text-neutral-500 transition-colors'
+                >
+                  Read the Feature
+                </a>
+                <Link
+                  href='/wedding_journal/shefali-eugene-a-wedding-that-brought-two-worlds-together'
+                  className='text-neutral-500 underline underline-offset-4 hover:text-neutral-900 transition-colors'
+                >
+                  View the Wedding Story
+                </Link>
+              </div>
+            </div>
+          </motion.div>
+        </section>
 
         {/* CTA Section */}
         <section className='relative py-24 md:py-32 px-4 bg-white overflow-hidden'>
@@ -399,10 +370,10 @@ export default function Lahza() {
             transition={{ duration: 0.8 }}
             className='max-w-3xl mx-auto text-center'
           >
-            <h2 className='text-4xl md:text-5xl mb-6 text-neutral-900 [font-family:var(--font-lahza-display)] font-medium italic'>
+            <h2 className='text-4xl md:text-5xl mb-6 text-neutral-900 [font-family:var(--font-lahza-display)] font-normal'>
               {content.cta.heading}
             </h2>
-            <p className='font-sans text-lg md:text-xl mb-12 leading-relaxed text-neutral-600'>
+            <p className='text-lg md:text-xl mb-12 leading-relaxed text-neutral-600'>
               {content.cta.subtext}
             </p>
             <motion.div
@@ -413,12 +384,12 @@ export default function Lahza() {
               <Link
                 href='/contact'
                 className='group relative inline-block px-12 py-4 text-xs md:text-sm
-                    bg-[#68401b] hover:bg-[#7a4d22]
+                    bg-black hover:bg-neutral-800
                     text-white font-medium
                     rounded-full
                     transition-all duration-500 ease-out
-                    shadow-[0_15px_40px_-12px_rgba(104,64,27,0.6)]
-                    hover:shadow-[0_20px_50px_-10px_rgba(104,64,27,0.7)]
+                    shadow-[0_15px_40px_-12px_rgba(0,0,0,0.5)]
+                    hover:shadow-[0_20px_50px_-10px_rgba(0,0,0,0.6)]
                     hover:-translate-y-0.5
                     tracking-[0.2em] uppercase
                     overflow-hidden'

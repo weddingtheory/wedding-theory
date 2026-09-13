@@ -70,10 +70,17 @@ export default function Navbar() {
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
+  // LAHZA gets a transparent overlay navbar sitting on top of its full-bleed
+  // hero image, with light-coloured elements — but only while the menu is closed.
+  const isLahza = pathname === '/lahza';
+  const overlay = isLahza && !isOpen;
+
   return (
-    <nav className='w-full  '>
+    <nav className={overlay ? 'absolute top-0 left-0 right-0 z-40 w-full' : 'w-full  '}>
       <header
-        className={`w-full py-3 px-4 ${isMobile ? 'bg-[#f8f5f0]' : 'bg-white'}`}
+        className={`w-full py-3 px-4 ${
+          overlay ? 'bg-transparent' : isMobile ? 'bg-[#f8f5f0]' : 'bg-white'
+        }`}
       >
         <div className='max-w-6xl mx-auto flex justify-between items-center'>
           {pathname !== '/' && (
@@ -84,13 +91,16 @@ export default function Navbar() {
                 width={50}
                 height={50}
                 unoptimized
+                className={overlay ? 'brightness-0 invert' : ''}
               />
             </Link>
           )}
           {pathname === '/' && <div></div>}
           <motion.button
             onClick={toggleMenu}
-            className='text-gray-700 focus:outline-none z-50 relative flex items-center'
+            className={`${
+              overlay ? 'text-white' : 'text-gray-700'
+            } focus:outline-none z-50 relative flex items-center`}
             aria-label='Toggle menu'
             title='Toggle menu'
             whileHover={{ scale: 1.05 }}
