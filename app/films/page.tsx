@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { createClient } from '@/utils/supabase/client';
 import { MapPin, Calendar } from 'lucide-react';
 import { useFilmsContent } from './filmsContent';
+import CrossfadeLoopVideo from './CrossfadeLoopVideo';
+import FilmEmbed from './FilmEmbed';
 
 interface Film {
   id: string;
@@ -99,9 +101,9 @@ export default function Films() {
       {/* Hero Video Section */}
       <section className='relative h-[50vh] sm:h-[80vh] md:h-[90vh] w-full overflow-hidden'>
         <div className='absolute inset-0 w-full h-full'>
-          <video
+          <CrossfadeLoopVideo
             src={content.hero.heroVideo.url}
-            aria-label={content.hero.heroVideo.alt}
+            alt={content.hero.heroVideo.alt}
             className='absolute w-full h-full object-cover'
             style={{
               pointerEvents: 'none',
@@ -111,10 +113,6 @@ export default function Films() {
               top: '50%',
               left: '50%',
             }}
-            autoPlay
-            muted
-            loop
-            playsInline
           />
           <div className='absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60'></div>
         </div>
@@ -149,21 +147,16 @@ export default function Films() {
                               rounded-xl md:rounded-2xl
                               shadow-[0_4px_20px_rgba(0,0,0,0.08)] group'
                 >
-                  <iframe
-                    className='w-full h-full absolute inset-0 transition-transform duration-700 
-                              group-hover:scale-105'
-                    style={{ border: 'none' }}
-                    src={(() => {
-                      const { embedUrl, videoId } = getEmbedUrl(film.video_url);
-                      return embedUrl
-                        ? `${embedUrl}?rel=0&modestbranding=1&autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=1`
-                        : '';
-                    })()}
-                    title={film.title || ''}
-                    allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-                    loading='lazy'
-                    allowFullScreen
-                  ></iframe>
+                  {(() => {
+                    const { embedUrl, videoId } = getEmbedUrl(film.video_url);
+                    return embedUrl ? (
+                      <FilmEmbed
+                        embedUrl={embedUrl}
+                        videoId={videoId}
+                        title={film.title || film.couple_names}
+                      />
+                    ) : null;
+                  })()}
                 </div>
 
                 {/* Content */}
