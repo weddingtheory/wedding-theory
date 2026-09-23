@@ -56,16 +56,20 @@ export default function Home() {
   // (Re)start whichever hero video just became active — mirrors the same
   // crossfade approach used on /lahza's "In Motion, Forever Held" section,
   // just capped at 2 slots here.
+  // Depends on heroVideos too: when CMS content arrives after first render the
+  // <video> elements are remounted (keyed by url), and the new first video
+  // would otherwise never be told to play.
   useEffect(() => {
     const active = videoRefs.current[activeVideoIndex];
     if (active) {
+      active.muted = true; // React doesn't reliably set the muted attribute; autoplay requires it
       active.currentTime = 0;
       active.play().catch(() => {});
     }
     videoRefs.current.forEach((el, i) => {
       if (el && i !== activeVideoIndex) el.pause();
     });
-  }, [activeVideoIndex]);
+  }, [activeVideoIndex, heroVideos]);
 
   const handleHeroVideoEnded = () => {
     setActiveVideoIndex((prev) => (prev + 1) % heroVideos.length);
@@ -142,6 +146,8 @@ export default function Home() {
                 }}
                 muted
                 playsInline
+                autoPlay={i === activeVideoIndex}
+                preload={i === 0 ? 'auto' : 'metadata'}
                 loop={heroVideos.length === 1}
                 onEnded={handleHeroVideoEnded}
               />
